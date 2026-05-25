@@ -1,14 +1,15 @@
 import React, { useState, useRef } from "react";
 
+
 const NAV_ITEMS = ["HOME", "ABOUT", "SERVICES", "PORTFOLIO", "CONTACT"];
 
 const SERVICE_ITEMS = [
     { label: "Publishing" },
-    { label: "Ghostwriting"},
+    { label: "Ghostwriting" },
     { label: "Formatting & Proofreading" },
     { label: "Book Cover Design" },
     { label: "Book Marketing" },
-    { label: "Audio Book"},
+    { label: "Audio Book" },
 ];
 
 const dropdownStyle = `
@@ -39,12 +40,11 @@ const Navbar: React.FC = () => {
             <style>{dropdownStyle}</style>
             <nav className="absolute top-0 left-0 right-0 z-50 flex items-center justify-between px-8 py-5">
                 <div className="flex items-center gap-2">
-                    <span
-                        className="text-white text-2xl tracking-widest"
-                        style={{ fontFamily: "'Bebas Neue', sans-serif" }}
-                    >
-                        Bristol <span className="text-[#FF4545]">Publishing</span>
-                    </span>
+                    <img
+                        src="/images/logo.png"
+                        alt="Bristol Publishing"
+                        className="h-15 w-auto"
+                    />
                 </div>
 
                 <ul className="hidden md:flex items-center gap-8">
@@ -144,7 +144,7 @@ const Navbar: React.FC = () => {
 
                 <div className="flex items-center gap-3">
                     <button
-                        className="px-6 py-2 rounded-full text-white text-sm font-semibold transition-all duration-200 hover:opacity-90"
+                        className="px-6 py-2 rounded-full text-white text-sm transition-all duration-200 hover:opacity-90"
                         style={{
                             fontFamily: "'Bebas Neue', sans-serif",
                             letterSpacing: "0.08em",

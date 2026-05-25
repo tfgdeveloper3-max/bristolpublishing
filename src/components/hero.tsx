@@ -237,7 +237,7 @@ const Hero: React.FC = () => {
                     ))}
                     <div className="absolute bottom-35 flex flex-row gap-3 left-10  max-w-[350px]" style={{ zIndex: 20 }}>
                         <button
-                            className="px-10 py-3.5 rounded-full text-white text-sm font-semibold transition-all duration-200 hover:opacity-90"
+                            className="px-10 py-3.5 rounded-full text-white text-sm transition-all duration-200 hover:opacity-90"
                             style={{
                                 fontFamily: "'Bebas Neue', sans-serif",
                                 letterSpacing: "0.08em",
@@ -248,7 +248,7 @@ const Hero: React.FC = () => {
                         </button>
 
                         <button
-                            className="px-8 py-3.5 rounded-full text-white text-sm font-semibold transition-all duration-200 hover:opacity-90"
+                            className="px-8 py-3.5 rounded-full text-white text-sm transition-all duration-200 hover:opacity-90"
                             style={{
                                 fontFamily: "'Bebas Neue', sans-serif",
                                 letterSpacing: "0.08em",
