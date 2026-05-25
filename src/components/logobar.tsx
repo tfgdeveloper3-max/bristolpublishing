@@ -35,7 +35,7 @@ const LogoBar: React.FC = () => {
             <div
                 style={{
                     backgroundColor: "#FF4545",
-                    height: "120px",
+                    height: "100px",
                     width: "100%",
                     overflow: "hidden",
                     paddingTop: "30px",

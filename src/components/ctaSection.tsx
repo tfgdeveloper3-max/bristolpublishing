@@ -1,207 +1,301 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import SplitText from "./SplitText";
 
-const fontStyle = `
-  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+const ctaStyles = `
+  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap');
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes floatMockup {
+    0%, 100% { transform: translateY(0px);    }
+    50%       { transform: translateY(-14px); }
+  }
+
+  @keyframes shimmerBorder {
+    0%   { background-position: 0% 50%;   }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%;   }
+  }
+
+  @keyframes pulseDot {
+    0%, 100% { transform: scale(1);   opacity: 0.6; }
+    50%       { transform: scale(1.4); opacity: 1;   }
+  }
+
+  .cta-btn-primary {
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 0.12em;
+    font-size: 1rem;
+    padding: 14px 38px;
+    border-radius: 999px;
+    background: white;
+    color: #FF4545;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+    box-shadow: 0 6px 28px rgba(255,255,255,0.15);
+    white-space: nowrap;
+  }
+
+  .cta-btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(255,255,255,0.25);
+    background: #fff0f0;
+  }
+
+  .cta-btn-secondary {
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 0.12em;
+    font-size: 1rem;
+    padding: 14px 38px;
+    border-radius: 999px;
+    background: transparent;
+    color: rgba(255,255,255,0.75);
+    border: 1px solid rgba(255,255,255,0.25);
+    cursor: pointer;
+    transition: transform 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+    white-space: nowrap;
+  }
+
+  .cta-btn-secondary:hover {
+    transform: translateY(-3px);
+    border-color: rgba(255,255,255,0.6);
+    color: white;
+  }
 `;
 
-const CTASection: React.FC = () => {
-    const [email, setEmail] = useState("");
+function useInView(threshold = 0.12) {
+    const ref = useRef<HTMLDivElement>(null);
+    const [visible, setVisible] = useState(false);
+    useEffect(() => {
+        const el = ref.current;
+        if (!el) return;
+        const obs = new IntersectionObserver(
+            ([e]) => { if (e.isIntersecting) { setVisible(true); obs.disconnect(); } },
+            { threshold }
+        );
+        obs.observe(el);
+        return () => obs.disconnect();
+    }, [threshold]);
+    return { ref, visible };
+}
+
+const CTABanner: React.FC = () => {
+    const { ref, visible } = useInView(0.12);
 
     return (
         <>
-            <style>{fontStyle}</style>
+            <style>{ctaStyles}</style>
+
             <section
-                className="relative w-full overflow-hidden flex flex-col items-center justify-center"
-                style={{ minHeight: "100vh", padding: "80px 24px", background: "#120704" }}
+                style={{
+                    background: "linear-gradient(180deg, #070b2e 0%, #040517 100%)",
+                    width: "100%",
+                    padding: "80px 40px 90px",
+                    position: "relative",
+                    overflow: "hidden",
+                }}
             >
-                <div
-                    className="absolute rounded-full pointer-events-none"
-                    style={{
-                        width: "50vw",
-                        height: "50vw",
-                        maxWidth: "700px",
-                        maxHeight: "700px",
-                        background: "#e07848",
-                        top: "-15%",
-                        left: "-10%",
-                        filter: "blur(120px)",
-                        opacity: 0.45,
-                        zIndex: 0,
-                    }}
-                />
+                <div style={{
+                    position: "absolute", top: "50%", left: "50%",
+                    transform: "translate(-50%, -50%)",
+                    width: "700px", height: "300px",
+                    borderRadius: "50%",
+                    background: "radial-gradient(ellipse, rgba(255,69,69,0.07) 0%, transparent 70%)",
+                    pointerEvents: "none",
+                }} />
 
                 <div
-                    className="absolute rounded-full pointer-events-none"
+                    ref={ref}
                     style={{
-                        width: "45vw",
-                        height: "45vw",
-                        maxWidth: "650px",
-                        maxHeight: "650px",
-                        background: "#4888d0",
-                        top: "-10%",
-                        right: "-10%",
-                        filter: "blur(130px)",
-                        opacity: 0.40,
-                        zIndex: 0,
+                        maxWidth: "1100px",
+                        margin: "0 auto",
+                        borderRadius: "28px",
+                        position: "relative",
+                        overflow: "hidden",
+                        padding: "2px",
+                        background: "linear-gradient(135deg, rgba(255,69,69,0.5), rgba(26,36,95,0.8), rgba(255,69,69,0.3))",
+                        backgroundSize: "300% 300%",
+                        animation: "shimmerBorder 5s ease infinite",
                     }}
-                />
+                >
+                    <div style={{
+                        borderRadius: "26px",
+                        background: "linear-gradient(125deg, #0d1535 0%, #0a0e2a 40%, #10162e 100%)",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        padding: "52px 60px 52px 64px",
+                        overflow: "hidden",
+                        position: "relative",
+                        minHeight: "260px",
+                    }}>
 
-                <div
-                    className="absolute rounded-full pointer-events-none"
-                    style={{
-                        width: "55vw",
-                        height: "55vw",
-                        maxWidth: "750px",
-                        maxHeight: "750px",
-                        background: "#b860a0",
-                        bottom: "-20%",
-                        left: "30%",
-                        filter: "blur(140px)",
-                        opacity: 0.35,
-                        zIndex: 0,
-                    }}
-                />
+                        <div style={{
+                            position: "absolute", top: "-40%", left: "-5%",
+                            width: "350px", height: "350px", borderRadius: "50%",
+                            background: "radial-gradient(circle, rgba(255,69,69,0.09) 0%, transparent 65%)",
+                            pointerEvents: "none",
+                        }} />
+                        <div style={{
+                            position: "absolute", bottom: "-30%", right: "25%",
+                            width: "300px", height: "300px", borderRadius: "50%",
+                            background: "radial-gradient(circle, rgba(26,36,95,0.6) 0%, transparent 70%)",
+                            pointerEvents: "none",
+                        }} />
 
-                <div
-                    className="absolute rounded-full pointer-events-none"
-                    style={{
-                        width: "30vw",
-                        height: "30vw",
-                        maxWidth: "400px",
-                        maxHeight: "400px",
-                        background: "#40a898",
-                        bottom: "10%",
-                        left: "-5%",
-                        filter: "blur(100px)",
-                        opacity: 0.25,
-                        zIndex: 0,
-                    }}
-                />
+                        <div style={{
+                            position: "absolute", inset: 0,
+                            backgroundImage: `
+                                linear-gradient(rgba(255,255,255,0.012) 1px, transparent 1px),
+                                linear-gradient(90deg, rgba(255,255,255,0.012) 1px, transparent 1px)
+                            `,
+                            backgroundSize: "50px 50px",
+                            pointerEvents: "none",
+                        }} />
 
-                <div className="relative z-10 flex flex-col items-center text-center max-w-3xl mx-auto">
+                        <div style={{ position: "relative", zIndex: 5, maxWidth: "540px", flex: "1" }}>
 
-                    <p
-                        className="text-white/60 uppercase tracking-[0.25em] mb-8"
-                        style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "1.15rem" }}
-                    >
-                        Bella
-                    </p>
+                            <div style={{
+                                display: "inline-flex", alignItems: "center", gap: "8px",
+                                marginBottom: "22px",
+                                opacity: visible ? 1 : 0,
+                                animation: visible ? "fadeUp 0.5s ease forwards" : "none",
+                            }}>
+                                <span style={{
+                                    width: "7px", height: "7px", borderRadius: "50%",
+                                    background: "#FF4545",
+                                    display: "inline-block",
+                                    animation: "pulseDot 2s ease-in-out infinite",
+                                }} />
+                                <span style={{
+                                    fontFamily: "'Bebas Neue', sans-serif",
+                                    fontSize: "0.78rem",
+                                    letterSpacing: "0.2em",
+                                    color: "rgba(255,255,255,0.5)",
+                                }}>NOW ACCEPTING MANUSCRIPTS</span>
+                            </div>
 
-                    <h1
-                        className="text-white leading-[1.02] mb-7"
-                        style={{
-                            fontFamily: "'Bebas Neue', sans-serif",
-                            fontSize: "clamp(3rem, 5vw, 6rem)",
-                            letterSpacing: "0.01em",
-                        }}
-                    >
-                        It's More Than Podcasting.{" "}
-                        <span
-                            style={{
-                                background:
-                                    "linear-gradient(90deg, #ff8c00, #e85d00, #d04800)",
-                                WebkitBackgroundClip: "text",
-                                WebkitTextFillColor: "transparent",
-                                backgroundClip: "text",
-                            }}
-                        >
-                            It's Connection.
-                        </span>
-                    </h1>
+                            <h2 style={{
+                                fontFamily: "'Bebas Neue', sans-serif",
+                                fontSize: "clamp(2.2rem, 4vw, 3.6rem)",
+                                letterSpacing: "-0.01em",
+                                lineHeight: 0.95,
+                                color: "white",
+                                margin: "0 0 18px",
+                            }}>
+                                {visible && (
+                                    <>
+                                        <SplitText
+                                            text="Your Book Is Not"
+                                            delay={30}
+                                            duration={1.0}
+                                            ease="power3.out"
+                                            splitType="chars"
+                                            from={{ opacity: 0, y: 35 }}
+                                            to={{ opacity: 1, y: 0 }}
+                                            threshold={0.1}
+                                            rootMargin="-30px"
+                                            textAlign="left"
+                                        />
+                                        <br />
+                                        <SplitText
+                                            text="Meant To Stay"
+                                            delay={35}
+                                            duration={1.05}
+                                            ease="power3.out"
+                                            splitType="chars"
+                                            from={{ opacity: 0, y: 35 }}
+                                            to={{ opacity: 1, y: 0 }}
+                                            threshold={0.1}
+                                            rootMargin="-30px"
+                                            textAlign="left"
+                                        />
+                                        <br />
+                                        <SplitText
+                                            text="Unpublished"
+                                            className="text-[#FF4545]"
+                                            delay={40}
+                                            duration={1.1}
+                                            ease="power3.out"
+                                            splitType="chars"
+                                            from={{ opacity: 0, y: 35 }}
+                                            to={{ opacity: 1, y: 0 }}
+                                            threshold={0.1}
+                                            rootMargin="-30px"
+                                            textAlign="left"
+                                        />
+                                    </>
+                                )}
+                            </h2>
 
-                    <p
-                        className="text-white/55 leading-relaxed mb-12 max-w-xl"
-                        style={{
-                            fontFamily: "'Inter', sans-serif",
-                            fontSize: "clamp(1rem, 1.4vw, 1.1rem)",
-                        }}
-                    >
-                        Subscribe to our newsletter, follow us on social media,
-                        or join our community forum to stay connected with fellow
-                        listeners and creators.
-                    </p>
+                            <p style={{
+                                fontFamily: "'DM Sans', sans-serif",
+                                fontSize: "1.1rem",
+                                lineHeight: 1.75,
+                                color: "rgba(255,255,255,0.5)",
+                                margin: "0 0 34px",
+                                fontWeight: 300,
+                                maxWidth: "420px",
+                                opacity: visible ? 1 : 0,
+                                animation: visible ? "fadeUp 0.7s ease 0.35s forwards" : "none",
+                            }}>
+                                Take the next step with confidence. Let us help you complete your book,
+                                publish it, and reach the readers who are waiting for your story.
+                            </p>
 
-                    <div
-                        className="flex items-center w-full max-w-lg rounded-full overflow-hidden"
-                        style={{
-                            background: "rgba(255,255,255,0.08)",
-                            border: "1.5px solid rgba(255,255,255,0.15)",
-                            backdropFilter: "blur(16px)",
-                        }}
-                    >
-                        <div className="flex items-center pl-6 pr-2 flex-1">
-                            <svg
-                                width="18"
-                                height="18"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="rgba(255,255,255,0.4)"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                className="flex-shrink-0 mr-3"
-                            >
-                                <rect x="2" y="4" width="20" height="16" rx="2" />
-                                <path d="M22 7l-10 7L2 7" />
-                            </svg>
-                            <input
-                                type="email"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                placeholder="Enter Your Email Here"
-                                className="w-full bg-transparent outline-none text-white placeholder-white/35 py-4"
+                            <div style={{
+                                display: "flex", gap: "14px", alignItems: "center", flexWrap: "wrap",
+                                opacity: visible ? 1 : 0,
+                                animation: visible ? "fadeUp 0.7s ease 0.45s forwards" : "none",
+                            }}>
+                                <button
+                                    className="px-10 py-3.5 rounded-full text-white text-sm transition-all duration-200 hover:opacity-90"
+                                    style={{
+                                        fontFamily: "'Bebas Neue', sans-serif",
+                                        letterSpacing: "0.25em",
+                                        background: "linear-gradient(90deg, #fe5858e8 0%, #FF4545 100%)",
+                                    }}
+                                >
+                                    Get Started
+                                </button>
+                                <button className="cta-btn-secondary">LEARN MORE</button>
+                            </div>
+                        </div>
+
+                        <div style={{
+                            position: "absolute",
+                            right: "40px",
+                            bottom: "20px",
+                            height: "400px",
+                            zIndex: 4,
+                            animation: "floatMockup 5s ease-in-out infinite",
+                            filter: `
+                                drop-shadow(-20px 10px 50px rgba(0,0,0,0.7))
+                                drop-shadow(0 0 30px rgba(255,69,69,0.12))
+                            `,
+                            pointerEvents: "none",
+                        }}>
+                            <img
+                                src="/images/Portfolio/MOCKUP.png"
+                                alt="Book and tablet mockup"
                                 style={{
-                                    fontFamily: "'Inter', sans-serif",
-                                    fontSize: "0.92rem",
+                                    height: "400px",
+                                    width: "auto",
+                                    objectFit: "contain",
+                                    objectPosition: "top right",
                                 }}
                             />
                         </div>
 
-                        <button
-                            className="flex-shrink-0 px-7 py-3.5 rounded-full text-white font-bold text-sm transition-all duration-200 hover:opacity-90 hover:shadow-lg mr-1.5"
-                            style={{
-                                fontFamily: "'Inter', sans-serif",
-                                background:
-                                    "linear-gradient(90deg, #e85d00 0%, #ff8c00 100%)",
-                                letterSpacing: "0.02em",
-                            }}
-                        >
-                            Subscribe Now
-                        </button>
                     </div>
-
-                    <p
-                        className="text-white/25 mt-5"
-                        style={{
-                            fontFamily: "'Inter', sans-serif",
-                            fontSize: "0.75rem",
-                        }}
-                    >
-                        No spam, ever. Unsubscribe anytime.
-                    </p>
-                </div>
-
-                <div className="absolute bottom-0 left-0 right-0 flex items-end justify-center gap-[3px] z-[2] px-4 pb-4 pointer-events-none">
-                    {Array.from({ length: 60 }).map((_, i) => {
-                        const h = 10 + Math.sin(i * 0.5) * 18 + Math.random() * 14;
-                        return (
-                            <div
-                                key={i}
-                                className="flex-1 rounded-t-full"
-                                style={{
-                                    height: `${h}px`,
-                                    background:
-                                        "linear-gradient(to top, rgba(255,255,255,0.06), rgba(255,255,255,0.02))",
-                                    maxWidth: "8px",
-                                }}
-                            />
-                        );
-                    })}
                 </div>
             </section>
         </>
     );
 };
 
-export default CTASection;
+export default CTABanner;

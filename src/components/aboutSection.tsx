@@ -1,165 +1,440 @@
 import React, { useEffect, useRef, useState } from "react";
+import SplitText from "./SplitText";
 
-const fontStyle = `
-  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
-  @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&display=swap');
+const aboutStyles = `
+  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap');
 
-  @keyframes floatDrift1 {
-    0%   { transform: rotate(-3deg) translateY(0px); }
-    50%  { transform: rotate(-2deg) translateY(-14px); }
-    100% { transform: rotate(-3deg) translateY(0px); }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(32px); }
+    to   { opacity: 1; transform: translateY(0);    }
   }
-  @keyframes floatDrift2 {
-    0%   { transform: rotate(2deg) translateY(0px); }
-    50%  { transform: rotate(3.5deg) translateY(-10px); }
-    100% { transform: rotate(2deg) translateY(0px); }
+
+  @keyframes fadeLeft {
+    from { opacity: 0; transform: translateX(-40px); }
+    to   { opacity: 1; transform: translateX(0);     }
+  }
+
+  @keyframes fadeRight {
+    from { opacity: 0; transform: translateX(40px); }
+    to   { opacity: 1; transform: translateX(0);    }
+  }
+
+  @keyframes lineGrow {
+    from { width: 0; }
+    to   { width: 72px; }
+  }
+
+  @keyframes counterUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0);    }
+  }
+
+  @keyframes imageShineSweep {
+    0%   { left: -100%; }
+    100% { left: 200%;  }
+  }
+
+  @keyframes borderPulse {
+    0%, 100% { opacity: 0.4; }
+    50%       { opacity: 1;   }
+  }
+
+  @keyframes floatBadge {
+    0%, 100% { transform: translateY(0px);    }
+    50%       { transform: translateY(-8px); }
+  }
+
+  @keyframes rotateSlow {
+    from { transform: rotate(0deg);   }
+    to   { transform: rotate(360deg); }
+  }
+
+  /* Animated Gradient for CTA Button */
+  @keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  .about-img-wrap:hover .about-shine {
+    animation: imageShineSweep 0.7s ease forwards;
+  }
+
+  .stat-card {
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(255,69,69,0.15);
+  }
+  .service-pill {
+    background: #FF4545;
+    display: inline-block;
+    transition: all 0.25s ease;
+  }
+  .service-pill:hover {
+    background: #ffffff !important;
+    color: #FF4545 !important;
+    border-color: rgba(255,69,69,0.8) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255,69,69,0.35);
+  }
+  .cta-btn {
+    background: linear-gradient(270deg, #FF4545, #f19696ff, #FF4545);
+    background-size: 300% 300%;
+    animation: gradientShift 4s ease infinite;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .cta-btn:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 8px 30px rgba(255,69,69,0.6);
+  }
+
+  /* Team Link Hover */
+  .team-link {
+    transition: color 0.2s ease, transform 0.2s ease;
+  }
+  .team-link:hover {
+    color: #FF4545 !important;
+    transform: translateX(4px);
   }
 `;
 
-const IMG1 = "/images/podcast-host-1.jpg";
-const IMG2 = "/images/podcast-host-2.jpg";
+function useInView(threshold = 0.15) {
+    const ref = useRef<HTMLDivElement>(null);
+    const [visible, setVisible] = useState(false);
+    useEffect(() => {
+        const el = ref.current;
+        if (!el) return;
+        const obs = new IntersectionObserver(
+            ([entry]) => { if (entry.isIntersecting) { setVisible(true); obs.disconnect(); } },
+            { threshold }
+        );
+        obs.observe(el);
+        return () => obs.disconnect();
+    }, [threshold]);
+    return { ref, visible };
+}
+
+const Counter: React.FC<{ target: number; suffix?: string; duration?: number }> = ({
+    target, suffix = "", duration = 1800,
+}) => {
+    const [count, setCount] = useState(0);
+    const { ref, visible } = useInView(0.3);
+    useEffect(() => {
+        if (!visible) return;
+        let start = 0;
+        const step = Math.ceil(target / (duration / 16));
+        const timer = setInterval(() => {
+            start += step;
+            if (start >= target) { setCount(target); clearInterval(timer); }
+            else setCount(start);
+        }, 16);
+        return () => clearInterval(timer);
+    }, [visible, target, duration]);
+    return <span ref={ref}>{count}{suffix}</span>;
+};
+
+const STATS = [
+    { value: 1200, suffix: "+", label: "Books Published" },
+    { value: 98, suffix: "%", label: "Author Satisfaction" },
+    { value: 15, suffix: "+", label: "Years Experience" },
+    { value: 40, suffix: "+", label: "Countries Reached" },
+];
+
+const PILLS = ["Publishing", "Ghostwriting", "Cover Design", "Marketing", "Audio Books", "Formatting"];
 
 const AboutSection: React.FC = () => {
-    const sectionRef = useRef<HTMLDivElement>(null);
-    const [visible, setVisible] = useState(false);
-    const [img1In, setImg1In] = useState(false);
-    const [img2In, setImg2In] = useState(false);
-
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-            ([entry]) => {
-                if (entry.isIntersecting) {
-                    setVisible(true);
-                    setTimeout(() => setImg1In(true), 300);
-                    setTimeout(() => setImg2In(true), 520);
-                    observer.disconnect();
-                }
-            },
-            { threshold: 0.15 }
-        );
-        if (sectionRef.current) observer.observe(sectionRef.current);
-        return () => observer.disconnect();
-    }, []);
+    const { ref: sectionRef, visible } = useInView(0.1);
 
     return (
         <>
-            <style>{fontStyle}</style>
+            <style>{aboutStyles}</style>
 
             <section
                 ref={sectionRef}
-                className="relative w-full overflow-hidden bg-[#1c0b05] flex justify-between items-start min-h-[380px] py-14 px-14"
+                style={{
+                    background: "linear-gradient(180deg, #FFFFFF 0%, #FFF9F9 25%, #FFE8E8 55%, #FFD6D6 80%, #FFFFFF 100%)",
+                    width: "100%",
+                    overflow: "hidden",
+                    padding: "100px 0 80px",
+                    position: "relative",
+                }}
             >
-                <div className="absolute inset-0 z-0 pointer-events-none bg-[radial-gradient(ellipse_at_50%_50%,transparent_40%,rgba(10,3,0,0.55)_100%)]" />
+                <div style={{
+                    position: "absolute", top: "10%", left: "-5%",
+                    width: "400px", height: "400px", borderRadius: "50%",
+                    background: "radial-gradient(circle, rgba(255,69,69,0.07) 0%, transparent 70%)",
+                    pointerEvents: "none",
+                }} />
+                <div style={{
+                    position: "absolute", bottom: "5%", right: "-5%",
+                    width: "500px", height: "500px", borderRadius: "50%",
+                    background: "radial-gradient(circle, rgba(255,69,69,0.7) 0%, transparent 70%)",
+                    pointerEvents: "none",
+                }} />
+                <div style={{
+                    position: "absolute", top: "8%", right: "4%",
+                    width: "180px", height: "180px",
+                    border: "1px dashed rgba(255,69,69,0.15)",
+                    borderRadius: "50%",
+                    animation: "rotateSlow 20s linear infinite",
+                    pointerEvents: "none",
+                }} />
+                <div style={{
+                    position: "absolute", top: "10%", right: "5.6%",
+                    width: "140px", height: "140px",
+                    border: "1px dashed rgba(255,255,255,0.05)",
+                    borderRadius: "50%",
+                    animation: "rotateSlow 14s linear infinite reverse",
+                    pointerEvents: "none",
+                }} />
 
-                <div className="absolute -top-20 right-[60px] z-0 h-[260px] w-[340px] rounded-full bg-[#b83800] opacity-[0.22] blur-[90px] pointer-events-none" />
-
-                <div className="relative z-10 w-[210px] flex-shrink-0">
-                    <p
-                        className={`mb-11 font-['Bebas_Neue'] text-base tracking-[0.06em] text-[#d4623a] transition-all duration-500 ease-out delay-[50ms] ${visible ? "translate-y-0 opacity-100" : "translate-y-3.5 opacity-0"
-                            }`}
-                    >
-                        What's Bella?
-                    </p>
+                <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 40px" }}>
 
                     <div
-                        className={`transition-all duration-600 ease-out delay-[180ms] ${visible ? "translate-y-0 opacity-100" : "translate-y-5 opacity-0"
-                            }`}
+                        style={{
+                            display: "flex", alignItems: "center", gap: "12px",
+                            marginBottom: "24px",
+                            opacity: visible ? 1 : 0,
+                            animation: visible ? "fadeUp 0.6s ease forwards" : "none",
+                        }}
                     >
-                        <p className="m-0 font-['Bebas_Neue'] text-[5.8rem] leading-[0.95] tracking-[-0.01em] text-white">
-                            10K+
-                        </p>
-                        <p className="mt-2.5 font-['Bebas_Neue'] text-xs tracking-[0.18em] text-white/30">
-                            HOURS SPENT
-                        </p>
+                        <div style={{
+                            width: visible ? "32px" : "0",
+                            height: "2px",
+                            background: "#FF4545",
+                            transition: "width 0.8s ease 0.2s",
+                        }} />
+                        <span style={{
+                            fontFamily: "'Bebas Neue', sans-serif",
+                            fontSize: "0.85rem",
+                            letterSpacing: "0.25em",
+                            color: "#FF4545",
+                        }}>
+                            ABOUT US
+                        </span>
                     </div>
-                </div>
 
-                <div className="relative z-10 max-w-[1000px]">
-                    <div
-                        className={`transition-all duration-650 ease-out delay-[200ms] ${visible ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
-                            }`}
-                    >
-                        <p className="m-0 max-w-[1080px] font-['DM_Serif_Display'] text-[clamp(1.55rem,2.5vw,2.1rem)] font-normal leading-[1.42] text-white">
-                            At Bella, we believe every voice matters. Our modern
-                            podcasting platform empowers creators and thinkers to share
-                            their ideas. Whether you're starting out or expanding your
-                            audience.{" "}
-                            <em className="italic text-white/30">
-                                Bella offers intuitive tools, a clean interface and a
-                                supportive community. This is where conversations start
-                                and resonate.
-                            </em>
-                        </p>
+                    <div style={{ marginBottom: "64px" }}>
+                        <h2 style={{
+                            fontFamily: "'Bebas Neue', sans-serif",
+                            fontSize: "clamp(3rem, 6vw, 5.5rem)",
+                            letterSpacing: "-0.02em",
+                            lineHeight: 0.9,
+                            color: "white",
+                            margin: 0,
+                        }}>
+                            {visible && (
+                                <>
+                                    <SplitText
+                                        text="Where Authors Get"
+                                        className="text-[#0A0A0A]"
+                                        delay={35}
+                                        duration={1.1}
+                                        ease="power3.out"
+                                        splitType="chars"
+                                        from={{ opacity: 0, y: 50 }}
+                                        to={{ opacity: 1, y: 0 }}
+                                        threshold={0.1}
+                                        rootMargin="-50px"
+                                        textAlign="left"
+                                    />
+                                    <br />
+                                    <span style={{ display: "inline-flex", alignItems: "baseline", gap: "0.3em" }}>
+                                        <SplitText
+                                            text="Stuck"
+                                            className="text-[#FF4545]"
+                                            delay={45}
+                                            duration={1.2}
+                                            ease="power3.out"
+                                            splitType="chars"
+                                            from={{ opacity: 0, y: 60 }}
+                                            to={{ opacity: 1, y: 0 }}
+                                            threshold={0.1}
+                                            rootMargin="-50px"
+                                            textAlign="left"
+                                        />
+                                    </span>
+                                </>
+                            )}
+                        </h2>
+                    </div>
 
-                        <button
-                            className={`group mt-9 inline-flex cursor-pointer items-center gap-2.5 rounded-full border-[1.5px] border-[#d4623a]/55 bg-transparent py-3 pl-6 pr-3.5 font-['Bebas_Neue'] text-sm tracking-[0.12em] text-[#d4623a] transition-all duration-200 hover:border-[#d4623a] hover:bg-[#d4623a]/10`}
+                    <div style={{
+                        display: "grid",
+                        gridTemplateColumns: "1fr 1fr",
+                        gap: "60px",
+                        alignItems: "start",
+                    }}>
+
+                        <div
+                            style={{
+                                position: "relative",
+                                opacity: visible ? 1 : 0,
+                                animation: visible ? "fadeLeft 0.9s ease 0.3s forwards" : "none",
+                            }}
                         >
-                            Learn More About Us
-                            <span className="flex h-[34px] w-[34px] flex-shrink-0 items-center justify-center rounded-full bg-[#d4623a]">
-                                <svg
-                                    width="14"
-                                    height="14"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    stroke="white"
-                                    strokeWidth="2.5"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                >
-                                    <path d="M7 17L17 7M17 7H7M17 7v10" />
-                                </svg>
-                            </span>
-                        </button>
-                    </div>
+                            <div
+                                className="about-img-wrap"
+                                style={{
+                                    position: "relative",
+                                    width: "78%",
+                                    borderRadius: "16px",
+                                    overflow: "hidden",
+                                    border: "1px solid rgba(255,69,69,0.2)",
+                                    animation: "borderPulse 4s ease-in-out infinite",
+                                }}
+                            >
+                                <img
+                                    src="/images/About1.png"
+                                    alt="Bristol Publishers team at work"
+                                    style={{
+                                        width: "100%",
+                                        height: "380px",
+                                        objectFit: "cover",
+                                        display: "block",
+                                        filter: "brightness(0.88)",
+                                    }}
+                                />
+                                <div
+                                    className="about-shine"
+                                    style={{
+                                        position: "absolute", top: 0, left: "-100%",
+                                        width: "60%", height: "100%",
+                                        background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent)",
+                                        pointerEvents: "none",
+                                    }}
+                                />
+                                <div style={{
+                                    position: "absolute", bottom: 0, left: 0, right: 0, height: "50%",
+                                    background: "linear-gradient(to top, rgba(255,69,69,0.7),0.7), transparent)",
+                                }} />
+                            </div>
 
-                    <div
-                        className={`absolute -top-2 left-[30%] z-10 h-[175px] w-[162px] overflow-hidden rounded-2xl transition-opacity duration-900 ease-[cubic-bezier(0.22,1,0.36,1)] ${img1In ? "opacity-100" : "opacity-0"
-                            }`}
-                        style={{
-                            transform: img1In ? "rotate(-3deg) translateY(0px)" : "rotate(-3deg) translateY(52px)",
-                            transition: "transform 1s cubic-bezier(0.22,1,0.36,1)",
-                            animation: img1In ? "floatDrift1 5.5s ease-in-out 0.9s infinite" : "none",
-                            willChange: "transform, opacity",
-                        }}
-                    >
-                        <img
-                            src={IMG1}
-                            alt="Podcast creator"
-                            className="block h-full w-full object-cover"
-                            onError={(e) => {
-                                const t = e.currentTarget as HTMLImageElement;
-                                t.style.display = "none";
-                                const p = t.parentElement;
-                                if (p) {
-                                    p.style.background = "linear-gradient(155deg,#e8844a 0%,#f0a868 45%,#7ab8d8 100%)";
-                                }
-                            }}
-                        />
-                    </div>
+                            <div
+                                className="about-img-wrap"
+                                style={{
+                                    position: "absolute",
+                                    bottom: "-40px",
+                                    right: "0",
+                                    width: "52%",
+                                    borderRadius: "14px",
+                                    overflow: "hidden",
+                                    border: "2px solid rgba(255,69,69,0.35)",
+                                    boxShadow: "0 20px 60px rgba(255,69,69,0.7), 0 0 30px rgba(255,69,69,0.1)",
+                                }}
+                            >
+                                <img
+                                    src="/images/About2.png"
+                                    alt="Author writing process"
+                                    style={{
+                                        width: "100%",
+                                        height: "240px",
+                                        objectFit: "cover",
+                                        display: "block",
+                                        filter: "brightness(0.85)",
+                                    }}
+                                />
+                                <div className="about-shine" style={{
+                                    position: "absolute", top: 0, left: "-100%",
+                                    width: "60%", height: "100%",
+                                    background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent)",
+                                    pointerEvents: "none",
+                                }} />
+                            </div>
 
-                    <div
-                        className={`absolute top-2.5 -right-5 z-10 h-[158px] w-[158px] overflow-hidden rounded-2xl transition-opacity duration-900 ease-[cubic-bezier(0.22,1,0.36,1)] ${img2In ? "opacity-100" : "opacity-0"
-                            }`}
-                        style={{
-                            transform: img2In ? "rotate(2deg) translateY(0px)" : "rotate(2deg) translateY(58px)",
-                            transition: "transform 1s cubic-bezier(0.22,1,0.36,1) 0.18s",
-                            animation: img2In ? "floatDrift2 6.5s ease-in-out 1.1s infinite" : "none",
-                            willChange: "transform, opacity",
-                        }}
-                    >
-                        <img
-                            src={IMG2}
-                            alt="Podcast creator"
-                            className="block h-full w-full object-cover"
-                            onError={(e) => {
-                                const t = e.currentTarget as HTMLImageElement;
-                                t.style.display = "none";
-                                const p = t.parentElement;
-                                if (p) {
-                                    p.style.background = "linear-gradient(155deg,#6068d0 0%,#9058d8 48%,#e06848 100%)";
-                                }
+                            <div style={{
+                                position: "absolute", bottom: "-60px", left: "-20px",
+                                display: "grid",
+                                gridTemplateColumns: "repeat(6, 10px)",
+                                gap: "8px",
+                                opacity: 0.75,
+                                zIndex: -1,
+                            }}>
+                                {Array.from({ length: 30 }).map((_, i) => (
+                                    <div key={i} style={{
+                                        width: "3px", height: "3px",
+                                        borderRadius: "50%",
+                                        background: "#FF4545",
+                                    }} />
+                                ))}
+                            </div>
+                        </div>
+
+                        <div
+                            style={{
+                                paddingTop: "8px",
+                                opacity: visible ? 1 : 0,
+                                animation: visible ? "fadeRight 0.9s ease 0.4s forwards" : "none",
                             }}
-                        />
+                        >
+                            <p style={{
+                                fontFamily: "'DM Sans', sans-serif",
+                                fontSize: "1.1rem",
+                                lineHeight: 1.8,
+                                color: "#0A0A0A",
+                                marginBottom: "20px",
+                                fontWeight: 300,
+                            }}>
+                                Many authors feel lost even after finishing a strong manuscript. Editing feels overwhelming, cover design is confusing, and marketing seems out of reach. Without proper guidance, great ideas often stay unpublished or fail to reach the right readers.
+                            </p>
+                            <p style={{
+                                fontFamily: "'DM Sans', sans-serif",
+                                fontSize: "1.1rem",
+                                lineHeight: 1.8,
+                                color: "#0A0A0A",
+                                marginBottom: "36px",
+                                fontWeight: 300,
+                            }}>
+                                If you're thinking, "How do I get my book published?" you're not alone. This is exactly where most writers pause. We guide you through each stage with clear direction. From editing to publishing and marketing, our team helps you move forward with confidence so your book reaches the audience it was written for.
+                            </p>
+
+                            {/* Pills in 2 rows of 3 */}
+                            <div style={{
+                                display: "grid",
+                                gridTemplateColumns: "repeat(3, auto)",
+                                gap: "12px",
+                                marginBottom: "44px",
+                                justifyContent: "start",
+                            }}>
+                                {PILLS.map((pill, i) => (
+                                    <span
+                                        key={i}
+                                        className="service-pill"
+                                        style={{
+                                            fontFamily: "'Bebas Neue', sans-serif",
+                                            fontSize: "1rem",
+                                            letterSpacing: "0.1em",
+                                            color: "#FFFFFF",
+                                            padding: "12px 28px",
+                                            borderRadius: "999px",
+                                            border: "1px solid rgba(255,69,69,0.3)",
+                                            cursor: "default",
+                                            textAlign: "center",
+                                            whiteSpace: "nowrap",
+                                        }}
+                                    >
+                                        {pill}
+                                    </span>
+                                ))}
+                            </div>
+
+                            <div style={{ marginTop: "36px", display: "flex", gap: "18px", alignItems: "center" }}>
+                                <button className="cta-btn" style={{
+                                    fontFamily: "'Bebas Neue', sans-serif",
+                                    letterSpacing: "0.12em",
+                                    fontSize: "1.15rem",
+                                    padding: "16px 42px",
+                                    borderRadius: "999px",
+                                    color: "white",
+                                    border: "none",
+                                    cursor: "pointer",
+                                }}>
+                                   Get Started
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>

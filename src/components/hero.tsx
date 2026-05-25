@@ -67,7 +67,6 @@ const Hero: React.FC = () => {
             <style>{fontStyle}</style>
             <section
                 className="relative bg-gradient-to-b from-[#040517] to-[#030726] w-full flex flex-col overflow-hidden pt-5"
-                style={{ height: "115vh" }}
             >
                 <div
                     className="relative px-9 z-10 flex-shrink-0"
@@ -145,15 +144,15 @@ const Hero: React.FC = () => {
                 </div>
 
                 <div
-                    className="absolute pointer-events-none pt-11.5"
+                    className="absolute pointer-events-none pt-15.5"
                     style={{
                         zIndex: 20,
                         bottom: "",
                         top: "",
-                        left: "46%",
+                        left: "50%",
                         transform: "translateX(-50%)",
-                        width: "clamp(580px, 22vw, 280px)",
-                        height: "60vh",
+                        width: "clamp(520px, 18vw, 220px)",
+                        height: "55vh",
                         animation: "floatBook 5s ease-in-out infinite",
                         filter: `
                             drop-shadow(0 0 18px rgba(80, 120, 255, 0.60))
@@ -168,8 +167,8 @@ const Hero: React.FC = () => {
                         className="w-full h-full object-cover object-top"
                         style={
                             {
-                                height: "680px",
-                                width: "1000px",
+                                height: "600px",
+                                width: "900px",
                             }
                         }
                     />
@@ -236,7 +235,30 @@ const Hero: React.FC = () => {
                             }}
                         />
                     ))}
-                    <div className="absolute bottom-20 left-5 max-w-[350px]" style={{ zIndex: 20 }}>
+                    <div className="absolute bottom-35 flex flex-row gap-3 left-10  max-w-[350px]" style={{ zIndex: 20 }}>
+                        <button
+                            className="px-10 py-3.5 rounded-full text-white text-sm font-semibold transition-all duration-200 hover:opacity-90"
+                            style={{
+                                fontFamily: "'Bebas Neue', sans-serif",
+                                letterSpacing: "0.08em",
+                                background: "linear-gradient(90deg, #fe5858e8 0%, #FF4545 100%)",
+                            }}
+                        >
+                            Get Started
+                        </button>
+
+                        <button
+                            className="px-8 py-3.5 rounded-full text-white text-sm font-semibold transition-all duration-200 hover:opacity-90"
+                            style={{
+                                fontFamily: "'Bebas Neue', sans-serif",
+                                letterSpacing: "0.08em",
+                                background: "linear-gradient(90deg, #fe5858e8 0%, #FF4545 100%)",
+                            }}
+                        >
+                            +99 123 456 789
+                        </button>
+                    </div>
+                    <div className="absolute bottom-20 right-10  max-w-[350px]" style={{ zIndex: 20 }}>
                         <p className="text-white/90 text-[16.5px] leading-relaxed font-sans">
                             Writing a book is only one part of the journey. Many authors struggle with editing, design, and getting their work noticed. Bristol Publishers helps you move forward with clear steps, reliable support, and complete book publishing services designed to take your manuscript to market.
                         </p>

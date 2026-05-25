@@ -7,13 +7,19 @@ import TrendingSection from "./components/trendingSection";
 import FooterSection from "./components/footerSection";
 import CreatorsSection from "./components/creatorSection";
 import CTASection from "./components/ctaSection";
+import Services from "./components/serviceSection";
+import Portfolio from "./components/portfolioSection";
 
 const App: React.FC = () => {
   return (
     <>
       <Navbar />
       <Hero />
-
+      <AboutSection />
+      <Services />
+      <Portfolio />
+      <CTASection />
+      
     </>
   );
 };
