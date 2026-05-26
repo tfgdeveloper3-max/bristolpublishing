@@ -201,9 +201,7 @@ const Services: React.FC = () => {
             <section
                 ref={ref}
                 style={{
-                    background: "linear-gradient(180deg, #070b2e 0%, #040517 50%, #030726 100%)",
-                    width: "100%",
-                    overflow: "hidden",
+                    background: "linear-gradient(180deg, #1B465F 0%, #14384C 50%, #0E2432 100%)", overflow: "hidden",
                     padding: "100px 0 110px",
                     position: "relative",
                 }}
@@ -218,7 +216,7 @@ const Services: React.FC = () => {
                 <div style={{
                     position: "absolute", bottom: "10%", left: "-6%",
                     width: "400px", height: "400px", borderRadius: "50%",
-                    background: "radial-gradient(circle, rgba(26,36,95,0.55) 0%, transparent 70%)",
+                    background: "radial-gradient(circle, rgba(27, 70, 95, 0.55) 0%, transparent 70%)",
                     pointerEvents: "none",
                 }} />
                 <div style={{
@@ -266,10 +264,11 @@ const Services: React.FC = () => {
 
                         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", flexWrap: "wrap", gap: "24px" }}>
                             <h2 style={{
-                                fontFamily: "'Bebas Neue', sans-serif",
-                                fontSize: "clamp(2.8rem, 5.5vw, 5rem)",
+                                fontFamily: "'Montserrat', sans-serif",
+                                fontWeight: 800,
+                                fontSize: "clamp(2rem, 4.5vw, 3rem)",
                                 letterSpacing: "-0.02em",
-                                lineHeight: 0.9,
+                                lineHeight: 1.07,
                                 color: "white",
                                 margin: 0,
                             }}>
@@ -488,12 +487,11 @@ const Services: React.FC = () => {
                                 margin: 0,
                                 fontWeight: 300,
                             }}>
-                                {/* Book a free 30-minute consultation with our publishing experts. */}
                             </p>
                         </div>
                         <button
                             style={{
-                                fontFamily: "'Bebas Neue', sans-serif",
+                                fontFamily: "'Montserrat', sans-serif",
                                 letterSpacing: "0.1em",
                                 fontSize: "1rem",
                                 padding: "14px 36px",

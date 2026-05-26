@@ -313,13 +313,13 @@ const MarqueeRow: React.FC<MarqueeRowProps> = ({ children, direction, speed = 1.
                     display: "flex",
                     width: "max-content",
                     cursor: "grab",
-                    touchAction: "pan-y", 
+                    touchAction: "pan-y",
                 }}
                 onMouseDown={onMouseDown}
                 onTouchStart={onTouchStart}
             >
                 {children}
-                {children} 
+                {children}
             </div>
         </div>
     );
@@ -395,10 +395,11 @@ const Portfolio: React.FC = () => {
                         }}>OUR WORK</span>
                     </div>
 
-                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", flexWrap: "wrap", gap: "20px" }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: "20px" }}>
                         <h2 style={{
-                            fontFamily: "'Bebas Neue', sans-serif",
-                            fontSize: "clamp(2.8rem, 5.5vw, 5rem)",
+                            fontFamily: "'Montserrat', sans-serif",
+                            fontWeight: 800,
+                            fontSize: "clamp(2.5rem, 4.5vw, 4.5rem)",
                             letterSpacing: "-0.02em",
                             lineHeight: 0.9,
                             color: "white",

@@ -57,8 +57,8 @@ const Navbar: React.FC = () => {
                                 onMouseLeave={handleMouseLeave}
                             >
                                 <button
-                                    className="flex items-center gap-1 text-white text-[1rem] font-medium hover:text-[#FF4545] transition-colors duration-200"
-                                    style={{ fontFamily: "'Bebas Neue', sans-serif", letterSpacing: "0.05em" }}
+                                    className="flex items-center gap-1 text-white text-[0.78rem] font-semibold hover:text-[#FF4545] transition-colors duration-200"
+                                    style={{ fontFamily: "'Montserrat', sans-serif", letterSpacing: "0.05em" }}
                                 >
                                     SERVICES
                                     <svg
@@ -102,7 +102,7 @@ const Navbar: React.FC = () => {
                                                     >
                                                         <span
                                                             className="text-white/80 text-sm group-hover:text-[#FF4545] transition-colors duration-150"
-                                                            style={{ fontFamily: "'Bebas Neue', sans-serif", letterSpacing: "0.06em", fontSize: "0.92rem" }}
+                                                            style={{ fontFamily: "'Montserrat', sans-serif", letterSpacing: "0.06em", fontSize: "0.82rem" }}
                                                         >
                                                             {service.label}
                                                         </span>
@@ -132,8 +132,8 @@ const Navbar: React.FC = () => {
                             <li key={item}>
                                 <a
                                     href="#"
-                                    className="text-white text-[1rem] font-medium hover:text-[#FF4545] transition-colors duration-200"
-                                    style={{ fontFamily: "'Bebas Neue', sans-serif", letterSpacing: "0.05em" }}
+                                    className="text-white text-[0.78rem] font-semibold hover:text-[#FF4545] transition-colors duration-200"
+                                    style={{ fontFamily: "'Montserrat', sans-serif", letterSpacing: "0.05em" }}
                                 >
                                     {item}
                                 </a>
@@ -144,15 +144,15 @@ const Navbar: React.FC = () => {
 
                 <div className="flex items-center gap-3">
                     <button
-                        className="px-6 py-2 rounded-full text-white text-sm transition-all duration-200 hover:opacity-90"
+                        className="px-6 py-2 rounded-full text-white text-sm font-semibold transition-all duration-200 hover:opacity-90"
                         style={{
-                            fontFamily: "'Bebas Neue', sans-serif",
+                            fontFamily: "'Montserrat', sans-serif",
                             letterSpacing: "0.08em",
                             background: "linear-gradient(90deg, #fe5858e8 0%, #FF4545 100%)",
                         }}
                     >
                         Contact More Info <br />
-                        <span className="text-sm text-[#030726]">+99 123 456 789</span>
+                        <span className="text-sm text-[#1B465F]">+99 123 456 789</span>
                     </button>
                 </div>
             </nav>

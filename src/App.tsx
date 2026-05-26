@@ -11,12 +11,14 @@ import Services from "./components/serviceSection";
 import Portfolio from "./components/portfolioSection";
 import Testimonials from "./components/testimonialSection";
 import ContactForm from "./components/contactSection";
+import LogoBar from "./components/logobar";
 
 const App: React.FC = () => {
   return (
     <>
       <Navbar />
       <Hero />
+      <LogoBar />
       <AboutSection />
       <Services />
       <Portfolio />
@@ -24,7 +26,7 @@ const App: React.FC = () => {
       <Testimonials />
       <ContactForm />
       <FooterSection />
-      
+
     </>
   );
 };

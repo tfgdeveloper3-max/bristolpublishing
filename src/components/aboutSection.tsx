@@ -49,7 +49,6 @@ const aboutStyles = `
     to   { transform: rotate(360deg); }
   }
 
-  /* Animated Gradient for CTA Button */
   @keyframes gradientShift {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
@@ -67,22 +66,25 @@ const aboutStyles = `
     transform: translateY(-4px);
     box-shadow: 0 12px 40px rgba(255,69,69,0.15);
   }
+
+  /* ✅ UPDATED: White bg, pink border, pink text */
   .service-pill {
-    background: #FF4545;
+    background: #FFFFFF;
     display: inline-block;
     transition: all 0.25s ease;
   }
   .service-pill:hover {
-    background: #ffffff !important;
-    color: #FF4545 !important;
-    border-color: rgba(255,69,69,0.8) !important;
+    background: #FF4545 !important;
+    color: #FFFFFF !important;
+    border-color: #FF4545 !important;
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(255,69,69,0.35);
   }
+
+  /* ✅ UPDATED: Pink background, white text */
   .cta-btn {
-    background: linear-gradient(270deg, #FF4545, #f19696ff, #FF4545);
-    background-size: 300% 300%;
-    animation: gradientShift 4s ease infinite;
+    background: #FF4545;
+    color: #FFFFFF;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
   }
   .cta-btn:hover {
@@ -90,7 +92,6 @@ const aboutStyles = `
     box-shadow: 0 8px 30px rgba(255,69,69,0.6);
   }
 
-  /* Team Link Hover */
   .team-link {
     transition: color 0.2s ease, transform 0.2s ease;
   }
@@ -208,7 +209,7 @@ const AboutSection: React.FC = () => {
                             transition: "width 0.8s ease 0.2s",
                         }} />
                         <span style={{
-                            fontFamily: "'Bebas Neue', sans-serif",
+                            fontFamily: "'Montserrat', sans-serif",
                             fontSize: "0.85rem",
                             letterSpacing: "0.25em",
                             color: "#FF4545",
@@ -219,8 +220,9 @@ const AboutSection: React.FC = () => {
 
                     <div style={{ marginBottom: "64px" }}>
                         <h2 style={{
-                            fontFamily: "'Bebas Neue', sans-serif",
-                            fontSize: "clamp(3rem, 6vw, 5.5rem)",
+                            fontFamily: "'Montserrat', sans-serif",
+                            fontWeight: 800,
+                            fontSize: "clamp(2.5rem, 4.5vw, 4.5rem)",
                             letterSpacing: "-0.02em",
                             lineHeight: 0.9,
                             color: "white",
@@ -392,7 +394,6 @@ const AboutSection: React.FC = () => {
                                 If you're thinking, "How do I get my book published?" you're not alone. This is exactly where most writers pause. We guide you through each stage with clear direction. From editing to publishing and marketing, our team helps you move forward with confidence so your book reaches the audience it was written for.
                             </p>
 
-                            {/* Pills in 2 rows of 3 */}
                             <div style={{
                                 display: "grid",
                                 gridTemplateColumns: "repeat(3, auto)",
@@ -405,13 +406,14 @@ const AboutSection: React.FC = () => {
                                         key={i}
                                         className="service-pill"
                                         style={{
-                                            fontFamily: "'Bebas Neue', sans-serif",
-                                            fontSize: "1rem",
+                                            fontFamily: "'Montserrat', sans-serif",
+                                            fontSize: "0.78rem",
                                             letterSpacing: "0.1em",
-                                            color: "#FFFFFF",
+                                            color: "#FF4545",
                                             padding: "12px 28px",
                                             borderRadius: "999px",
-                                            border: "1px solid rgba(255,69,69,0.3)",
+                                            border: "1px solid #FF4545",
+                                            background: "#FFFFFF",
                                             cursor: "default",
                                             textAlign: "center",
                                             whiteSpace: "nowrap",
@@ -424,12 +426,13 @@ const AboutSection: React.FC = () => {
 
                             <div style={{ marginTop: "36px", display: "flex", gap: "18px", alignItems: "center" }}>
                                 <button className="cta-btn" style={{
-                                    fontFamily: "'Bebas Neue', sans-serif",
+                                    fontFamily: "'Montserrat', sans-serif",
                                     letterSpacing: "0.12em",
                                     fontSize: "1.15rem",
                                     padding: "16px 42px",
                                     borderRadius: "999px",
-                                    color: "white",
+                                    color: "#FFFFFF",
+                                    background: "#FF4545",
                                     border: "none",
                                     cursor: "pointer",
                                 }}>

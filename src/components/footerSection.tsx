@@ -121,7 +121,7 @@ const FooterSection: React.FC = () => {
                         <div>
                             <div style={{ marginBottom: "20px" }}>
                                 <img
-                                    src="/images/logo.png"
+                                    src="/images/footerlogo.png"
                                     alt="Bristol Publishing"
                                     className="h-15 w-auto"
                                 />
@@ -165,7 +165,7 @@ const FooterSection: React.FC = () => {
                         {NAV_COLS.map((col) => (
                             <div key={col.title}>
                                 <p style={{
-                                    fontFamily: "'Bebas Neue', sans-serif",
+                                    fontFamily: "'Montserrat', sans-serif",
                                     fontSize: "0.9rem",
                                     letterSpacing: "0.18em",
                                     color: "#FF4545",
@@ -193,7 +193,7 @@ const FooterSection: React.FC = () => {
                     }}>
                         <div>
                             <p style={{
-                                fontFamily: "'Bebas Neue', sans-serif",
+                                fontFamily: "'Montserrat', sans-serif",
                                 fontSize: "1.35rem",
                                 color: "#FF4545",
                                 margin: "0 0 4px",
@@ -227,7 +227,7 @@ const FooterSection: React.FC = () => {
                                 border: "none",
                                 padding: "13px 24px",
                                 color: "white",
-                                fontFamily: "'Bebas Neue', sans-serif",
+                                fontFamily: "'Montserrat', sans-serif",
                                 fontSize: "0.9rem",
                                 letterSpacing: "0.1em",
                                 cursor: "pointer",
@@ -263,7 +263,7 @@ const FooterSection: React.FC = () => {
                     </div>
                 </div>
 
-                <div style={{ width: "100%", overflow: "hidden", marginTop: "0", lineHeight: 0 }}>
+                {/* <div style={{ width: "100%", overflow: "hidden", marginTop: "0", lineHeight: 0 }}>
                     <p style={{
                         fontFamily: "'Bebas Neue', sans-serif",
                         textAlign: "center",
@@ -280,7 +280,7 @@ const FooterSection: React.FC = () => {
                         BRISTOL
                         <span style={{ color: "#0A0A0A", fontSize: "clamp(3rem, 4vw, 5rem)", letterSpacing: "0.1em", }}>PUBLISHERS</span>
                     </p>
-                </div>
+                </div> */}
 
             </footer>
         </>

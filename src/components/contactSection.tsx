@@ -246,7 +246,7 @@ const ContactForm: React.FC = () => {
             <section
                 ref={ref}
                 style={{
-                    background: "linear-gradient(180deg, #040517 0%, #070b2e 55%, #040517 100%)",
+                    background: "linear-gradient(180deg, #1B465F 0%, #14384C 50%, #0E2432 100%)",
                     width: "100%",
                     overflow: "hidden",
                     padding: "100px 0 110px",
@@ -263,7 +263,7 @@ const ContactForm: React.FC = () => {
                 <div style={{
                     position: "absolute", bottom: "10%", left: "-5%",
                     width: "400px", height: "400px", borderRadius: "50%",
-                    background: "radial-gradient(circle, rgba(26,36,95,0.55) 0%, transparent 70%)",
+                    background: "radial-gradient(circle, rgba(27, 70, 95, 0.55) 0%, transparent 70%)",
                     pointerEvents: "none",
                 }} />
                 <div style={{
@@ -307,21 +307,24 @@ const ContactForm: React.FC = () => {
                                 transition: "width 0.8s ease 0.2s",
                             }} />
                             <span style={{
-                                fontFamily: "'Bebas Neue', sans-serif",
+                                fontFamily: "'Montserrat', sans-serif",
                                 fontSize: "0.85rem",
                                 letterSpacing: "0.25em",
                                 color: "#FF4545",
                             }}>START YOUR JOURNEY</span>
                         </div>
 
-                        <h2 style={{
-                            fontFamily: "'Bebas Neue', sans-serif",
-                            fontSize: "clamp(2.8rem, 5vw, 4.8rem)",
-                            letterSpacing: "-0.02em",
-                            lineHeight: 0.9,
-                            color: "white",
-                            margin: 0,
-                        }}>
+                        <h2
+                            style={{
+                                fontFamily: "'Montserrat', sans-serif",
+                                fontWeight: 800,
+                                fontSize: "clamp(2.5rem, 4.5vw, 4.5rem)",
+                                letterSpacing: "-0.02em",
+                                lineHeight: 0.9,
+                                color: "white",
+                                margin: 0,
+                            }}
+                        >
                             {visible && (
                                 <>
                                     <SplitText
@@ -479,7 +482,7 @@ const ContactForm: React.FC = () => {
                             }}>
                                 <div style={{
                                     borderRadius: "22px",
-                                    background: "linear-gradient(145deg, #0d1230 0%, #0a0e22 100%)",
+                                    background: "linear-gradient(180deg, #1B465F 0%, #14384C 50%, #0E2432 100%)",
                                     padding: "44px 40px",
                                     position: "relative",
                                     overflow: "hidden",
@@ -529,7 +532,7 @@ const ContactForm: React.FC = () => {
                                                 <p style={{
                                                     fontFamily: "'DM Sans', sans-serif",
                                                     fontSize: "0.9rem",
-                                                    color: "rgba(255,255,255,0.45)",
+                                                    color: "#ffffff",
                                                     margin: 0,
                                                     fontWeight: 300,
                                                 }}>We'll get back to you within 24 hours.</p>
@@ -537,13 +540,13 @@ const ContactForm: React.FC = () => {
                                             <button
                                                 onClick={() => { setSubmitted(false); setForm({ name: "", phone: "", email: "", message: "" }); }}
                                                 style={{
-                                                    fontFamily: "'Bebas Neue', sans-serif",
+                                                    fontFamily: "'Montserrat', sans-serif",
                                                     letterSpacing: "0.1em",
                                                     fontSize: "0.9rem",
                                                     padding: "10px 28px",
                                                     borderRadius: "999px",
                                                     background: "transparent",
-                                                    color: "rgba(255,255,255,0.5)",
+                                                    color: "#ffffff",
                                                     border: "1px solid rgba(255,255,255,0.15)",
                                                     cursor: "pointer",
                                                     marginTop: "8px",
@@ -636,7 +639,7 @@ const ContactForm: React.FC = () => {
                                                     </>
                                                 ) : (
                                                     <>
-                                                        Send Now
+                                                        <span style={{fontFamily:"'Montserrat', sans-serif",fontWeight:600,fontSize:'0.8rem',}}>Send Now</span>
                                                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                                                             <path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z" />
                                                         </svg>

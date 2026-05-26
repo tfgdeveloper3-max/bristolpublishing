@@ -309,8 +309,9 @@ const Testimonials: React.FC = () => {
 
                         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", flexWrap: "wrap", gap: "20px" }}>
                             <h2 style={{
-                                fontFamily: "'Bebas Neue', sans-serif",
-                                fontSize: "clamp(2.8rem, 5vw, 4.8rem)",
+                                fontFamily: "'Montserrat', sans-serif",
+                                fontWeight: 800,
+                                fontSize: "clamp(2.5rem, 4.5vw, 4.5rem)",
                                 letterSpacing: "-0.02em",
                                 lineHeight: 0.9,
                                 color: "white",

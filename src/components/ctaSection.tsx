@@ -26,7 +26,7 @@ const ctaStyles = `
   }
 
   .cta-btn-primary {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     letter-spacing: 0.12em;
     font-size: 1rem;
     padding: 14px 38px;
@@ -47,10 +47,10 @@ const ctaStyles = `
   }
 
   .cta-btn-secondary {
-    font-family: 'Bebas Neue', sans-serif;
-    letter-spacing: 0.12em;
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 0.08em;
     font-size: 1rem;
-    padding: 14px 38px;
+    padding: 12px 38px;
     border-radius: 999px;
     background: transparent;
     color: rgba(255,255,255,0.75);
@@ -92,7 +92,7 @@ const CTABanner: React.FC = () => {
 
             <section
                 style={{
-                    background: "linear-gradient(180deg, #070b2e 0%, #040517 100%)",
+                    background: "linear-gradient(180deg, #1B465F 0%, #14384C 100%)",
                     width: "100%",
                     padding: "80px 40px 90px",
                     position: "relative",
@@ -124,8 +124,7 @@ const CTABanner: React.FC = () => {
                 >
                     <div style={{
                         borderRadius: "26px",
-                        background: "linear-gradient(125deg, #0d1535 0%, #0a0e2a 40%, #10162e 100%)",
-                        display: "flex",
+                        background: "linear-gradient(125deg, #1B465F 0%, #16394D 40%, #102A3A 100%)", display: "flex",
                         alignItems: "center",
                         justifyContent: "space-between",
                         padding: "52px 60px 52px 64px",
@@ -172,7 +171,7 @@ const CTABanner: React.FC = () => {
                                     animation: "pulseDot 2s ease-in-out infinite",
                                 }} />
                                 <span style={{
-                                    fontFamily: "'Bebas Neue', sans-serif",
+                                    fontFamily: "'Montserrat', sans-serif",
                                     fontSize: "0.78rem",
                                     letterSpacing: "0.2em",
                                     color: "rgba(255,255,255,0.5)",
@@ -180,10 +179,11 @@ const CTABanner: React.FC = () => {
                             </div>
 
                             <h2 style={{
-                                fontFamily: "'Bebas Neue', sans-serif",
-                                fontSize: "clamp(2.2rem, 4vw, 3.6rem)",
+                                fontFamily: "'Montserrat', sans-serif",
+                                fontWeight: 800,
+                                fontSize: "clamp(2rem, 4.5vw, 3rem)",
                                 letterSpacing: "-0.01em",
-                                lineHeight: 0.95,
+                                lineHeight: 1.03,
                                 color: "white",
                                 margin: "0 0 18px",
                             }}>
@@ -255,7 +255,7 @@ const CTABanner: React.FC = () => {
                                 <button
                                     className="px-10 py-3.5 rounded-full text-white text-sm transition-all duration-200 hover:opacity-90"
                                     style={{
-                                        fontFamily: "'Bebas Neue', sans-serif",
+                                        fontFamily: "'Montserrat', sans-serif",
                                         letterSpacing: "0.25em",
                                         background: "linear-gradient(90deg, #fe5858e8 0%, #FF4545 100%)",
                                     }}
