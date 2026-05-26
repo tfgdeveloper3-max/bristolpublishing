@@ -394,36 +394,6 @@ const AboutSection: React.FC = () => {
                                 If you're thinking, "How do I get my book published?" you're not alone. This is exactly where most writers pause. We guide you through each stage with clear direction. From editing to publishing and marketing, our team helps you move forward with confidence so your book reaches the audience it was written for.
                             </p>
 
-                            <div style={{
-                                display: "grid",
-                                gridTemplateColumns: "repeat(3, auto)",
-                                gap: "12px",
-                                marginBottom: "44px",
-                                justifyContent: "start",
-                            }}>
-                                {PILLS.map((pill, i) => (
-                                    <span
-                                        key={i}
-                                        className="service-pill"
-                                        style={{
-                                            fontFamily: "'Montserrat', sans-serif",
-                                            fontSize: "0.78rem",
-                                            letterSpacing: "0.1em",
-                                            color: "#FF4545",
-                                            padding: "12px 28px",
-                                            borderRadius: "999px",
-                                            border: "1px solid #FF4545",
-                                            background: "#FFFFFF",
-                                            cursor: "default",
-                                            textAlign: "center",
-                                            whiteSpace: "nowrap",
-                                        }}
-                                    >
-                                        {pill}
-                                    </span>
-                                ))}
-                            </div>
-
                             <div style={{ marginTop: "36px", display: "flex", gap: "18px", alignItems: "center" }}>
                                 <button className="cta-btn" style={{
                                     fontFamily: "'Montserrat', sans-serif",
@@ -437,6 +407,20 @@ const AboutSection: React.FC = () => {
                                     cursor: "pointer",
                                 }}>
                                     Get Started
+                                </button>
+
+                                <button className="cta-btn" style={{
+                                    fontFamily: "'Montserrat', sans-serif",
+                                    letterSpacing: "0.12em",
+                                    fontSize: "1.15rem",
+                                    padding: "16px 42px",
+                                    borderRadius: "999px",
+                                    color: "#FFFFFF",
+                                    background: "#FF4545",
+                                    border: "none",
+                                    cursor: "pointer",
+                                }}>
+                                    +99 123 456 789
                                 </button>
                             </div>
                         </div>

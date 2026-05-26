@@ -272,16 +272,17 @@ const Hero: React.FC = () => {
                 radial-gradient(ellipse at 100% 65%, #1A4259 0%, transparent 40%),
                 radial-gradient(ellipse at 50% 50%,  #102838 0%, transparent 55%),
                 #0A1A24
-              `,
+            `,
                             zIndex: 0,
+                            opacity: 0.65, 
                         }}
                     />
 
                     {[
-                        { left: "-4%", width: "25%", background: "linear-gradient(170deg,#205270,#102838)", transform: "rotate(-8deg)", opacity: 0.7 },
-                        { left: "17%", width: "18%", background: "linear-gradient(170deg,#2A6A89,#14384C)", transform: "rotate(-8deg)", opacity: 0.5 },
-                        { right: "2%", width: "35%", background: "linear-gradient(170deg,#1B465F,#0E2432)", transform: "rotate(-10deg)", opacity: 0.62 },
-                        { right: "27%", width: "26%", background: "linear-gradient(170deg,#245D78,#112B3C)", transform: "rotate(-8deg)", opacity: 0.48 },
+                        { left: "-4%", width: "25%", background: "linear-gradient(170deg,#205270,#102838)", transform: "rotate(-8deg)", opacity: 0.15 },
+                        { left: "17%", width: "18%", background: "linear-gradient(170deg,#2A6A89,#14384C)", transform: "rotate(-8deg)", opacity: 0.10 },
+                        { right: "2%", width: "35%", background: "linear-gradient(170deg,#1B465F,#0E2432)", transform: "rotate(-10deg)", opacity: 0.12 },
+                        { right: "27%", width: "26%", background: "linear-gradient(170deg,#245D78,#112B3C)", transform: "rotate(-8deg)", opacity: 0.08 },
                     ].map((sl, i) => (
                         <div
                             key={i}
@@ -290,27 +291,73 @@ const Hero: React.FC = () => {
                         />
                     ))}
 
-                    <div className="absolute bottom-20 left-7 max-w-[350px]" style={{ zIndex: 20 }}>
-                        <p className="text-white/90 text-[16.5px] leading-relaxed font-sans">
-                            Writing a book is only one part of the journey. Many authors struggle with editing, design, and getting their work noticed. Bristol Publishers helps you move forward with clear steps, reliable support, and complete book publishing services designed to take your manuscript to market.
-                        </p>
-                    </div>
+                    <div className="absolute inset-0 flex flex-row items-center justify-between px-8" style={{ zIndex: 20 }}>
 
-                    <div className="absolute bottom-35 flex flex-row gap-3 right-10 max-w-[350px]" style={{ zIndex: 20 }}>
-                        <button
-                            className="px-8 py-3.5 rounded-full text-white text-sm transition-all duration-200 hover:opacity-90"
-                            style={{
+                        <div className="max-w-[380px]">
+                            <p className="text-white/90 text-[16.5px] leading-relaxed font-sans">
+                                Writing a book is only one part of the journey. Many authors struggle with editing, design, and getting their work noticed. Bristol Publishers helps you move forward with clear steps, reliable support, and complete book publishing services designed to take your manuscript to market.
+                            </p>
+                        </div>
+
+                        <div style={{
+                            background: "rgba(255,255,255,0.05)",
+                            border: "1px solid rgba(255,255,255,0.10)",
+                            borderRadius: "18px",
+                            padding: "24px 26px",
+                            minWidth: "310px",
+                            maxWidth: "340px",
+                        }}>
+                            <p style={{
                                 fontFamily: "'Montserrat', sans-serif",
-                                letterSpacing: "0.04em",
                                 fontWeight: 600,
-                                background: "linear-gradient(90deg, #fe5858e8 0%, #FF4545 100%)",
-                            }}
-                        >
-                            Get Started
-                        </button>
+                                fontSize: "15px",
+                                color: "#fff",
+                                marginBottom: "16px",
+                                letterSpacing: "0.02em",
+                            }}>
+                                Get Started Today
+                            </p>
+                            <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+                                {["Your Name", "Email Address", "Phone Number"].map((ph) => (
+                                    <input
+                                        key={ph}
+                                        type="text"
+                                        placeholder={ph}
+                                        style={{
+                                            background: "rgba(255,255,255,0.07)",
+                                            border: "1px solid rgba(255,255,255,0.13)",
+                                            borderRadius: "9px",
+                                            padding: "9px 13px",
+                                            color: "#fff",
+                                            fontSize: "13px",
+                                            fontFamily: "'Montserrat', sans-serif",
+                                            outline: "none",
+                                            width: "100%",
+                                        }}
+                                    />
+                                ))}
+                                <button
+                                    style={{
+                                        fontFamily: "'Montserrat', sans-serif",
+                                        letterSpacing: "0.06em",
+                                        fontWeight: 700,
+                                        fontSize: "13px",
+                                        padding: "10px 0",
+                                        borderRadius: "9px",
+                                        background: "linear-gradient(90deg, #fe5858e8 0%, #FF4545 100%)",
+                                        color: "#fff",
+                                        border: "none",
+                                        cursor: "pointer",
+                                        width: "100%",
+                                        marginTop: "2px",
+                                    }}
+                                >
+                                    Submit →
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-
             </section>
         </>
     );
