@@ -171,6 +171,7 @@ const AboutSection: React.FC = () => {
                     position: "absolute", bottom: "5%", right: "-5%",
                     width: "500px", height: "500px", borderRadius: "50%",
                     background: "radial-gradient(circle, rgba(255,69,69,0.7) 0%, transparent 70%)",
+                    opacity: 0.15,
                     pointerEvents: "none",
                 }} />
                 <div style={{
@@ -309,6 +310,7 @@ const AboutSection: React.FC = () => {
                                 <div style={{
                                     position: "absolute", bottom: 0, left: 0, right: 0, height: "50%",
                                     background: "linear-gradient(to top, rgba(255,69,69,0.7),0.7), transparent)",
+                                    opacity: 0.15,
                                 }} />
                             </div>
 
@@ -322,7 +324,7 @@ const AboutSection: React.FC = () => {
                                     borderRadius: "14px",
                                     overflow: "hidden",
                                     border: "2px solid rgba(255,69,69,0.35)",
-                                    boxShadow: "0 20px 60px rgba(255,69,69,0.7), 0 0 30px rgba(255,69,69,0.1)",
+                                    boxShadow: "0 20px 60px rgba(255, 177, 177, 0.7), 0 0 30px rgba(255,69,69,0.1)",
                                 }}
                             >
                                 <img
@@ -431,7 +433,7 @@ const AboutSection: React.FC = () => {
                                     border: "none",
                                     cursor: "pointer",
                                 }}>
-                                   Get Started
+                                    Get Started
                                 </button>
                             </div>
                         </div>

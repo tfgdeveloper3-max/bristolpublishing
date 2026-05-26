@@ -9,6 +9,8 @@ import CreatorsSection from "./components/creatorSection";
 import CTASection from "./components/ctaSection";
 import Services from "./components/serviceSection";
 import Portfolio from "./components/portfolioSection";
+import Testimonials from "./components/testimonialSection";
+import ContactForm from "./components/contactSection";
 
 const App: React.FC = () => {
   return (
@@ -19,6 +21,9 @@ const App: React.FC = () => {
       <Services />
       <Portfolio />
       <CTASection />
+      <Testimonials />
+      <ContactForm />
+      <FooterSection />
       
     </>
   );
