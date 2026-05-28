@@ -4,431 +4,376 @@ import SplitText from "./SplitText";
 const aboutStyles = `
   @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap');
 
-  @keyframes fadeUp {
+  @keyframes about-fadeUp {
     from { opacity: 0; transform: translateY(32px); }
-    to   { opacity: 1; transform: translateY(0);    }
+    to   { opacity: 1; transform: translateY(0); }
   }
-
-  @keyframes fadeLeft {
+  @keyframes about-fadeLeft {
     from { opacity: 0; transform: translateX(-40px); }
-    to   { opacity: 1; transform: translateX(0);     }
+    to   { opacity: 1; transform: translateX(0); }
   }
-
-  @keyframes fadeRight {
+  @keyframes about-fadeRight {
     from { opacity: 0; transform: translateX(40px); }
-    to   { opacity: 1; transform: translateX(0);    }
+    to   { opacity: 1; transform: translateX(0); }
   }
-
-  @keyframes lineGrow {
-    from { width: 0; }
-    to   { width: 72px; }
-  }
-
-  @keyframes counterUp {
-    from { opacity: 0; transform: translateY(16px); }
-    to   { opacity: 1; transform: translateY(0);    }
-  }
-
-  @keyframes imageShineSweep {
-    0%   { left: -100%; }
-    100% { left: 200%;  }
-  }
-
-  @keyframes borderPulse {
-    0%, 100% { opacity: 0.4; }
-    50%       { opacity: 1;   }
-  }
-
-  @keyframes floatBadge {
-    0%, 100% { transform: translateY(0px);    }
-    50%       { transform: translateY(-8px); }
-  }
-
-  @keyframes rotateSlow {
-    from { transform: rotate(0deg);   }
+  @keyframes about-rotateSlow {
+    from { transform: rotate(0deg); }
     to   { transform: rotate(360deg); }
   }
-
-  @keyframes gradientShift {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+  @keyframes about-floatBook {
+    0%, 100% { transform: rotate(3deg) translateY(0px); }
+    50%       { transform: rotate(3deg) translateY(-16px); }
+  }
+  @keyframes about-borderPulse {
+    0%, 100% { opacity: 0.4; }
+    50%       { opacity: 1; }
   }
 
-  .about-img-wrap:hover .about-shine {
-    animation: imageShineSweep 0.7s ease forwards;
+  .about-check-item {
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+  .about-check-item.vis {
+    opacity: 1;
+    transform: translateX(0);
   }
 
-  .stat-card {
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
-  }
-  .stat-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 40px rgba(255,69,69,0.15);
-  }
-
-  /* ✅ UPDATED: White bg, pink border, pink text */
-  .service-pill {
-    background: #FFFFFF;
-    display: inline-block;
-    transition: all 0.25s ease;
-  }
-  .service-pill:hover {
-    background: #FF4545 !important;
-    color: #FFFFFF !important;
-    border-color: #FF4545 !important;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(255,69,69,0.35);
-  }
-
-  /* ✅ UPDATED: Pink background, white text */
-  .cta-btn {
-    background: #FF4545;
-    color: #FFFFFF;
+  .about-cta-primary {
     transition: transform 0.2s ease, box-shadow 0.2s ease;
   }
-  .cta-btn:hover {
-    transform: translateY(-3px) scale(1.02);
-    box-shadow: 0 8px 30px rgba(255,69,69,0.6);
+  .about-cta-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 32px rgba(255,69,69,0.45);
   }
-
-  .team-link {
-    transition: color 0.2s ease, transform 0.2s ease;
+  .about-cta-outline {
+    transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
   }
-  .team-link:hover {
-    color: #FF4545 !important;
-    transform: translateX(4px);
+  .about-cta-outline:hover {
+    background: #FF4545 !important;
+    color: #fff !important;
+    transform: translateY(-3px);
+  }
+  .about-book-float {
+    animation: about-floatBook 5s ease-in-out infinite;
+  }
+  .about-border-pulse {
+    animation: about-borderPulse 4s ease-in-out infinite;
   }
 `;
 
-function useInView(threshold = 0.15) {
-    const ref = useRef<HTMLDivElement>(null);
-    const [visible, setVisible] = useState(false);
-    useEffect(() => {
-        const el = ref.current;
-        if (!el) return;
-        const obs = new IntersectionObserver(
-            ([entry]) => { if (entry.isIntersecting) { setVisible(true); obs.disconnect(); } },
-            { threshold }
-        );
-        obs.observe(el);
-        return () => obs.disconnect();
-    }, [threshold]);
-    return { ref, visible };
+function useAboutInView(threshold = 0.12) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setVisible(true); obs.disconnect(); } },
+      { threshold }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [threshold]);
+  return { ref, visible };
 }
 
-const Counter: React.FC<{ target: number; suffix?: string; duration?: number }> = ({
-    target, suffix = "", duration = 1800,
-}) => {
-    const [count, setCount] = useState(0);
-    const { ref, visible } = useInView(0.3);
-    useEffect(() => {
-        if (!visible) return;
-        let start = 0;
-        const step = Math.ceil(target / (duration / 16));
-        const timer = setInterval(() => {
-            start += step;
-            if (start >= target) { setCount(target); clearInterval(timer); }
-            else setCount(start);
-        }, 16);
-        return () => clearInterval(timer);
-    }, [visible, target, duration]);
-    return <span ref={ref}>{count}{suffix}</span>;
-};
-
-const STATS = [
-    { value: 1200, suffix: "+", label: "Books Published" },
-    { value: 98, suffix: "%", label: "Author Satisfaction" },
-    { value: 15, suffix: "+", label: "Years Experience" },
-    { value: 40, suffix: "+", label: "Countries Reached" },
+const CHECKS = [
+  "Unfinished manuscript",
+  "No professional to review your work",
+  "Mentally stressed about publishing",
+  "Tough to focus on writing",
+  "Being too much of a perfectionist",
+  "Stressful deadlines & schedules",
+  "Not getting questions answered",
+  "No creative direction or vision",
+  "Low motivation to continue",
+  "Not happy with your progress",
 ];
 
-const PILLS = ["Publishing", "Ghostwriting", "Cover Design", "Marketing", "Audio Books", "Formatting"];
-
 const AboutSection: React.FC = () => {
-    const { ref: sectionRef, visible } = useInView(0.1);
+  const { ref: sectionRef, visible } = useAboutInView(0.08);
 
-    return (
-        <>
-            <style>{aboutStyles}</style>
+  return (
+    <>
+      <style>{aboutStyles}</style>
 
-            <section
-                ref={sectionRef}
+      <section
+        ref={sectionRef}
+        style={{
+          background: "linear-gradient(180deg, #FFFFFF 0%, #FFF9F9 30%, #FFE8E8 60%, #FFD6D6 85%, #FFFFFF 100%)",
+          width: "100%",
+          overflow: "hidden",
+          padding: "110px 0 100px",
+          position: "relative",
+        }}
+      >
+        <div style={{
+          position: "absolute", top: "8%", left: "-6%",
+          width: "420px", height: "420px", borderRadius: "50%",
+          background: "radial-gradient(circle, rgba(255,69,69,0.08) 0%, transparent 70%)",
+          pointerEvents: "none",
+        }} />
+        <div style={{
+          position: "absolute", bottom: "5%", right: "-4%",
+          width: "480px", height: "480px", borderRadius: "50%",
+          background: "radial-gradient(circle, rgba(255,69,69,0.12) 0%, transparent 70%)",
+          pointerEvents: "none",
+        }} />
+        <div style={{
+          position: "absolute", top: "6%", right: "3%",
+          width: "190px", height: "190px",
+          border: "1px dashed rgba(255,69,69,0.15)",
+          borderRadius: "50%",
+          animation: "about-rotateSlow 22s linear infinite",
+          pointerEvents: "none",
+        }} />
+        <div style={{
+          position: "absolute", top: "8%", right: "4.5%",
+          width: "135px", height: "135px",
+          border: "1px dashed rgba(255,69,69,0.08)",
+          borderRadius: "50%",
+          animation: "about-rotateSlow 14s linear infinite reverse",
+          pointerEvents: "none",
+        }} />
+
+        <div style={{ maxWidth: "1240px", margin: "0 auto", padding: "0 48px" }}>
+
+          <div style={{
+            display: "flex", alignItems: "center", gap: "12px",
+            marginBottom: "28px",
+            opacity: visible ? 1 : 0,
+            animation: visible ? "about-fadeUp 0.6s ease forwards" : "none",
+          }}>
+            <div style={{
+              width: visible ? "36px" : "0", height: "2px",
+              background: "#FF4545",
+              transition: "width 0.8s ease 0.2s",
+            }} />
+            <span style={{
+              fontFamily: "'Montserrat', sans-serif",
+              fontSize: "0.82rem", letterSpacing: "0.28em",
+              color: "#FF4545", fontWeight: 600,
+            }}>ABOUT US</span>
+          </div>
+
+          <div style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 400px",
+            gap: "80px",
+            alignItems: "center",
+          }}>
+
+            <div style={{
+              opacity: visible ? 1 : 0,
+              animation: visible ? "about-fadeLeft 0.85s ease 0.2s forwards" : "none",
+            }}>
+
+              <h2 style={{
+                fontFamily: "'Montserrat', sans-serif",
+                fontWeight: 800,
+                fontSize: "clamp(2.2rem, 4vw, 3.6rem)",
+                lineHeight: 1.1,
+                letterSpacing: "-0.025em",
+                color: "#0A0A0A",
+                marginBottom: "18px",
+              }}>
+                {visible && (
+                  <>
+                    <SplitText
+                      text="Not Able To Make"
+                      className="text-[#0A0A0A]"
+                      delay={30} duration={1.0} ease="power3.out"
+                      splitType="chars"
+                      from={{ opacity: 0, y: 45 }} to={{ opacity: 1, y: 0 }}
+                      threshold={0.1} rootMargin="-40px" textAlign="left"
+                    />
+                    <br />
+                    <SplitText
+                      text="Ideas Into Words?"
+                      className="text-[#FF4545]"
+                      delay={38} duration={1.1} ease="power3.out"
+                      splitType="chars"
+                      from={{ opacity: 0, y: 55 }} to={{ opacity: 1, y: 0 }}
+                      threshold={0.1} rootMargin="-40px" textAlign="left"
+                    />
+                    <br />
+                    <SplitText
+                      text="We Get It Done."
+                      className="text-[#0A0A0A]"
+                      delay={46} duration={1.1} ease="power3.out"
+                      splitType="chars"
+                      from={{ opacity: 0, y: 55 }} to={{ opacity: 1, y: 0 }}
+                      threshold={0.1} rootMargin="-40px" textAlign="left"
+                    />
+                  </>
+                )}
+              </h2>
+
+              <p style={{
+                fontFamily: "'DM Sans', sans-serif",
+                fontSize: "1.05rem", lineHeight: 1.8,
+                color: "#444", fontWeight: 300,
+                marginBottom: "28px", maxWidth: "560px",
+              }}>
+                Many writers face burnout at some point — stressed about transforming ideas into words.
+                There are many reasons why this happens. Bristol Publishers is here to solve every one of them.
+              </p>
+
+              <div style={{
+                display: "grid",
+                gridTemplateColumns: "1fr 1fr",
+                gap: "10px 28px",
+                marginBottom: "36px",
+              }}>
+                {CHECKS.map((item, i) => (
+                  <div
+                    key={i}
+                    className={`about-check-item${visible ? " vis" : ""}`}
+                    style={{ transitionDelay: `${0.4 + i * 0.06}s` }}
+                  >
+                    <div style={{ display: "flex", alignItems: "flex-start", gap: "9px" }}>
+                      <div style={{
+                        flexShrink: 0,
+                        width: "19px", height: "19px",
+                        borderRadius: "50%",
+                        background: "linear-gradient(135deg, #FF4545, #ff7070)",
+                        display: "flex", alignItems: "center", justifyContent: "center",
+                        marginTop: "2px",
+                      }}>
+                        <svg width="9" height="7" viewBox="0 0 10 8" fill="none">
+                          <path d="M1 4L3.5 6.5L9 1" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                      </div>
+                      <span style={{
+                        fontFamily: "'DM Sans', sans-serif",
+                        fontSize: "0.9rem", lineHeight: 1.5,
+                        color: "#1a1a1a", fontWeight: 400,
+                      }}>{item}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div style={{
+                height: "1px",
+                background: "linear-gradient(to right, rgba(255,69,69,0.3), transparent)",
+                marginBottom: "32px",
+              }} />
+
+              <div style={{ display: "flex", gap: "14px", flexWrap: "wrap", alignItems: "center" }}>
+                <button className="about-cta-primary" style={{
+                  fontFamily: "'Montserrat', sans-serif",
+                  fontWeight: 700, fontSize: "0.9rem",
+                  letterSpacing: "0.08em",
+                  padding: "13px 34px",
+                  borderRadius: "999px",
+                  background: "linear-gradient(90deg, #fe5858 0%, #FF4545 100%)",
+                  color: "#fff", border: "none", cursor: "pointer",
+                }}>
+                  Get A Quote
+                </button>
+                <button className="about-cta-outline" style={{
+                  fontFamily: "'Montserrat', sans-serif",
+                  fontWeight: 700, fontSize: "0.9rem",
+                  letterSpacing: "0.08em",
+                  padding: "12px 34px",
+                  borderRadius: "999px",
+                  background: "transparent",
+                  color: "#FF4545",
+                  border: "2px solid #FF4545",
+                  cursor: "pointer",
+                }}>
+                  Live Chat
+                </button>
+                <a href="tel:+13025184405" style={{
+                  fontFamily: "'Montserrat', sans-serif",
+                  fontWeight: 600, fontSize: "0.9rem",
+                  color: "#0A0A0A", textDecoration: "none",
+                  display: "flex", alignItems: "center", gap: "8px",
+                }}>
+                  <div style={{
+                    width: "34px", height: "34px", borderRadius: "50%",
+                    background: "rgba(255,69,69,0.1)",
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                  }}>
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
+                      stroke="#FF4545" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8a19.79 19.79 0 01-3.07-8.64A2 2 0 012 .82h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" />
+                    </svg>
+                  </div>
+                  +1 302-518-4405
+                </a>
+              </div>
+            </div>
+
+            <div style={{
+              position: "relative",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              minHeight: "500px",
+              opacity: visible ? 1 : 0,
+              animation: visible ? "about-fadeRight 0.9s ease 0.35s forwards" : "none",
+            }}>
+
+              <div style={{
+                position: "absolute",
+                width: "300px", height: "300px", borderRadius: "50%",
+                background: "radial-gradient(circle, rgba(255,69,69,0.15) 0%, transparent 70%)",
+                pointerEvents: "none",
+              }} />
+
+              <div style={{
+                position: "absolute", top: "-20px", right: "-10px",
+                display: "grid", gridTemplateColumns: "repeat(7, 10px)", gap: "7px",
+                opacity: 0.45, zIndex: 0,
+              }}>
+                {Array.from({ length: 42 }).map((_, i) => (
+                  <div key={i} style={{ width: "3px", height: "3px", borderRadius: "50%", background: "#FF4545" }} />
+                ))}
+              </div>
+
+              <div
+                className="about-book-float"
                 style={{
-                    background: "linear-gradient(180deg, #FFFFFF 0%, #FFF9F9 25%, #FFE8E8 55%, #FFD6D6 80%, #FFFFFF 100%)",
-                    width: "100%",
-                    overflow: "hidden",
-                    padding: "100px 0 80px",
-                    position: "relative",
+                  position: "relative", zIndex: 2,
+                  borderRadius: "6px", overflow: "hidden",
+                  boxShadow: "0 40px 80px rgba(0,0,0,0.18), 0 0 0 1px rgba(255,69,69,0.12)",
                 }}
-            >
+              >
+                <img
+                  src="/images/About1.png"
+                  alt="Bristol Publishers — Author Book"
+                  style={{
+                    display: "block", width: "300px", height: "400px",
+                    objectFit: "cover",
+                    filter: "brightness(0.93) saturate(1.05)",
+                  }}
+                />
                 <div style={{
-                    position: "absolute", top: "10%", left: "-5%",
-                    width: "400px", height: "400px", borderRadius: "50%",
-                    background: "radial-gradient(circle, rgba(255,69,69,0.07) 0%, transparent 70%)",
-                    pointerEvents: "none",
+                  position: "absolute", inset: 0,
+                  background: "linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.06) 50%, transparent 60%)",
+                  pointerEvents: "none",
                 }} />
-                <div style={{
-                    position: "absolute", bottom: "5%", right: "-5%",
-                    width: "500px", height: "500px", borderRadius: "50%",
-                    background: "radial-gradient(circle, rgba(255,69,69,0.7) 0%, transparent 70%)",
-                    opacity: 0.15,
-                    pointerEvents: "none",
-                }} />
-                <div style={{
-                    position: "absolute", top: "8%", right: "4%",
-                    width: "180px", height: "180px",
-                    border: "1px dashed rgba(255,69,69,0.15)",
-                    borderRadius: "50%",
-                    animation: "rotateSlow 20s linear infinite",
-                    pointerEvents: "none",
-                }} />
-                <div style={{
-                    position: "absolute", top: "10%", right: "5.6%",
-                    width: "140px", height: "140px",
-                    border: "1px dashed rgba(255,255,255,0.05)",
-                    borderRadius: "50%",
-                    animation: "rotateSlow 14s linear infinite reverse",
-                    pointerEvents: "none",
-                }} />
+              </div>
 
-                <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 40px" }}>
+              <div style={{
+                position: "absolute", bottom: "-10px", left: "-10px",
+                display: "grid", gridTemplateColumns: "repeat(5, 10px)", gap: "7px",
+                opacity: 0.35, zIndex: 0,
+              }}>
+                {Array.from({ length: 25 }).map((_, i) => (
+                  <div key={i} style={{ width: "3px", height: "3px", borderRadius: "50%", background: "#FF4545" }} />
+                ))}
+              </div>
+            </div>
 
-                    <div
-                        style={{
-                            display: "flex", alignItems: "center", gap: "12px",
-                            marginBottom: "24px",
-                            opacity: visible ? 1 : 0,
-                            animation: visible ? "fadeUp 0.6s ease forwards" : "none",
-                        }}
-                    >
-                        <div style={{
-                            width: visible ? "32px" : "0",
-                            height: "2px",
-                            background: "#FF4545",
-                            transition: "width 0.8s ease 0.2s",
-                        }} />
-                        <span style={{
-                            fontFamily: "'Montserrat', sans-serif",
-                            fontSize: "0.85rem",
-                            letterSpacing: "0.25em",
-                            color: "#FF4545",
-                        }}>
-                            ABOUT US
-                        </span>
-                    </div>
-
-                    <div style={{ marginBottom: "64px" }}>
-                        <h2 style={{
-                            fontFamily: "'Montserrat', sans-serif",
-                            fontWeight: 800,
-                            fontSize: "clamp(2.5rem, 4.5vw, 4.5rem)",
-                            letterSpacing: "-0.02em",
-                            lineHeight: 0.9,
-                            color: "white",
-                            margin: 0,
-                        }}>
-                            {visible && (
-                                <>
-                                    <SplitText
-                                        text="Where Authors Get"
-                                        className="text-[#0A0A0A]"
-                                        delay={35}
-                                        duration={1.1}
-                                        ease="power3.out"
-                                        splitType="chars"
-                                        from={{ opacity: 0, y: 50 }}
-                                        to={{ opacity: 1, y: 0 }}
-                                        threshold={0.1}
-                                        rootMargin="-50px"
-                                        textAlign="left"
-                                    />
-                                    <br />
-                                    <span style={{ display: "inline-flex", alignItems: "baseline", gap: "0.3em" }}>
-                                        <SplitText
-                                            text="Stuck"
-                                            className="text-[#FF4545]"
-                                            delay={45}
-                                            duration={1.2}
-                                            ease="power3.out"
-                                            splitType="chars"
-                                            from={{ opacity: 0, y: 60 }}
-                                            to={{ opacity: 1, y: 0 }}
-                                            threshold={0.1}
-                                            rootMargin="-50px"
-                                            textAlign="left"
-                                        />
-                                    </span>
-                                </>
-                            )}
-                        </h2>
-                    </div>
-
-                    <div style={{
-                        display: "grid",
-                        gridTemplateColumns: "1fr 1fr",
-                        gap: "60px",
-                        alignItems: "start",
-                    }}>
-
-                        <div
-                            style={{
-                                position: "relative",
-                                opacity: visible ? 1 : 0,
-                                animation: visible ? "fadeLeft 0.9s ease 0.3s forwards" : "none",
-                            }}
-                        >
-                            <div
-                                className="about-img-wrap"
-                                style={{
-                                    position: "relative",
-                                    width: "78%",
-                                    borderRadius: "16px",
-                                    overflow: "hidden",
-                                    border: "1px solid rgba(255,69,69,0.2)",
-                                    animation: "borderPulse 4s ease-in-out infinite",
-                                }}
-                            >
-                                <img
-                                    src="/images/About1.png"
-                                    alt="Bristol Publishers team at work"
-                                    style={{
-                                        width: "100%",
-                                        height: "380px",
-                                        objectFit: "cover",
-                                        display: "block",
-                                        filter: "brightness(0.88)",
-                                    }}
-                                />
-                                <div
-                                    className="about-shine"
-                                    style={{
-                                        position: "absolute", top: 0, left: "-100%",
-                                        width: "60%", height: "100%",
-                                        background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent)",
-                                        pointerEvents: "none",
-                                    }}
-                                />
-                                <div style={{
-                                    position: "absolute", bottom: 0, left: 0, right: 0, height: "50%",
-                                    background: "linear-gradient(to top, rgba(255,69,69,0.7),0.7), transparent)",
-                                    opacity: 0.15,
-                                }} />
-                            </div>
-
-                            <div
-                                className="about-img-wrap"
-                                style={{
-                                    position: "absolute",
-                                    bottom: "-40px",
-                                    right: "0",
-                                    width: "52%",
-                                    borderRadius: "14px",
-                                    overflow: "hidden",
-                                    border: "2px solid rgba(255,69,69,0.35)",
-                                    boxShadow: "0 20px 60px rgba(255, 177, 177, 0.7), 0 0 30px rgba(255,69,69,0.1)",
-                                }}
-                            >
-                                <img
-                                    src="/images/About2.png"
-                                    alt="Author writing process"
-                                    style={{
-                                        width: "100%",
-                                        height: "240px",
-                                        objectFit: "cover",
-                                        display: "block",
-                                        filter: "brightness(0.85)",
-                                    }}
-                                />
-                                <div className="about-shine" style={{
-                                    position: "absolute", top: 0, left: "-100%",
-                                    width: "60%", height: "100%",
-                                    background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent)",
-                                    pointerEvents: "none",
-                                }} />
-                            </div>
-
-                            <div style={{
-                                position: "absolute", bottom: "-60px", left: "-20px",
-                                display: "grid",
-                                gridTemplateColumns: "repeat(6, 10px)",
-                                gap: "8px",
-                                opacity: 0.75,
-                                zIndex: -1,
-                            }}>
-                                {Array.from({ length: 30 }).map((_, i) => (
-                                    <div key={i} style={{
-                                        width: "3px", height: "3px",
-                                        borderRadius: "50%",
-                                        background: "#FF4545",
-                                    }} />
-                                ))}
-                            </div>
-                        </div>
-
-                        <div
-                            style={{
-                                paddingTop: "8px",
-                                opacity: visible ? 1 : 0,
-                                animation: visible ? "fadeRight 0.9s ease 0.4s forwards" : "none",
-                            }}
-                        >
-                            <p style={{
-                                fontFamily: "'DM Sans', sans-serif",
-                                fontSize: "1.1rem",
-                                lineHeight: 1.8,
-                                color: "#0A0A0A",
-                                marginBottom: "20px",
-                                fontWeight: 300,
-                            }}>
-                                Many authors feel lost even after finishing a strong manuscript. Editing feels overwhelming, cover design is confusing, and marketing seems out of reach. Without proper guidance, great ideas often stay unpublished or fail to reach the right readers.
-                            </p>
-                            <p style={{
-                                fontFamily: "'DM Sans', sans-serif",
-                                fontSize: "1.1rem",
-                                lineHeight: 1.8,
-                                color: "#0A0A0A",
-                                marginBottom: "36px",
-                                fontWeight: 300,
-                            }}>
-                                If you're thinking, "How do I get my book published?" you're not alone. This is exactly where most writers pause. We guide you through each stage with clear direction. From editing to publishing and marketing, our team helps you move forward with confidence so your book reaches the audience it was written for.
-                            </p>
-
-                            <div style={{ marginTop: "36px", display: "flex", gap: "18px", alignItems: "center" }}>
-                                <button className="cta-btn" style={{
-                                    fontFamily: "'Montserrat', sans-serif",
-                                    letterSpacing: "0.12em",
-                                    fontSize: "1.15rem",
-                                    padding: "16px 42px",
-                                    borderRadius: "999px",
-                                    color: "#FFFFFF",
-                                    background: "#FF4545",
-                                    border: "none",
-                                    cursor: "pointer",
-                                }}>
-                                    Get Started
-                                </button>
-
-                                <button className="cta-btn" style={{
-                                    fontFamily: "'Montserrat', sans-serif",
-                                    letterSpacing: "0.12em",
-                                    fontSize: "1.15rem",
-                                    padding: "16px 42px",
-                                    borderRadius: "999px",
-                                    color: "#FFFFFF",
-                                    background: "#FF4545",
-                                    border: "none",
-                                    cursor: "pointer",
-                                }}>
-                                    +99 123 456 789
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </>
-    );
+          </div>
+        </div>
+      </section>
+    </>
+  );
 };
 
 export default AboutSection;
