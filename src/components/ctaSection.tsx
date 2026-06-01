@@ -256,11 +256,12 @@ const CTABanner: React.FC = () => {
                                     className="px-10 py-3.5 rounded-full text-white text-sm transition-all duration-200 hover:opacity-90"
                                     style={{
                                         fontFamily: "'Montserrat', sans-serif",
-                                        letterSpacing: "0.25em",
+                                        letterSpacing: "0.1em",
+                                        fontWeight: 500,
                                         background: "linear-gradient(90deg, #fe5858e8 0%, #FF4545 100%)",
                                     }}
                                 >
-                                    Get Started
+                                    GET STARTED
                                 </button>
                                 <button className="cta-btn-secondary">LEARN MORE</button>
                             </div>

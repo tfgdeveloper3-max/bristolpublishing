@@ -300,7 +300,7 @@ const Testimonials: React.FC = () => {
                                 transition: "width 0.8s ease 0.2s",
                             }} />
                             <span style={{
-                                fontFamily: "'Bebas Neue', sans-serif",
+                                fontFamily: "'Montserrat', sans-serif",
                                 fontSize: "0.85rem",
                                 letterSpacing: "0.25em",
                                 color: "#FF4545",
@@ -384,7 +384,7 @@ const Testimonials: React.FC = () => {
                                     <div style={{
                                         position: "absolute",
                                         top: "12px", right: "20px",
-                                        fontFamily: "Georgia, serif",
+                                        fontFamily: "Montserrat, serif",
                                         fontSize: "8rem",
                                         lineHeight: 1,
                                         color: "#FF4545",
@@ -420,7 +420,7 @@ const Testimonials: React.FC = () => {
                                                 />
                                                 <span style={{
                                                     position: "absolute",
-                                                    fontFamily: "'Bebas Neue', sans-serif",
+                                                    fontFamily: "'Montserrat Neue', sans-serif",
                                                     fontSize: "1.1rem",
                                                     color: "#FF4545",
                                                     letterSpacing: "0.05em",
@@ -429,7 +429,7 @@ const Testimonials: React.FC = () => {
                                         </div>
                                         <div>
                                             <p style={{
-                                                fontFamily: "'Bebas Neue', sans-serif",
+                                                fontFamily: "'Montserrat Neue', sans-serif",
                                                 fontSize: "1.1rem",
                                                 letterSpacing: "0.04em",
                                                 color: "#FF4545",
@@ -445,7 +445,7 @@ const Testimonials: React.FC = () => {
                                         </div>
                                         <span style={{
                                             marginLeft: "auto",
-                                            fontFamily: "'Bebas Neue', sans-serif",
+                                            fontFamily: "'Montserrat', sans-serif",
                                             fontSize: "0.7rem",
                                             letterSpacing: "0.1em",
                                             padding: "4px 12px",

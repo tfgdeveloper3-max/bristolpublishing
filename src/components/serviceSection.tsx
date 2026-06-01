@@ -255,7 +255,7 @@ const Services: React.FC = () => {
                                 transition: "width 0.8s ease 0.2s",
                             }} />
                             <span style={{
-                                fontFamily: "'Bebas Neue', sans-serif",
+                                fontFamily: "'Monserrat', sans-serif",
                                 fontSize: "0.85rem",
                                 letterSpacing: "0.25em",
                                 color: "#FF4545",
@@ -363,7 +363,7 @@ const Services: React.FC = () => {
                                     <span
                                         className="srv-num"
                                         style={{
-                                            fontFamily: "'Bebas Neue', sans-serif",
+                                            fontFamily: "'Montserrat', sans-serif",
                                             fontSize: "3.5rem",
                                             lineHeight: 1,
                                             color: "rgba(255,255,255,0.06)",
@@ -407,9 +407,10 @@ const Services: React.FC = () => {
                                 <h3
                                     className="srv-title"
                                     style={{
-                                        fontFamily: "'Bebas Neue', sans-serif",
-                                        fontSize: "1.55rem",
-                                        letterSpacing: "0.03em",
+                                        fontFamily: "'Montserrat', sans-serif",
+                                        fontSize: "1.5rem",
+                                        letterSpacing: "0.04em",
+                                        fontWeight: 600,
                                         color: "white",
                                         margin: "0 0 12px",
                                         lineHeight: 1.1,
@@ -420,7 +421,7 @@ const Services: React.FC = () => {
                                     className="srv-desc"
                                     style={{
                                         fontFamily: "'DM Sans', sans-serif",
-                                        fontSize: "0.88rem",
+                                        fontSize: "1rem",
                                         lineHeight: 1.7,
                                         color: "rgba(255,255,255,0.5)",
                                         margin: "0 0 20px",
@@ -438,7 +439,7 @@ const Services: React.FC = () => {
                                             transform: "translate(-6px, 6px)",
                                             transition: "opacity 0.3s ease, transform 0.3s ease",
                                             display: "flex", alignItems: "center", gap: "6px",
-                                            fontFamily: "'Bebas Neue', sans-serif",
+                                            fontFamily: "'Montserrat', sans-serif",
                                             fontSize: "0.85rem",
                                             letterSpacing: "0.1em",
                                         }}
@@ -472,9 +473,10 @@ const Services: React.FC = () => {
                     >
                         <div>
                             <p style={{
-                                fontFamily: "'Bebas Neue', sans-serif",
+                                fontFamily: "'Montserrat', sans-serif",
                                 fontSize: "1.6rem",
                                 color: "white",
+                                fontWeight: 600,
                                 margin: "0 0 4px",
                                 letterSpacing: "0.02em",
                             }}>
@@ -493,7 +495,8 @@ const Services: React.FC = () => {
                             style={{
                                 fontFamily: "'Montserrat', sans-serif",
                                 letterSpacing: "0.1em",
-                                fontSize: "1rem",
+                                fontSize: "0.9rem",
+                                fontWeight: 500,
                                 padding: "14px 36px",
                                 borderRadius: "999px",
                                 background: "linear-gradient(90deg, #FF4545, #fe5858)",

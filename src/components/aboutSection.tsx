@@ -264,19 +264,19 @@ const AboutSection: React.FC = () => {
               <div style={{ display: "flex", gap: "14px", flexWrap: "wrap", alignItems: "center" }}>
                 <button className="about-cta-primary" style={{
                   fontFamily: "'Montserrat', sans-serif",
-                  fontWeight: 700, fontSize: "0.9rem",
-                  letterSpacing: "0.08em",
+                  fontWeight: 500, fontSize: "0.9rem",
+                  letterSpacing: "0.1em",
                   padding: "13px 34px",
                   borderRadius: "999px",
                   background: "linear-gradient(90deg, #fe5858 0%, #FF4545 100%)",
                   color: "#fff", border: "none", cursor: "pointer",
                 }}>
-                  Get A Quote
+                  GET A QUOTE
                 </button>
                 <button className="about-cta-outline" style={{
                   fontFamily: "'Montserrat', sans-serif",
-                  fontWeight: 700, fontSize: "0.9rem",
-                  letterSpacing: "0.08em",
+                  fontWeight: 500, fontSize: "0.9rem",
+                  letterSpacing: "0.10em",
                   padding: "12px 34px",
                   borderRadius: "999px",
                   background: "transparent",
@@ -284,7 +284,7 @@ const AboutSection: React.FC = () => {
                   border: "2px solid #FF4545",
                   cursor: "pointer",
                 }}>
-                  Live Chat
+                  LIVE CHAT
                 </button>
                 <a href="tel:+13025184405" style={{
                   fontFamily: "'Montserrat', sans-serif",

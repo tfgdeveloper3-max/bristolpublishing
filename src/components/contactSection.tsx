@@ -138,7 +138,7 @@ const contactStyles = `
     border-radius: 14px;
     background: linear-gradient(90deg, #FF4545 0%, #fe5858 100%);
     color: white;
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     font-size: 1.1rem;
     letter-spacing: 0.15em;
     border: none;
@@ -407,7 +407,7 @@ const ContactForm: React.FC = () => {
                                         </div>
                                         <div>
                                             <p style={{
-                                                fontFamily: "'Bebas Neue', sans-serif",
+                                                fontFamily: "'Montserrat', sans-serif",
                                                 fontSize: "0.75rem",
                                                 letterSpacing: "0.15em",
                                                 color: "rgba(255,255,255,0.35)",
@@ -523,7 +523,7 @@ const ContactForm: React.FC = () => {
                                             </div>
                                             <div style={{ textAlign: "center" }}>
                                                 <p style={{
-                                                    fontFamily: "'Bebas Neue', sans-serif",
+                                                    fontFamily: "'Montserrat', sans-serif",
                                                     fontSize: "2rem",
                                                     color: "white",
                                                     margin: "0 0 8px",
@@ -639,7 +639,7 @@ const ContactForm: React.FC = () => {
                                                     </>
                                                 ) : (
                                                     <>
-                                                        <span style={{fontFamily:"'Montserrat', sans-serif",fontWeight:600,fontSize:'0.8rem',}}>Send Now</span>
+                                                        <span style={{fontFamily:"'Montserrat', sans-serif",fontWeight:500,fontSize:'0.8rem',}}>SEND NOW</span>
                                                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                                                             <path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z" />
                                                         </svg>

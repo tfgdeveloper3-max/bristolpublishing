@@ -388,7 +388,7 @@ const Portfolio: React.FC = () => {
                             transition: "width 0.8s ease 0.2s",
                         }} />
                         <span style={{
-                            fontFamily: "'Bebas Neue', sans-serif",
+                            fontFamily: "'Montserrat', sans-serif",
                             fontSize: "0.85rem",
                             letterSpacing: "0.25em",
                             color: "#FF4545",
@@ -441,7 +441,7 @@ const Portfolio: React.FC = () => {
                         <p style={{
                             fontFamily: "'DM Sans', sans-serif",
                             fontSize: "1.1rem",
-                            lineHeight: 1.75,
+                            lineHeight: 1.5,
                             color: "#0A0A0A",
                             maxWidth: "340px",
                             margin: 0,
