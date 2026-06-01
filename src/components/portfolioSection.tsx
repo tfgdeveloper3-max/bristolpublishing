@@ -31,21 +31,23 @@ const portfolioStyles = `
   }
 
   .portfolio-img-card:hover {
-    transform: scale(1.04) translateY(-6px);
-    box-shadow: 0 24px 60px rgba(0,0,0,0.6), 0 0 30px rgba(255,69,69,0.2);
+    transform: scale(1.08) translateY(-16px);
+    box-shadow: 0 30px 70px rgba(0,0,0,0.7), 0 0 40px rgba(255,69,69,0.25);
     z-index: 10;
   }
 
   .portfolio-img-card img {
     display: block;
-    transition: transform 0.5s cubic-bezier(0.22,1,0.36,1), filter 0.4s ease;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: filter 0.4s ease;
     filter: brightness(0.82) saturate(0.9);
     pointer-events: none;
   }
 
   .portfolio-img-card:hover img {
-    transform: scale(1.08);
-    filter: brightness(1) saturate(1.1);
+    filter: brightness(1) saturate(1.15);
   }
 
   .portfolio-img-card .overlay {
@@ -161,7 +163,6 @@ const BookCard: React.FC<BookCardProps> = ({ item, height = 260, width = 180 }) 
         <img
             src={item.src}
             alt={item.title}
-            style={{ width: "100%", height: "100%", objectFit: "cover" }}
             onError={e => {
                 const t = e.currentTarget;
                 t.style.display = "none";
@@ -290,7 +291,6 @@ const MarqueeRow: React.FC<MarqueeRowProps> = ({ children, direction, speed = 1.
         window.addEventListener("mouseup", onMouseUp);
     };
 
-    // Touch Events
     const onTouchStart = (e: React.TouchEvent) => {
         handleDragStart(e.touches[0].clientX);
 
@@ -306,7 +306,16 @@ const MarqueeRow: React.FC<MarqueeRowProps> = ({ children, direction, speed = 1.
     };
 
     return (
-        <div style={{ overflow: "hidden" }}>
+        // ✅ FIX: clip-path instead of overflow:hidden
+        // inset(top right bottom left) — negative = allow overflow, 0 = clip at edge
+        // -60px top = cards can extend 60px above
+        // -30px bottom = cards can extend 30px below
+        // 0 left/right = horizontal content is clipped (marquee hidden)
+        <div style={{
+            clipPath: "inset(-60px 0 -30px 0)",
+            WebkitClipPath: "inset(-60px 0 -30px 0)",
+            position: "relative",
+        }}>
             <div
                 ref={trackRef}
                 style={{
@@ -454,7 +463,8 @@ const Portfolio: React.FC = () => {
                     </div>
                 </div>
 
-                <div style={{ position: "relative", marginBottom: "16px" }}>
+                {/* ✅ Bottom row gets higher z-index so its hovered cards appear above top row */}
+                <div style={{ position: "relative", marginBottom: "16px", zIndex: 1 }}>
                     <div className="edge-fade-left" />
                     <div className="edge-fade-right" />
                     <MarqueeRow direction="left" speed={1.2}>
@@ -464,7 +474,7 @@ const Portfolio: React.FC = () => {
                     </MarqueeRow>
                 </div>
 
-                <div style={{ position: "relative" }}>
+                <div style={{ position: "relative", zIndex: 2 }}>
                     <div className="edge-fade-left" />
                     <div className="edge-fade-right" />
                     <MarqueeRow direction="right" speed={1.2}>
