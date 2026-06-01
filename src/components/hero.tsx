@@ -111,7 +111,7 @@ const Hero: React.FC = () => {
 
             <section
                 className="relative w-full flex flex-col overflow-hidden pt-5"
-                style={{ background: `radial-gradient(ellipse at 0% 50%, #1B465F 0%, transparent 38%), radial-gradient(ellipse at 20% 100%, #205270 0%, transparent 36%), radial-gradient(ellipse at 75% 0%, #14384C 0%, transparent 42%), radial-gradient(ellipse at 100% 65%, #1A4259 0%, transparent 40%), radial-gradient(ellipse at 50% 50%, #102838 0%, transparent 55%), #0A1A24` }}
+                style={{ background: `radial-gradient(ellipse at 0% 50%, #1B465F 0%, transparent 38%), radial-gradient(ellipse at 20% 100%, #205270 0%, transparent 36%), radial-gradient(ellipse at 75% 0%, #14384C 0%, transparent 42%), radial-gradient(ellipse at 100% 65%, #1A4259 0%, transparent 40%), radial-gradient(ellipse at 50% 50%, #102838 0%, transparent 55%), #0A1A24`, height: "100vh" }}
             >
                 {/* ── BACKGROUND MARQUEE LAYER ── */}
                 <div
@@ -135,7 +135,6 @@ const Hero: React.FC = () => {
                     </div>
                 </div>
 
-                {/* ── DARK OVERLAY over marquee ── */}
                 <div
                     className="absolute inset-0"
                     style={{
@@ -235,23 +234,27 @@ const Hero: React.FC = () => {
                     style={{
                         zIndex: 20,
                         left: "50%",
-                        top: "0",
-                        width: "clamp(520px, 18vw, 220px)",
-                        height: "55vh",
+                        top: "5%",
+                        width: "clamp(600px, 24vw, 300px)",
+                        height: "50vh",
                         animation: "floatBook 5s ease-in-out infinite",
+                        paddingTop: "4.875rem",
                         filter: `
-              drop-shadow(0 0 18px rgba(80, 120, 255, 0.60))
-              drop-shadow(0 0 40px rgba(60, 80, 220, 0.38))
-              drop-shadow(0 0  8px rgba(120, 160, 255, 0.75))
-            `,
-                        paddingTop: "3.875rem",
+          drop-shadow(-18px 0 18px rgba(60, 200, 80, 0.60))
+          drop-shadow(-35px 0 40px rgba(40, 160, 50, 0.38))
+          drop-shadow(-8px 0  8px rgba(120, 255, 130, 0.75))
+
+          drop-shadow(18px 0 18px rgba(140, 50, 220, 0.60))
+          drop-shadow(35px 0 40px rgba(100, 30, 180, 0.38))
+          drop-shadow(8px 0  8px rgba(180, 100, 255, 0.75))
+        `,
                     }}
                 >
                     <img
                         src={BOOK_MOCKUP}
                         alt="Book Mockup"
                         className="w-full h-full object-cover object-top"
-                        style={{ height: "600px", width: "900px" }}
+                        style={{ height: "550px", width: "900px" }}
                     />
                 </div>
 
@@ -260,7 +263,7 @@ const Hero: React.FC = () => {
                 {/* ── BOTTOM CARD ── */}
                 <div
                     className="relative mt-10 mx-3.5 mb-5.5 rounded-[22px] overflow-hidden flex-shrink-0"
-                    style={{ height: "44vh", minHeight: "330px", zIndex: 10 }}
+                    style={{ height: "50vh", minHeight: "400px", zIndex: 10 }}
                 >
                     <div
                         className="absolute inset-0"
@@ -274,7 +277,7 @@ const Hero: React.FC = () => {
                 #0A1A24
             `,
                             zIndex: 0,
-                            opacity: 0.65, 
+                            opacity: 0.65,
                         }}
                     />
 
