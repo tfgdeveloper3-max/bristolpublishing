@@ -83,9 +83,9 @@ const logoBarStyle = `
      ULTRA-WIDE  ≥ 1920px
      ════════════════════════════════════ */
   @media (min-width: 1920px) {
-    .lb-wrap      { height: 130px; }
+    .lb-wrap      { height: 100px; }
     .lb-logo-item { margin: 0 68px; }
-    .lb-logo-img  { height: 76px; }
+    .lb-logo-img  { height: 45px; }
   }
 
   /* ════════════════════════════════════
