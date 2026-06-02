@@ -268,6 +268,59 @@ const portfolioStyles = `
      ════════════════════════════════════ */
   @media (min-width: 1920px) {
     .pf-section    { padding: 130px 0 140px; }
+    .pf-container  { padding: 0 80px; margin-bottom: 72px; max-width: 100%; }
+    .pf-book-card  { --card-w: 350px; --card-h: 540px; --card-mx: 12px; }
+    .pf-orb-tl     { width: 540px; height: 540px; }
+    .pf-orb-br     { width: 460px; height: 460px; }
+    .pf-ring       { width: 190px; height: 190px; }
+    .pf-rows       { gap: 18px; }
+    .pf-edge-left,
+    .pf-edge-right { width: 150px; }
+
+    .pf-heading {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 4rem;
+    padding: 0 0 80px 0;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    color: #0A0A0A;
+    margin: 0;
+    }
+
+    .pf-subtext {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 24px;
+    line-height: 1.6;
+    color: #444;
+    max-width: 700px;
+    margin: 0;
+    font-weight: 300;
+    }
+
+    .pf-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+    }
+   .pf-eyebrow-line {
+    height: 4px;
+    background: #FF4545;
+    transition: width 0.8s ease 0.2s;
+    }
+   .pf-eyebrow-text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.25em;
+    color: #FF4545;
+    font-weight: 600;
+    }
+  }
+
+
+    @media (min-width: 2560px) {
+    .pf-section    { padding: 130px 0 140px; }
     .pf-container  { padding: 0 80px; margin-bottom: 72px; max-width: 80%; }
     .pf-book-card  { --card-w: 350px; --card-h: 540px; --card-mx: 12px; }
     .pf-orb-tl     { width: 540px; height: 540px; }

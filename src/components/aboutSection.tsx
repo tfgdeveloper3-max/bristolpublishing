@@ -458,6 +458,55 @@ const aboutStyles = `
      ═══════════════════════════════════ */
   @media (min-width: 1920px) {
     .about-section { padding: 130px 0 120px; }
+    .about-container { padding: 0 80px; max-width: 100%; }
+
+    .about-grid {
+      grid-template-columns: 1fr 580px;
+      gap: 100px;
+    }
+
+    .about-heading { font-size: 4rem;  max-width: 2080px; }
+    .about-para { font-size: 24px; margin-bottom: 32px; max-width: 1080px; }
+
+    .about-checks { gap: 12px 32px; margin-bottom: 40px; }
+    .about-check-label { font-size: 22px; }
+    .about-check-dot { width: 25px; height: 25px; }
+
+    .about-cta-primary,
+    .about-cta-outline { padding: 14px 38px; font-size: 1.5rem; }
+    .about-cta-row { gap: 16px; }
+
+    .about-img { width: 440px; height: 560px; }
+    .about-img-glow { width: 360px; height: 360px; }
+    .about-right { min-height: 560px; }
+
+    .about-phone-link {font-size: 1.5rem;}
+
+    .about-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .about-eyebrow-line {
+    height: 2px;
+    background: #FF4545;
+    transition: width 0.8s ease 0.2s;
+  }
+
+  .about-eyebrow-text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.28em;
+    color: #FF4545;
+    font-weight: 600;
+  }
+
+  }
+
+  @media (min-width: 2560px) {
+    .about-section { padding: 130px 0 120px; }
     .about-container { padding: 0 80px; max-width: 80%; }
 
     .about-grid {

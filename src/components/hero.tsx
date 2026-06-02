@@ -586,6 +586,93 @@ const animStyles = `
     }
 
     .hero-title-main {
+      font-size: 5rem;
+    }
+
+    .hero-title-sub {
+      font-size: 3rem;
+      margin-top: 1.5rem;
+    }
+
+    .hero-book-mockup {
+      width: clamp(600px, 24vw, 800px);
+      top: 10%;
+      padding-top: 4.5rem;
+    }
+
+    .hero-book-mockup img {
+      height: 600px;
+      width: 900px;
+    }
+
+    .hero-bottom-card {
+      height: 26vh;
+      min-height: 500px;
+      margin: 3rem 2.5rem 1.5rem;
+      border-radius: 26px;
+    }
+
+    .hero-bottom-card-inner {
+      padding: 0 3.5rem;
+    }
+
+    .hero-bottom-card-text-wrap {
+      text-align: left;
+      align-items: start;
+      padding-bottom: 5%;
+      max-width: 500px;
+    }
+
+    .hero-bottom-card-text {
+      font-size: 22px;
+      line-height: 1.9;
+    }
+
+    .hero-bottom-form {
+      min-width: 500px;
+      max-width: 540px;
+      min-height: 450px;
+      max-height: 490px;
+      padding: 32px 34px;
+      border-radius: 20px;
+    }
+
+    .hero-bottom-form-title {
+      font-size: 26px;
+      margin-bottom: 20px;
+    }
+
+    .hero-bottom-form-input {
+      font-size: 22px;
+      padding: 12px 16px;
+      border-radius: 10px;
+    }
+
+    .hero-bottom-form-btn {
+      font-size: 22px;
+      padding: 13px 0;
+      border-radius: 10px;
+    }
+
+    .hero-book-card-item {
+      width: 250px;
+      height: 390px;
+      margin: 0 12px;
+    }
+
+    .hero-marquee-bg {
+      gap: 10px;
+    }
+  }
+
+  @media (min-width: 2560px) {
+    .hero-main-content {
+      padding-top: 14rem;
+      padding-left: 5rem;
+      padding-right: 5rem;
+    }
+
+    .hero-title-main {
       font-size: 7.5rem;
     }
 
@@ -664,6 +751,7 @@ const animStyles = `
       gap: 10px;
     }
   }
+
 
 
   /* ════════════════════════════════════

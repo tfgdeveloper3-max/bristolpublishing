@@ -407,6 +407,95 @@ const servicesStyles = `
      ════════════════════════════════════ */
   @media (min-width: 1920px) {
     .srv-section   { padding: 130px 0 140px; }
+    .srv-container { padding: 0 80px; max-width: 100%; }
+    .srv-header    { margin-bottom: 80px; }
+
+    .srv-cards-grid { gap: 24px; }
+    .srv-card-inner { padding: 36px 32px 30px; border-radius: 22px; }
+    .srv-num  { font-size: 3rem; }
+    .srv-icon-wrap { width: 78px; height: 78px; border-radius: 20px; }
+
+    .srv-cta-banner { margin-top: 72px; padding: 40px 56px; border-radius: 22px; }
+    .srv-cta-btn { padding: 15px 40px; font-size: 1.5rem; }
+
+    .srv-orb-tr { width: 600px; height: 600px; }
+    .srv-orb-bl { width: 480px; height: 480px; }
+    .srv-ring   { width: 180px; height: 180px; }
+
+    .srv-heading {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 4rem;
+    letter-spacing: -0.02em;
+    line-height: 1.07;
+    color: white;
+    margin: 0;
+   }
+
+   .srv-subtext {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 24px;
+    line-height: 1.75;
+    color: rgba(255,255,255,0.45);
+    max-width: 700px;
+    margin: 0;
+    font-weight: 300;
+   }
+
+    .srv-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 28px;
+    letter-spacing: 0.03em;
+    font-weight: 600;
+    color: white;
+    margin: 0 0 10px;
+    line-height: 1.1;
+   }
+
+  .srv-desc {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 24px;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.5);
+    margin: 0 0 16px;
+    font-weight: 300;
+    flex-grow: 1;
+   }
+
+  .srv-arrow {
+    color: #FF4545;
+    opacity: 0;
+    transform: translate(-6px, 6px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    display: flex; align-items: center; gap: 6px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.2rem;
+    letter-spacing: 0.1em;
+    align-self: flex-end;
+   }
+
+   .srv-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+  .srv-eyebrow-line {
+    height: 2px;
+    background: #FF4545;
+    transition: width 0.8s ease 0.2s;
+  }
+  .srv-eyebrow-text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.25em;
+    color: #FF4545;
+    font-weight: 600;
+  }
+  }
+
+  @media (min-width: 2560px) {
+    .srv-section   { padding: 130px 0 140px; }
     .srv-container { padding: 0 80px; max-width: 80%; }
     .srv-header    { margin-bottom: 80px; }
 

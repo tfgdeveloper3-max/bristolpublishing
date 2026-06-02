@@ -313,6 +313,37 @@ const ctaStyles = `
      ════════════════════════════════════ */
   @media (min-width: 1920px) {
     .cta-section     { padding: 96px 60px 108px; }
+    .cta-border-wrap { max-width: 100%; border-radius: 32px; }
+    .cta-card        {
+      padding: 64px 72px 64px 80px;
+      min-height: 400px;
+      border-radius: 30px;
+    }
+    .cta-content     { max-width: 1020px; }
+    .cta-badge-text  { font-size: 1.1rem; }
+    .cta-heading {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    max-width: 200%;
+    font-size: 4rem;
+    letter-spacing: -0.01em;
+    line-height: 1.05;
+    color: white;
+    margin: 0 0 14px;
+    }
+    .cta-para        { font-size: 24px; margin-bottom: 38px; max-width: 100% }
+    .cta-btn-primary,
+    .cta-btn-secondary { padding: 14px 38px; font-size: 1.5rem; }
+    .cta-btns        { gap: 16px; }
+
+    .cta-mockup      { height: 440px; right: 60px; bottom: 20px; }
+    .cta-mockup img  { height: 440px; }
+
+    .cta-bg-orb { width: 860px; height: 360px; }
+  }
+
+    @media (min-width: 2560px) {
+    .cta-section     { padding: 96px 60px 108px; }
     .cta-border-wrap { max-width: 80%; border-radius: 32px; }
     .cta-card        {
       padding: 64px 72px 64px 80px;

@@ -448,6 +448,64 @@ const contactStyles = `
      ════════════════════════════════════ */
   @media (min-width: 1920px) {
     .ct-section    { padding: 130px 0 140px; }
+    .ct-container  { padding: 0 80px; max-width: 100%; }
+    .ct-header     { margin-bottom: 80px; }
+
+    .ct-grid { gap: 72px; }
+
+    .ct-info-cards { gap: 16px; }
+    .ct-info-card  { padding: 20px 26px; border-radius: 16px; }
+    .ct-info-icon  { width: 58px; height: 58px; border-radius: 13px; }
+    .ct-info-label { font-size: 1rem; }
+    .ct-info-value { font-size: 1.2rem; }
+
+    .ct-form-border { border-radius: 28px; }
+    .ct-form-card   { padding: 52px 48px; border-radius: 26px; }
+
+    .field-input    { padding: 20px 22px 20px 60px; font-size: 1.2rem; border-radius: 15px; }
+    .field-label    { font-size: 1.1rem; top: 20px; left: 60px; }
+    .field-icon     { left: 20px; }
+    textarea.field-input { min-height: 155px; }
+    .submit-btn     {padding: 20px; font-size: 1.5rem;  fontWeight: 600;  border-radius: 15px; letter-spacing: 0.18em; }
+
+    .ct-orb-tr { width: 560px; height: 560px; }
+    .ct-orb-bl { width: 480px; height: 480px; }
+    .ct-ring   { width: 180px; height: 180px; }
+    .ct-float-orb { width: 90px; height: 90px; }
+
+  .SendNow{
+   fontFamily: "'Montserrat',sans-serif", fontWeight: 600, fontSize: "1.5rem"
+  }
+  
+    .ct-eyebrow {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 16px;
+  }
+  .ct-eyebrow-line {
+    height: 2px; background: #FF4545;
+    transition: width 0.8s ease 0.2s;
+  }
+  .ct-eyebrow-text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.1rem; letter-spacing: 0.25em; color: #FF4545;
+    font-weight: 600;
+  }
+
+  .ct-heading {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 4rem;
+    letter-spacing: -0.02em;
+    line-height: 0.92;
+    color: white;
+    margin: 0;
+  }
+
+
+  }
+
+    @media (min-width: 2560px) {
+    .ct-section    { padding: 130px 0 140px; }
     .ct-container  { padding: 0 80px; max-width: 80%; }
     .ct-header     { margin-bottom: 80px; }
 

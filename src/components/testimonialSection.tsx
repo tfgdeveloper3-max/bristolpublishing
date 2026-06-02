@@ -310,7 +310,7 @@ const testimonialsStyles = `
      ════════════════════════════════════ */
   @media (min-width: 1920px) {
     .tm-section    { padding: 130px 0 140px; }
-    .tm-container  { padding: 0 80px; max-width: 80%; }
+    .tm-container  { padding: 0 80px; max-width: 100%; }
     .tm-header     { margin-bottom: 80px; }
     .tm-card       { padding: 36px 34px 30px; border-radius: 24px; }
     .tm-card-quote { font-size: 10rem; top: 14px; right: 20px; }
@@ -331,6 +331,81 @@ const testimonialsStyles = `
    .tm-eyebrow-text {
     font-family: 'Montserrat', sans-serif;
     font-size: 1.3rem; letter-spacing: 0.25em; color: #FF4545; font-weight: 600;
+    }
+
+   .tm-heading {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 4rem;
+    letter-spacing: -0.02em;
+    line-height: 0.92;
+    color: #0A0A0A;
+    margin: 0;
+    }
+
+   .tm-text {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 24px;
+    line-height: 1.75; color: #0A0A0A;
+    margin: 0 0 18px; font-weight: 300;
+    font-style: italic; position: relative; z-index: 2;
+    }
+
+   .tm-author-name {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 28px;
+    letter-spacing: 0.04em; color: #FF4545;
+    margin: 0 0 2px;
+    font-weight: 600;
+    }
+   .tm-author-role {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 20px; color: #0A0A0A;
+    margin: 0; font-weight: 300;
+    }
+
+   .tm-tag {
+    margin-left: auto;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px; letter-spacing: 0.1em;
+    padding: 4px 10px; border-radius: 999px;
+    background: rgba(255,69,69,0.12);
+    border: 1px solid rgba(255,69,69,0.25);
+    color: #FF4545;
+    white-space: nowrap;
+    flex-shrink: 0;
+    }
+
+   .tm-book-name {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px; color: #555; font-style: italic;
+    }
+
+  }
+
+    @media (min-width: 2560px) {
+    .tm-section    { padding: 130px 0 140px; }
+    .tm-container  { padding: 0 80px; max-width: 80%; }
+    .tm-header     { margin-bottom: 80px; }
+    .tm-card       { padding: 36px 34px 30px; border-radius: 24px; }
+    .tm-card-quote { font-size: 10rem; top: 14px; right: 20px; }
+    .tm-avatar     { width: 62px; height: 62px; }
+    .tm-slider-viewport { padding-top: 48px; margin-bottom: 48px; }
+    .tm-nav-btn    { width: 82px; height: 82px; }
+    .tm-orb-tl     { width: 680px; height: 680px; }
+    .tm-orb-br     { width: 600px; height: 600px; }
+
+    .tm-eyebrow {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 16px;
+    }
+   .tm-eyebrow-line {
+    height: 2px; background: #FF4545;
+    transition: width 0.8s ease 0.2s;
+    }
+   .tm-eyebrow-text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.1rem; letter-spacing: 0.25em; color: #FF4545; font-weight: 600;
     }
 
    .tm-heading {
@@ -382,6 +457,7 @@ const testimonialsStyles = `
     }
 
   }
+
 
 
   /* ════════════════════════════════════
