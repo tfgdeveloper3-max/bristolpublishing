@@ -8,49 +8,41 @@ const ctaStyles = `
     from { opacity: 0; transform: translateY(28px); }
     to   { opacity: 1; transform: translateY(0); }
   }
-
   @keyframes floatMockup {
-    0%, 100% { transform: translateY(0px);    }
+    0%, 100% { transform: translateY(0px); }
     50%       { transform: translateY(-14px); }
   }
-
   @keyframes shimmerBorder {
-    0%   { background-position: 0% 50%;   }
+    0%   { background-position: 0% 50%; }
     50%  { background-position: 100% 50%; }
-    100% { background-position: 0% 50%;   }
+    100% { background-position: 0% 50%; }
   }
-
   @keyframes pulseDot {
-    0%, 100% { transform: scale(1);   opacity: 0.6; }
-    50%       { transform: scale(1.4); opacity: 1;   }
+    0%, 100% { transform: scale(1);    opacity: 0.6; }
+    50%       { transform: scale(1.4); opacity: 1; }
   }
 
   .cta-btn-primary {
     font-family: 'Montserrat', sans-serif;
-    letter-spacing: 0.12em;
-    font-size: 1rem;
-    padding: 14px 38px;
+    letter-spacing: 0.1em;
+    font-weight: 500;
     border-radius: 999px;
-    background: white;
-    color: #FF4545;
+    background: linear-gradient(90deg, #fe5858e8 0%, #FF4545 100%);
+    color: #fff;
     border: none;
     cursor: pointer;
-    transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
-    box-shadow: 0 6px 28px rgba(255,255,255,0.15);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 0.25s ease;
     white-space: nowrap;
   }
-
   .cta-btn-primary:hover {
     transform: translateY(-3px);
-    box-shadow: 0 12px 40px rgba(255,255,255,0.25);
-    background: #fff0f0;
+    opacity: 0.88;
+    box-shadow: 0 10px 32px rgba(255,69,69,0.45);
   }
 
   .cta-btn-secondary {
     font-family: 'Montserrat', sans-serif;
     letter-spacing: 0.08em;
-    font-size: 1rem;
-    padding: 12px 38px;
     border-radius: 999px;
     background: transparent;
     color: rgba(255,255,255,0.75);
@@ -59,11 +51,305 @@ const ctaStyles = `
     transition: transform 0.25s ease, border-color 0.25s ease, color 0.25s ease;
     white-space: nowrap;
   }
-
   .cta-btn-secondary:hover {
     transform: translateY(-3px);
     border-color: rgba(255,255,255,0.6);
     color: white;
+  }
+
+  /* ════════════════════════════════════
+     BASE — Small Mobile (≤ 479px)
+     ════════════════════════════════════ */
+
+  .cta-section {
+    background: linear-gradient(180deg, #1B465F 0%, #14384C 100%);
+    width: 100%;
+    padding: 48px 14px 56px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-bg-orb {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 340px; height: 200px; border-radius: 50%;
+    background: radial-gradient(ellipse, rgba(255,69,69,0.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  /* Shimmer border wrapper */
+  .cta-border-wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+    padding: 2px;
+    background: linear-gradient(135deg, rgba(255,69,69,0.5), rgba(26,36,95,0.8), rgba(255,69,69,0.3));
+    background-size: 300% 300%;
+    animation: shimmerBorder 5s ease infinite;
+  }
+
+  /* Inner card */
+  .cta-card {
+    border-radius: 18px;
+    background: linear-gradient(125deg, #1B465F 0%, #16394D 40%, #102A3A 100%);
+    padding: 36px 22px 32px;
+    overflow: hidden;
+    position: relative;
+    min-height: auto;
+  }
+
+  /* Decorative elements inside card */
+  .cta-card-orb-tl {
+    position: absolute; top: -40%; left: -5%;
+    width: 260px; height: 260px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,69,69,0.09) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .cta-card-orb-br {
+    position: absolute; bottom: -30%; right: 5%;
+    width: 220px; height: 220px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(26,36,95,0.6) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .cta-card-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.012) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.012) 1px, transparent 1px);
+    background-size: 50px 50px;
+    pointer-events: none;
+  }
+
+  /* Text content */
+  .cta-content {
+    position: relative;
+    z-index: 5;
+    max-width: 100%;
+  }
+
+  .cta-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 18px;
+  }
+  .cta-badge-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: #FF4545;
+    display: inline-block;
+    animation: pulseDot 2s ease-in-out infinite;
+    flex-shrink: 0;
+  }
+  .cta-badge-text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: rgba(255,255,255,0.5);
+  }
+
+  .cta-heading {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: clamp(1.75rem, 7vw, 3rem);
+    letter-spacing: -0.01em;
+    line-height: 1.05;
+    color: white;
+    margin: 0 0 14px;
+  }
+
+  .cta-para {
+    font-family: 'DM Sans', sans-serif;
+    font-size: clamp(0.85rem, 2.5vw, 1.1rem);
+    line-height: 1.75;
+    color: rgba(255,255,255,0.5);
+    margin: 0 0 26px;
+    font-weight: 300;
+    max-width: 420px;
+  }
+
+  .cta-btns {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .cta-btn-primary {
+    font-size: 0.78rem;
+    padding: 11px 26px;
+  }
+  .cta-btn-secondary {
+    font-size: 0.78rem;
+    padding: 10px 26px;
+  }
+
+  /* Mockup image — hidden on small mobile, shown from tablet up */
+  .cta-mockup {
+    display: none;
+  }
+
+
+  /* ════════════════════════════════════
+     LARGE MOBILE  480px – 767px
+     ════════════════════════════════════ */
+  @media (min-width: 480px) {
+    .cta-section       { padding: 56px 18px 64px; }
+    .cta-border-wrap   { border-radius: 22px; }
+    .cta-card          { padding: 40px 28px 36px; border-radius: 20px; }
+    .cta-badge-text    { font-size: 0.72rem; }
+    .cta-btn-primary,
+    .cta-btn-secondary { font-size: 0.82rem; padding: 11px 28px; }
+    .cta-btns          { gap: 12px; }
+    .cta-bg-orb        { width: 460px; height: 240px; }
+  }
+
+
+  /* ════════════════════════════════════
+     TABLET  768px – 1023px
+     ════════════════════════════════════ */
+  @media (min-width: 768px) {
+    .cta-section       { padding: 64px 28px 72px; }
+    .cta-border-wrap   { border-radius: 24px; }
+    .cta-card          {
+      padding: 44px 36px 40px;
+      border-radius: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      min-height: 220px;
+    }
+    .cta-content       { max-width: 500px; flex: 1; }
+    .cta-badge-text    { font-size: 0.75rem; }
+    .cta-para          { margin-bottom: 28px; }
+    .cta-btn-primary,
+    .cta-btn-secondary { font-size: 0.86rem; padding: 12px 30px; }
+    .cta-btns          { gap: 13px; }
+
+    /* Show mockup from tablet */
+    .cta-mockup {
+      display: block;
+      position: relative;
+      z-index: 4;
+      flex-shrink: 0;
+      animation: floatMockup 5s ease-in-out infinite;
+      filter:
+        drop-shadow(-16px 8px 40px rgba(0,0,0,0.65))
+        drop-shadow(0 0 24px rgba(255,69,69,0.10));
+      pointer-events: none;
+      height: 240px;
+    }
+    .cta-mockup img {
+      height: 240px;
+      width: auto;
+      object-fit: contain;
+      object-position: top right;
+      display: block;
+    }
+
+    .cta-bg-orb { width: 560px; height: 260px; }
+  }
+
+
+  /* ════════════════════════════════════
+     LAPTOP  1024px – 1439px
+     ════════════════════════════════════ */
+  @media (min-width: 1024px) {
+    .cta-section     { padding: 72px 36px 80px; }
+    .cta-card        {
+      padding: 48px 52px 48px 56px;
+      min-height: 240px;
+      border-radius: 24px;
+    }
+    .cta-content     { max-width: 520px; }
+    .cta-badge       { margin-bottom: 20px; }
+    .cta-para        { font-size: 1rem; margin-bottom: 30px; }
+    .cta-btn-primary,
+    .cta-btn-secondary { font-size: 0.9rem; padding: 13px 34px; }
+    .cta-btns        { gap: 14px; }
+
+    .cta-mockup      {
+      height: 320px;
+      position: absolute;
+      right: 44px;
+      bottom: 16px;
+    }
+    .cta-mockup img  { height: 320px; }
+
+    .cta-bg-orb { width: 620px; height: 280px; }
+  }
+
+
+  /* ════════════════════════════════════
+     MONITOR  1440px – 1919px
+     ════════════════════════════════════ */
+  @media (min-width: 1440px) {
+    .cta-section     { padding: 80px 40px 90px; }
+    .cta-border-wrap { border-radius: 28px; max-width: 1200px; }
+    .cta-card        {
+      padding: 52px 60px 52px 64px;
+      min-height: 260px;
+      border-radius: 26px;
+    }
+    .cta-content     { max-width: 540px; }
+    .cta-badge       { margin-bottom: 22px; }
+    .cta-badge-text  { font-size: 0.78rem; }
+    .cta-para        { font-size: 1.1rem; margin-bottom: 34px; }
+    .cta-btn-primary,
+    .cta-btn-secondary { font-size: 1rem; padding: 14px 38px; }
+    .cta-btns        { gap: 14px; }
+
+    .cta-mockup      { height: 380px; right: 48px; bottom: 18px; }
+    .cta-mockup img  { height: 380px; }
+
+    .cta-bg-orb { width: 700px; height: 300px; }
+  }
+
+
+  /* ════════════════════════════════════
+     ULTRA-WIDE  ≥ 1920px
+     ════════════════════════════════════ */
+  @media (min-width: 1920px) {
+    .cta-section     { padding: 96px 60px 108px; }
+    .cta-border-wrap { max-width: 80%; border-radius: 32px; }
+    .cta-card        {
+      padding: 64px 72px 64px 80px;
+      min-height: 400px;
+      border-radius: 30px;
+    }
+    .cta-content     { max-width: 1020px; }
+    .cta-badge-text  { font-size: 1.3rem; }
+    .cta-heading {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    max-width: 200%;
+    font-size: 4rem;
+    letter-spacing: -0.01em;
+    line-height: 1.05;
+    color: white;
+    margin: 0 0 14px;
+    }
+    .cta-para        { font-size: 28px; margin-bottom: 38px; max-width: 100% }
+    .cta-btn-primary,
+    .cta-btn-secondary { padding: 14px 38px; font-size: 1.5rem; }
+    .cta-btns        { gap: 16px; }
+
+    .cta-mockup      { height: 440px; right: 60px; bottom: 20px; }
+    .cta-mockup img  { height: 440px; }
+
+    .cta-bg-orb { width: 860px; height: 360px; }
+  }
+
+
+  /* ════════════════════════════════════
+     REDUCE MOTION
+     ════════════════════════════════════ */
+  @media (prefers-reduced-motion: reduce) {
+    .cta-mockup          { animation: none !important; }
+    .cta-border-wrap     { animation: none !important; }
+    .cta-badge-dot       { animation: none !important; }
   }
 `;
 
@@ -90,205 +376,85 @@ const CTABanner: React.FC = () => {
         <>
             <style>{ctaStyles}</style>
 
-            <section
-                style={{
-                    background: "linear-gradient(180deg, #1B465F 0%, #14384C 100%)",
-                    width: "100%",
-                    padding: "80px 40px 90px",
-                    position: "relative",
-                    overflow: "hidden",
-                }}
-            >
-                <div style={{
-                    position: "absolute", top: "50%", left: "50%",
-                    transform: "translate(-50%, -50%)",
-                    width: "700px", height: "300px",
-                    borderRadius: "50%",
-                    background: "radial-gradient(ellipse, rgba(255,69,69,0.07) 0%, transparent 70%)",
-                    pointerEvents: "none",
-                }} />
+            <section className="cta-section">
 
-                <div
-                    ref={ref}
-                    style={{
-                        maxWidth: "1100px",
-                        margin: "0 auto",
-                        borderRadius: "28px",
-                        position: "relative",
-                        overflow: "hidden",
-                        padding: "2px",
-                        background: "linear-gradient(135deg, rgba(255,69,69,0.5), rgba(26,36,95,0.8), rgba(255,69,69,0.3))",
-                        backgroundSize: "300% 300%",
-                        animation: "shimmerBorder 5s ease infinite",
-                    }}
-                >
-                    <div style={{
-                        borderRadius: "26px",
-                        background: "linear-gradient(125deg, #1B465F 0%, #16394D 40%, #102A3A 100%)", display: "flex",
-                        alignItems: "center",
-                        justifyContent: "space-between",
-                        padding: "52px 60px 52px 64px",
-                        overflow: "hidden",
-                        position: "relative",
-                        minHeight: "260px",
-                    }}>
+                <div className="cta-bg-orb" />
 
-                        <div style={{
-                            position: "absolute", top: "-40%", left: "-5%",
-                            width: "350px", height: "350px", borderRadius: "50%",
-                            background: "radial-gradient(circle, rgba(255,69,69,0.09) 0%, transparent 65%)",
-                            pointerEvents: "none",
-                        }} />
-                        <div style={{
-                            position: "absolute", bottom: "-30%", right: "25%",
-                            width: "300px", height: "300px", borderRadius: "50%",
-                            background: "radial-gradient(circle, rgba(26,36,95,0.6) 0%, transparent 70%)",
-                            pointerEvents: "none",
-                        }} />
+                <div ref={ref} className="cta-border-wrap">
+                    <div className="cta-card">
 
-                        <div style={{
-                            position: "absolute", inset: 0,
-                            backgroundImage: `
-                                linear-gradient(rgba(255,255,255,0.012) 1px, transparent 1px),
-                                linear-gradient(90deg, rgba(255,255,255,0.012) 1px, transparent 1px)
-                            `,
-                            backgroundSize: "50px 50px",
-                            pointerEvents: "none",
-                        }} />
+                        {/* Decorative layers */}
+                        <div className="cta-card-orb-tl" />
+                        <div className="cta-card-orb-br" />
+                        <div className="cta-card-grid" />
 
-                        <div style={{ position: "relative", zIndex: 5, maxWidth: "540px", flex: "1" }}>
+                        {/* ── TEXT CONTENT ── */}
+                        <div className="cta-content">
 
-                            <div style={{
-                                display: "inline-flex", alignItems: "center", gap: "8px",
-                                marginBottom: "22px",
-                                opacity: visible ? 1 : 0,
-                                animation: visible ? "fadeUp 0.5s ease forwards" : "none",
-                            }}>
-                                <span style={{
-                                    width: "7px", height: "7px", borderRadius: "50%",
-                                    background: "#FF4545",
-                                    display: "inline-block",
-                                    animation: "pulseDot 2s ease-in-out infinite",
-                                }} />
-                                <span style={{
-                                    fontFamily: "'Montserrat', sans-serif",
-                                    fontSize: "0.78rem",
-                                    letterSpacing: "0.2em",
-                                    color: "rgba(255,255,255,0.5)",
-                                }}>NOW ACCEPTING MANUSCRIPTS</span>
+                            <div
+                                className="cta-badge"
+                                style={{ opacity: visible ? 1 : 0, animation: visible ? "fadeUp 0.5s ease forwards" : "none" }}
+                            >
+                                <span className="cta-badge-dot" />
+                                <span className="cta-badge-text">NOW ACCEPTING MANUSCRIPTS</span>
                             </div>
 
-                            <h2 style={{
-                                fontFamily: "'Montserrat', sans-serif",
-                                fontWeight: 800,
-                                fontSize: "clamp(2rem, 4.5vw, 3rem)",
-                                letterSpacing: "-0.01em",
-                                lineHeight: 1.03,
-                                color: "white",
-                                margin: "0 0 18px",
-                            }}>
+                            <h2
+                                className="cta-heading"
+                                style={{ opacity: visible ? 1 : 0, animation: visible ? "fadeUp 0.6s ease 0.1s forwards" : "none" }}
+                            >
                                 {visible && (
                                     <>
                                         <SplitText
-                                            text="Your Book Is Not"
-                                            delay={30}
-                                            duration={1.0}
-                                            ease="power3.out"
+                                            text="Your Book Is Not Meant"
+                                            delay={30} duration={1.0} ease="power3.out"
                                             splitType="chars"
-                                            from={{ opacity: 0, y: 35 }}
-                                            to={{ opacity: 1, y: 0 }}
-                                            threshold={0.1}
-                                            rootMargin="-30px"
-                                            textAlign="left"
+                                            from={{ opacity: 0, y: 35 }} to={{ opacity: 1, y: 0 }}
+                                            threshold={0.1} rootMargin="-30px" textAlign="left"
                                         />
                                         <br />
                                         <SplitText
-                                            text="Meant To Stay"
-                                            delay={35}
-                                            duration={1.05}
-                                            ease="power3.out"
+                                            text="To Stay"
+                                            delay={35} duration={1.05} ease="power3.out"
                                             splitType="chars"
-                                            from={{ opacity: 0, y: 35 }}
-                                            to={{ opacity: 1, y: 0 }}
-                                            threshold={0.1}
-                                            rootMargin="-30px"
-                                            textAlign="left"
+                                            from={{ opacity: 0, y: 35 }} to={{ opacity: 1, y: 0 }}
+                                            threshold={0.1} rootMargin="-30px" textAlign="left"
                                         />
-                                        <br />
+                                        {" "}
                                         <SplitText
                                             text="Unpublished"
                                             className="text-[#FF4545]"
-                                            delay={40}
-                                            duration={1.1}
-                                            ease="power3.out"
+                                            delay={40} duration={1.1} ease="power3.out"
                                             splitType="chars"
-                                            from={{ opacity: 0, y: 35 }}
-                                            to={{ opacity: 1, y: 0 }}
-                                            threshold={0.1}
-                                            rootMargin="-30px"
-                                            textAlign="left"
+                                            from={{ opacity: 0, y: 35 }} to={{ opacity: 1, y: 0 }}
+                                            threshold={0.1} rootMargin="-30px" textAlign="left"
                                         />
                                     </>
                                 )}
                             </h2>
 
-                            <p style={{
-                                fontFamily: "'DM Sans', sans-serif",
-                                fontSize: "1.1rem",
-                                lineHeight: 1.75,
-                                color: "rgba(255,255,255,0.5)",
-                                margin: "0 0 34px",
-                                fontWeight: 300,
-                                maxWidth: "420px",
-                                opacity: visible ? 1 : 0,
-                                animation: visible ? "fadeUp 0.7s ease 0.35s forwards" : "none",
-                            }}>
+                            <p
+                                className="cta-para"
+                                style={{ opacity: visible ? 1 : 0, animation: visible ? "fadeUp 0.7s ease 0.35s forwards" : "none" }}
+                            >
                                 Take the next step with confidence. Let us help you complete your book,
                                 publish it, and reach the readers who are waiting for your story.
                             </p>
 
-                            <div style={{
-                                display: "flex", gap: "14px", alignItems: "center", flexWrap: "wrap",
-                                opacity: visible ? 1 : 0,
-                                animation: visible ? "fadeUp 0.7s ease 0.45s forwards" : "none",
-                            }}>
-                                <button
-                                    className="px-10 py-3.5 rounded-full text-white text-sm transition-all duration-200 hover:opacity-90"
-                                    style={{
-                                        fontFamily: "'Montserrat', sans-serif",
-                                        letterSpacing: "0.1em",
-                                        fontWeight: 500,
-                                        background: "linear-gradient(90deg, #fe5858e8 0%, #FF4545 100%)",
-                                    }}
-                                >
-                                    GET STARTED
-                                </button>
+                            <div
+                                className="cta-btns"
+                                style={{ opacity: visible ? 1 : 0, animation: visible ? "fadeUp 0.7s ease 0.45s forwards" : "none" }}
+                            >
+                                <button className="cta-btn-primary">GET STARTED</button>
                                 <button className="cta-btn-secondary">LEARN MORE</button>
                             </div>
                         </div>
 
-                        <div style={{
-                            position: "absolute",
-                            right: "40px",
-                            bottom: "20px",
-                            height: "400px",
-                            zIndex: 4,
-                            animation: "floatMockup 5s ease-in-out infinite",
-                            filter: `
-                                drop-shadow(-20px 10px 50px rgba(0,0,0,0.7))
-                                drop-shadow(0 0 30px rgba(255,69,69,0.12))
-                            `,
-                            pointerEvents: "none",
-                        }}>
+                        {/* ── MOCKUP IMAGE — hidden on mobile, visible tablet+ ── */}
+                        <div className="cta-mockup">
                             <img
                                 src="/images/Portfolio/MOCKUP.png"
                                 alt="Book and tablet mockup"
-                                style={{
-                                    height: "400px",
-                                    width: "auto",
-                                    objectFit: "contain",
-                                    objectPosition: "top right",
-                                }}
                             />
                         </div>
 

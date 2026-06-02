@@ -8,14 +8,12 @@ const portfolioStyles = `
     from { opacity: 0; transform: translateY(32px); }
     to   { opacity: 1; transform: translateY(0); }
   }
-
   @keyframes rotateSlow {
     from { transform: rotate(0deg); }
     to   { transform: rotate(360deg); }
   }
-
   @keyframes orbPulse {
-    0%, 100% { transform: scale(1);    opacity: 0.4; }
+    0%, 100% { transform: scale(1);     opacity: 0.4; }
     50%       { transform: scale(1.12); opacity: 0.7; }
   }
 
@@ -23,19 +21,16 @@ const portfolioStyles = `
     flex-shrink: 0;
     position: relative;
     overflow: hidden;
-    border-radius: 14px;
+    border-radius: 12px;
     cursor: grab;
     transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), box-shadow 0.4s ease;
     user-select: none;
     -webkit-user-select: none;
   }
-
   .portfolio-img-card:hover {
     transform: scale(1.08) translateY(-16px);
-    box-shadow: 0 30px 70px rgba(0,0,0,0.7), 0 0 40px rgba(255,69,69,0.25);
     z-index: 10;
   }
-
   .portfolio-img-card img {
     display: block;
     width: 100%;
@@ -45,57 +40,290 @@ const portfolioStyles = `
     filter: brightness(0.82) saturate(0.9);
     pointer-events: none;
   }
-
-  .portfolio-img-card:hover img {
-    filter: brightness(1) saturate(1.15);
-  }
-
   .portfolio-img-card .overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(to top, rgba(4,5,23,0.85) 0%, transparent 55%);
     opacity: 0;
     transition: opacity 0.35s ease;
     display: flex;
     align-items: flex-end;
-    padding: 16px;
+    padding: 14px;
   }
-
-  .portfolio-img-card:hover .overlay {
-    opacity: 1;
-  }
-
+  .portfolio-img-card:hover .overlay { opacity: 1; }
   .portfolio-img-card .overlay-label {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 0.95rem;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.85rem;
     letter-spacing: 0.08em;
     color: white;
     line-height: 1.1;
   }
-
   .portfolio-img-card .overlay-sub {
     font-family: 'DM Sans', sans-serif;
-    font-size: 0.72rem;
+    font-size: 0.68rem;
     color: #FF4545;
     margin-top: 2px;
   }
+  .portfolio-img-card .card-accent {
+    position: absolute;
+    top: 0; right: 0;
+    width: 3px; height: 36px;
+    background: linear-gradient(to bottom, #FF4545, transparent);
+    border-radius: 0 12px 0 0;
+  }
 
-  .edge-fade-left {
+  .pf-edge-left {
     position: absolute;
     left: 0; top: 0; bottom: 0;
-    width: 120px;
-    background: linear-gradient(to right, #040517, transparent);
+    width: 80px;
+    z-index: 10;
+    pointer-events: none;
+  }
+  .pf-edge-right {
+    position: absolute;
+    right: 0; top: 0; bottom: 0;
+    width: 80px;
     z-index: 10;
     pointer-events: none;
   }
 
-  .edge-fade-right {
-    position: absolute;
-    right: 0; top: 0; bottom: 0;
-    width: 120px;
-    background: linear-gradient(to left, #040517, transparent);
-    z-index: 10;
+  /* ════════════════════════════════════
+     BASE — Small Mobile (≤ 479px)
+     ════════════════════════════════════ */
+
+  .pf-section {
+    background: linear-gradient(180deg, #FFFFFF 0%, #FFF9F9 25%, #FFE8E8 55%, #FFD6D6 80%, #FFFFFF 100%);
+    width: 100%;
+    overflow: hidden;
+    padding: 60px 0 70px;
+    position: relative;
+  }
+
+  .pf-orb-tl {
+    position: absolute; top: 20%; left: -6%;
+    width: 220px; height: 220px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,69,69,0.07) 0%, transparent 65%);
+    animation: orbPulse 7s ease-in-out infinite;
     pointer-events: none;
+  }
+  .pf-orb-br {
+    position: absolute; bottom: 15%; right: -5%;
+    width: 200px; height: 200px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,69,69,0.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .pf-grid-bg {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.012) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.012) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+  .pf-ring {
+    position: absolute; top: 6%; right: 5%;
+    width: 100px; height: 100px;
+    border: 1px dashed rgba(255,69,69,0.12);
+    border-radius: 50%;
+    animation: rotateSlow 22s linear infinite;
+    pointer-events: none;
+  }
+
+  .pf-container {
+    max-width: 1200px;
+    margin: 0 auto 36px;
+    padding: 0 18px;
+  }
+
+  .pf-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+  .pf-eyebrow-line {
+    height: 2px;
+    background: #FF4545;
+    transition: width 0.8s ease 0.2s;
+  }
+  .pf-eyebrow-text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+    color: #FF4545;
+  }
+
+  .pf-header-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .pf-heading {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: clamp(2rem, 8vw, 4.5rem);
+    letter-spacing: -0.02em;
+    line-height: 0.9;
+    color: #0A0A0A;
+    margin: 0;
+  }
+
+  .pf-subtext {
+    font-family: 'DM Sans', sans-serif;
+    font-size: clamp(0.85rem, 2.5vw, 1.05rem);
+    line-height: 1.6;
+    color: #444;
+    max-width: 340px;
+    margin: 0;
+    font-weight: 300;
+  }
+
+  /* Marquee rows */
+  .pf-rows {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .pf-row-wrap {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Card sizes via CSS vars — overridden per breakpoint */
+  .pf-book-card {
+    --card-w: 130px;
+    --card-h: 195px;
+    --card-mx: 6px;
+  }
+
+  /* ════════════════════════════════════
+     LARGE MOBILE  480px – 767px
+     ════════════════════════════════════ */
+  @media (min-width: 480px) {
+    .pf-section    { padding: 70px 0 80px; }
+    .pf-container  { padding: 0 24px; margin-bottom: 40px; }
+    .pf-book-card  { --card-w: 155px; --card-h: 230px; --card-mx: 7px; }
+    .pf-orb-tl     { width: 280px; height: 280px; }
+    .pf-orb-br     { width: 250px; height: 250px; }
+    .pf-ring       { width: 120px; height: 120px; }
+    .pf-rows       { gap: 13px; }
+  }
+
+  /* ════════════════════════════════════
+     TABLET  768px – 1023px
+     ════════════════════════════════════ */
+  @media (min-width: 768px) {
+    .pf-section    { padding: 80px 0 90px; }
+    .pf-container  { padding: 0 32px; margin-bottom: 48px; }
+
+    .pf-header-inner {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 24px;
+    }
+
+    .pf-book-card  { --card-w: 185px; --card-h: 275px; --card-mx: 8px; }
+    .pf-orb-tl     { width: 340px; height: 340px; }
+    .pf-orb-br     { width: 300px; height: 300px; }
+    .pf-ring       { width: 140px; height: 140px; }
+    .pf-rows       { gap: 14px; }
+    .pf-edge-left,
+    .pf-edge-right { width: 100px; }
+  }
+
+  /* ════════════════════════════════════
+     LAPTOP  1024px – 1439px
+     ════════════════════════════════════ */
+  @media (min-width: 1024px) {
+    .pf-section    { padding: 100px 0 110px; }
+    .pf-container  { padding: 0 40px; margin-bottom: 56px; }
+    .pf-book-card  { --card-w: 220px; --card-h: 330px; --card-mx: 9px; }
+    .pf-orb-tl     { width: 400px; height: 400px; }
+    .pf-orb-br     { width: 360px; height: 360px; }
+    .pf-ring       { width: 155px; height: 155px; }
+    .pf-rows       { gap: 15px; }
+    .pf-edge-left,
+    .pf-edge-right { width: 120px; }
+  }
+
+  /* ════════════════════════════════════
+     MONITOR  1440px – 1919px
+     ════════════════════════════════════ */
+  @media (min-width: 1440px) {
+    .pf-section    { padding: 110px 0 120px; }
+    .pf-container  { padding: 0 56px; margin-bottom: 64px; max-width: 1380px; }
+    .pf-book-card  { --card-w: 250px; --card-h: 390px; --card-mx: 10px; }
+    .pf-orb-tl     { width: 450px; height: 450px; }
+    .pf-orb-br     { width: 380px; height: 380px; }
+    .pf-ring       { width: 170px; height: 170px; }
+    .pf-rows       { gap: 16px; }
+    .pf-edge-left,
+    .pf-edge-right { width: 130px; }
+  }
+
+  /* ════════════════════════════════════
+     ULTRA-WIDE  ≥ 1920px
+     ════════════════════════════════════ */
+  @media (min-width: 1920px) {
+    .pf-section    { padding: 130px 0 140px; }
+    .pf-container  { padding: 0 80px; margin-bottom: 72px; max-width: 80%; }
+    .pf-book-card  { --card-w: 350px; --card-h: 540px; --card-mx: 12px; }
+    .pf-orb-tl     { width: 540px; height: 540px; }
+    .pf-orb-br     { width: 460px; height: 460px; }
+    .pf-ring       { width: 190px; height: 190px; }
+    .pf-rows       { gap: 18px; }
+    .pf-edge-left,
+    .pf-edge-right { width: 150px; }
+
+    .pf-heading {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 5rem;
+    padding: 0 0 130px 0;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    color: #0A0A0A;
+    margin: 0;
+    }
+
+    .pf-subtext {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 28px;
+    line-height: 1.6;
+    color: #444;
+    max-width: 700px;
+    margin: 0;
+    font-weight: 300;
+    }
+
+    .pf-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+    }
+   .pf-eyebrow-line {
+    height: 4px;
+    background: #FF4545;
+    transition: width 0.8s ease 0.2s;
+    }
+   .pf-eyebrow-text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.3rem;
+    letter-spacing: 0.25em;
+    color: #FF4545;
+    font-weight: 600;
+    }
+  }
+
+  /* ════════════════════════════════════
+     REDUCE MOTION
+     ════════════════════════════════════ */
+  @media (prefers-reduced-motion: reduce) {
+    .pf-orb-tl { animation: none !important; }
+    .pf-ring   { animation: none !important; }
   }
 `;
 
@@ -149,191 +377,155 @@ const ROW_BOTTOM: { src: string; title: string; genre: string }[] = [
     { src: "/images/Portfolio/28.jpg", title: "Black Holes", genre: "Fantasy" },
 ];
 
-interface BookCardProps {
-    item: { src: string; title: string; genre: string };
-    height?: number;
-    width?: number;
-}
+/* BookCard reads size from CSS custom properties via a ref */
+const BookCard: React.FC<{ item: { src: string; title: string; genre: string } }> = ({ item }) => {
+    const cardRef = useRef<HTMLDivElement>(null);
+    const [size, setSize] = useState({ w: 130, h: 195 });
 
-const BookCard: React.FC<BookCardProps> = ({ item, height = 260, width = 180 }) => (
-    <div
-        className="portfolio-img-card"
-        style={{ width: `${width}px`, height: `${height}px`, margin: "0 10px" }}
-    >
-        <img
-            src={item.src}
-            alt={item.title}
-            onError={e => {
-                const t = e.currentTarget;
-                t.style.display = "none";
-                const parent = t.parentElement!;
-                parent.style.background = `hsl(${Math.random() * 360}, 25%, 18%)`;
-                const fb = document.createElement("div");
-                fb.style.cssText = `width:100%;height:100%;display:flex;align-items:center;justify-content:center;padding:16px;`;
-                fb.innerHTML = `<span style="font-family:'Bebas Neue',sans-serif;font-size:1rem;color:rgba(255,255,255,0.35);text-align:center;letter-spacing:0.05em;">${item.title}</span>`;
-                parent.appendChild(fb);
+    useEffect(() => {
+        const update = () => {
+            if (!cardRef.current) return;
+            const style = getComputedStyle(cardRef.current);
+            const w = parseFloat(style.getPropertyValue("--card-w")) || 130;
+            const h = parseFloat(style.getPropertyValue("--card-h")) || 195;
+            setSize({ w, h });
+        };
+        update();
+        const ro = new ResizeObserver(update);
+        if (cardRef.current) ro.observe(cardRef.current);
+        return () => ro.disconnect();
+    }, []);
+
+    return (
+        <div
+            ref={cardRef}
+            className="portfolio-img-card pf-book-card"
+            style={{
+                width: `var(--card-w, ${size.w}px)`,
+                height: `var(--card-h, ${size.h}px)`,
+                margin: `0 var(--card-mx, 6px)`,
             }}
-        />
-        <div className="overlay">
-            <div>
-                <p className="overlay-label">{item.title}</p>
-                <p className="overlay-sub">{item.genre}</p>
+        >
+            <img
+                src={item.src}
+                alt={item.title}
+                onError={e => {
+                    const t = e.currentTarget;
+                    t.style.display = "none";
+                    const p = t.parentElement!;
+                    p.style.background = `hsl(${Math.random() * 360}, 25%, 18%)`;
+                    const fb = document.createElement("div");
+                    fb.style.cssText = "width:100%;height:100%;display:flex;align-items:center;justify-content:center;padding:14px;";
+                    fb.innerHTML = `<span style="font-family:'Bebas Neue',sans-serif;font-size:0.9rem;color:rgba(255,255,255,0.35);text-align:center;letter-spacing:0.05em;">${item.title}</span>`;
+                    p.appendChild(fb);
+                }}
+            />
+            <div className="overlay" style={{
+                background: "linear-gradient(to top, rgba(0,0,0,0.72) 0%, transparent 60%)",
+            }}>
+                <div>
+                    <p className="overlay-label">{item.title}</p>
+                    <p className="overlay-sub">{item.genre}</p>
+                </div>
             </div>
+            <div className="card-accent" />
         </div>
-        <div style={{
-            position: "absolute", top: 0, right: 0,
-            width: "3px", height: "40px",
-            background: "linear-gradient(to bottom, #FF4545, transparent)",
-            borderRadius: "0 14px 0 0",
-        }} />
-    </div>
-);
+    );
+};
 
 interface MarqueeRowProps {
-    children: React.ReactNode;
+    items: { src: string; title: string; genre: string }[];
     direction: "left" | "right";
     speed?: number;
 }
 
-const MarqueeRow: React.FC<MarqueeRowProps> = ({ children, direction, speed = 1.2 }) => {
+const MarqueeRow: React.FC<MarqueeRowProps> = ({ items, direction, speed = 1.2 }) => {
     const trackRef = useRef<HTMLDivElement>(null);
     const isDragging = useRef(false);
     const startX = useRef(0);
-    const currentTranslate = useRef(direction === "left" ? 0 : 0);
-    const startTranslate = useRef(0);
-    const animationRef = useRef<number | undefined>(undefined);
-    const singleSetWidth = useRef(0);
+    const currentT = useRef(0);
+    const startT = useRef(0);
+    const setWidth = useRef(0);
 
     useEffect(() => {
-        const updateWidth = () => {
-            if (trackRef.current) {
-                singleSetWidth.current = trackRef.current.scrollWidth / 2;
-            }
+        const updateW = () => {
+            if (trackRef.current) setWidth.current = trackRef.current.scrollWidth / 2;
         };
-        updateWidth();
-
-        const ro = new ResizeObserver(updateWidth);
+        updateW();
+        const ro = new ResizeObserver(updateW);
         if (trackRef.current) ro.observe(trackRef.current);
         return () => ro.disconnect();
-    }, [children]);
+    }, [items]);
 
     useEffect(() => {
-        let animationId: number;
-
+        let id: number;
         const animate = () => {
-            if (!isDragging.current && singleSetWidth.current > 0) {
+            if (!isDragging.current && setWidth.current > 0) {
                 if (direction === "left") {
-                    currentTranslate.current -= speed;
-                    if (currentTranslate.current <= -singleSetWidth.current) {
-                        currentTranslate.current += singleSetWidth.current;
-                    }
+                    currentT.current -= speed;
+                    if (currentT.current <= -setWidth.current) currentT.current += setWidth.current;
                 } else {
-                    currentTranslate.current += speed;
-                    if (currentTranslate.current >= 0) {
-                        currentTranslate.current -= singleSetWidth.current;
-                    }
+                    currentT.current += speed;
+                    if (currentT.current >= 0) currentT.current -= setWidth.current;
                 }
             }
-
-            if (trackRef.current) {
-                trackRef.current.style.transform = `translateX(${currentTranslate.current}px)`;
-            }
-            animationId = requestAnimationFrame(animate);
+            if (trackRef.current) trackRef.current.style.transform = `translateX(${currentT.current}px)`;
+            id = requestAnimationFrame(animate);
         };
-
-        animationId = requestAnimationFrame(animate);
-        return () => cancelAnimationFrame(animationId);
+        id = requestAnimationFrame(animate);
+        return () => cancelAnimationFrame(id);
     }, [direction, speed]);
 
-    const handleDragStart = (clientX: number) => {
+    const dragStart = (cx: number) => {
         isDragging.current = true;
-        startX.current = clientX;
-        startTranslate.current = currentTranslate.current;
+        startX.current = cx;
+        startT.current = currentT.current;
         if (trackRef.current) trackRef.current.style.cursor = "grabbing";
     };
-
-    const handleDragMove = (clientX: number) => {
+    const dragMove = (cx: number) => {
         if (!isDragging.current) return;
-        const dx = clientX - startX.current;
-
-        let newTranslate = startTranslate.current + dx;
-
-        if (singleSetWidth.current > 0) {
-            if (newTranslate <= -singleSetWidth.current) {
-                newTranslate += singleSetWidth.current;
-                startTranslate.current += singleSetWidth.current;
-            } else if (newTranslate >= 0) {
-                newTranslate -= singleSetWidth.current;
-                startTranslate.current -= singleSetWidth.current;
-            }
+        let t = startT.current + (cx - startX.current);
+        if (setWidth.current > 0) {
+            if (t <= -setWidth.current) { t += setWidth.current; startT.current += setWidth.current; }
+            else if (t >= 0) { t -= setWidth.current; startT.current -= setWidth.current; }
         }
-
-        currentTranslate.current = newTranslate;
+        currentT.current = t;
     };
-
-    const handleDragEnd = () => {
+    const dragEnd = () => {
         isDragging.current = false;
         if (trackRef.current) trackRef.current.style.cursor = "grab";
     };
 
     const onMouseDown = (e: React.MouseEvent) => {
         e.preventDefault();
-        handleDragStart(e.clientX);
-
-        const onMouseMove = (ev: MouseEvent) => handleDragMove(ev.clientX);
-        const onMouseUp = () => {
-            handleDragEnd();
-            window.removeEventListener("mousemove", onMouseMove);
-            window.removeEventListener("mouseup", onMouseUp);
-        };
-
-        window.addEventListener("mousemove", onMouseMove);
-        window.addEventListener("mouseup", onMouseUp);
+        dragStart(e.clientX);
+        const mm = (ev: MouseEvent) => dragMove(ev.clientX);
+        const mu = () => { dragEnd(); window.removeEventListener("mousemove", mm); window.removeEventListener("mouseup", mu); };
+        window.addEventListener("mousemove", mm);
+        window.addEventListener("mouseup", mu);
     };
-
     const onTouchStart = (e: React.TouchEvent) => {
-        handleDragStart(e.touches[0].clientX);
-
-        const onTouchMove = (ev: TouchEvent) => handleDragMove(ev.touches[0].clientX);
-        const onTouchEnd = () => {
-            handleDragEnd();
-            window.removeEventListener("touchmove", onTouchMove);
-            window.removeEventListener("touchend", onTouchEnd);
-        };
-
-        window.addEventListener("touchmove", onTouchMove);
-        window.addEventListener("touchend", onTouchEnd);
+        dragStart(e.touches[0].clientX);
+        const tm = (ev: TouchEvent) => dragMove(ev.touches[0].clientX);
+        const te = () => { dragEnd(); window.removeEventListener("touchmove", tm); window.removeEventListener("touchend", te); };
+        window.addEventListener("touchmove", tm);
+        window.addEventListener("touchend", te);
     };
 
     return (
-        // ✅ FIX: clip-path instead of overflow:hidden
-        // inset(top right bottom left) — negative = allow overflow, 0 = clip at edge
-        // -60px top = cards can extend 60px above
-        // -30px bottom = cards can extend 30px below
-        // 0 left/right = horizontal content is clipped (marquee hidden)
-        <div style={{
-            clipPath: "inset(-60px 0 -30px 0)",
-            WebkitClipPath: "inset(-60px 0 -30px 0)",
-            position: "relative",
-        }}>
+        <div style={{ clipPath: "inset(-70px 0 -40px 0)", WebkitClipPath: "inset(-70px 0 -40px 0)", position: "relative" }}>
             <div
                 ref={trackRef}
-                style={{
-                    display: "flex",
-                    width: "max-content",
-                    cursor: "grab",
-                    touchAction: "pan-y",
-                }}
+                style={{ display: "flex", width: "max-content", cursor: "grab", touchAction: "pan-y" }}
                 onMouseDown={onMouseDown}
                 onTouchStart={onTouchStart}
             >
-                {children}
-                {children}
+                {items.map((item, i) => <BookCard key={i} item={item} />)}
+                {items.map((item, i) => <BookCard key={`d${i}`} item={item} />)}
             </div>
         </div>
     );
 };
-
 
 const Portfolio: React.FC = () => {
     const { ref, visible } = useInView(0.08);
@@ -342,146 +534,82 @@ const Portfolio: React.FC = () => {
         <>
             <style>{portfolioStyles}</style>
 
-            <section
-                ref={ref}
-                style={{
-                    background: "linear-gradient(180deg, #FFFFFF 0%, #FFF9F9 25%, #FFE8E8 55%, #FFD6D6 80%, #FFFFFF 100%)",
-                    width: "100%",
-                    overflow: "hidden",
-                    padding: "100px 0 110px",
-                    position: "relative",
-                }}
-            >
-                <div style={{
-                    position: "absolute", top: "20%", left: "-6%",
-                    width: "450px", height: "450px", borderRadius: "50%",
-                    background: "radial-gradient(circle, rgba(255,69,69,0.7) 0%, transparent 65%)",
-                    animation: "orbPulse 7s ease-in-out infinite",
-                    pointerEvents: "none",
-                }} />
-                <div style={{
-                    position: "absolute", bottom: "15%", right: "-5%",
-                    width: "380px", height: "380px", borderRadius: "50%",
-                    background: "radial-gradient(circle, rgba(255,69,69,0.7) 0%, transparent 70%)",
-                    pointerEvents: "none",
-                }} />
-                <div style={{
-                    position: "absolute", inset: 0,
-                    backgroundImage: `
-                        linear-gradient(rgba(255,255,255,0.012) 1px, transparent 1px),
-                        linear-gradient(90deg, rgba(255,255,255,0.012) 1px, transparent 1px)
-                    `,
-                    backgroundSize: "60px 60px",
-                    pointerEvents: "none",
-                }} />
-                <div style={{
-                    position: "absolute", top: "6%", right: "5%",
-                    width: "170px", height: "170px",
-                    border: "1px dashed rgba(255,69,69,0.12)",
-                    borderRadius: "50%",
-                    animation: "rotateSlow 22s linear infinite",
-                    pointerEvents: "none",
-                }} />
+            <section ref={ref} className="pf-section">
 
-                <div style={{ maxWidth: "1200px", margin: "0 auto 60px", padding: "0 40px" }}>
+                {/* Decorative BG */}
+                <div className="pf-orb-tl" />
+                <div className="pf-orb-br" />
+                <div className="pf-grid-bg" />
+                <div className="pf-ring" />
 
-                    <div style={{
-                        display: "flex", alignItems: "center", gap: "12px",
-                        marginBottom: "22px",
-                        opacity: visible ? 1 : 0,
-                        animation: visible ? "fadeUp 0.6s ease forwards" : "none",
-                    }}>
-                        <div style={{
-                            height: "2px", background: "#FF4545",
-                            width: visible ? "48px" : "0",
-                            transition: "width 0.8s ease 0.2s",
-                        }} />
-                        <span style={{
-                            fontFamily: "'Montserrat', sans-serif",
-                            fontSize: "0.85rem",
-                            letterSpacing: "0.25em",
-                            color: "#FF4545",
-                        }}>OUR WORK</span>
+                {/* ── HEADER ── */}
+                <div className="pf-container">
+                    <div
+                        className="pf-eyebrow"
+                        style={{ opacity: visible ? 1 : 0, animation: visible ? "fadeUp 0.6s ease forwards" : "none" }}
+                    >
+                        <div className="pf-eyebrow-line" style={{ width: visible ? "48px" : "0" }} />
+                        <span className="pf-eyebrow-text">OUR WORK</span>
                     </div>
 
-                    <div style={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: "20px" }}>
-                        <h2 style={{
-                            fontFamily: "'Montserrat', sans-serif",
-                            fontWeight: 800,
-                            fontSize: "clamp(2.5rem, 4.5vw, 4.5rem)",
-                            letterSpacing: "-0.02em",
-                            lineHeight: 0.9,
-                            color: "white",
-                            margin: 0,
-                        }}>
+                    <div className="pf-header-inner">
+                        <h2
+                            className="pf-heading"
+                            style={{ opacity: visible ? 1 : 0, animation: visible ? "fadeUp 0.65s ease 0.1s forwards" : "none" }}
+                        >
                             {visible && (
                                 <>
                                     <SplitText
                                         text="Our Work"
                                         className="text-[#0A0A0A]"
-                                        delay={35}
-                                        duration={1.1}
-                                        ease="power3.out"
+                                        delay={35} duration={1.1} ease="power3.out"
                                         splitType="chars"
-                                        from={{ opacity: 0, y: 45 }}
-                                        to={{ opacity: 1, y: 0 }}
-                                        threshold={0.1}
-                                        rootMargin="-50px"
-                                        textAlign="left"
+                                        from={{ opacity: 0, y: 45 }} to={{ opacity: 1, y: 0 }}
+                                        threshold={0.1} rootMargin="-50px" textAlign="left"
                                     />
                                     {" "}
                                     <SplitText
                                         text="Speaks"
                                         className="text-[#FF4545]"
-                                        delay={42}
-                                        duration={1.2}
-                                        ease="power3.out"
+                                        delay={42} duration={1.2} ease="power3.out"
                                         splitType="chars"
-                                        from={{ opacity: 0, y: 45 }}
-                                        to={{ opacity: 1, y: 0 }}
-                                        threshold={0.1}
-                                        rootMargin="-50px"
-                                        textAlign="left"
+                                        from={{ opacity: 0, y: 45 }} to={{ opacity: 1, y: 0 }}
+                                        threshold={0.1} rootMargin="-50px" textAlign="left"
                                     />
                                 </>
                             )}
                         </h2>
 
-                        <p style={{
-                            fontFamily: "'DM Sans', sans-serif",
-                            fontSize: "1.1rem",
-                            lineHeight: 1.5,
-                            color: "#0A0A0A",
-                            maxWidth: "340px",
-                            margin: 0,
-                            fontWeight: 300,
-                            opacity: visible ? 1 : 0,
-                            animation: visible ? "fadeUp 0.7s ease 0.3s forwards" : "none",
-                        }}>
+                        <p
+                            className="pf-subtext"
+                            style={{ opacity: visible ? 1 : 0, animation: visible ? "fadeUp 0.7s ease 0.3s forwards" : "none" }}
+                        >
                             We have worked with authors across different genres, helping them publish and promote their books successfully. Our portfolio reflects a wide range of projects built with care and attention to each author's vision.
                         </p>
                     </div>
                 </div>
 
-                {/* ✅ Bottom row gets higher z-index so its hovered cards appear above top row */}
-                <div style={{ position: "relative", marginBottom: "16px", zIndex: 1 }}>
-                    <div className="edge-fade-left" />
-                    <div className="edge-fade-right" />
-                    <MarqueeRow direction="left" speed={1.2}>
-                        {ROW_TOP.map((item, i) => (
-                            <BookCard key={i} item={item} height={400} width={250} />
-                        ))}
-                    </MarqueeRow>
-                </div>
+                {/* ── MARQUEE ROWS ── */}
+                <div className="pf-rows">
+                    <div className="pf-row-wrap">
+                        <div className="pf-edge-left" style={{
+                            background: "linear-gradient(to right, #FFF9F9, transparent)",
+                        }} />
+                        <div className="pf-edge-right" style={{
+                            background: "linear-gradient(to left, #FFF9F9, transparent)",
+                        }} />
+                        <MarqueeRow items={ROW_TOP} direction="left" speed={1.2} />
+                    </div>
 
-                <div style={{ position: "relative", zIndex: 2 }}>
-                    <div className="edge-fade-left" />
-                    <div className="edge-fade-right" />
-                    <MarqueeRow direction="right" speed={1.2}>
-                        {ROW_BOTTOM.map((item, i) => (
-                            <BookCard key={i} item={item} height={400} width={250} />
-                        ))}
-                    </MarqueeRow>
+                    <div className="pf-row-wrap">
+                        <div className="pf-edge-left" style={{
+                            background: "linear-gradient(to right, #FFD6D6, transparent)",
+                        }} />
+                        <div className="pf-edge-right" style={{
+                            background: "linear-gradient(to left, #FFD6D6, transparent)",
+                        }} />
+                        <MarqueeRow items={ROW_BOTTOM} direction="right" speed={1.2} />
+                    </div>
                 </div>
 
             </section>
