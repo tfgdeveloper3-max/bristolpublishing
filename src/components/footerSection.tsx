@@ -490,107 +490,107 @@ const footerStyles = `
 `;
 
 const NAV_COLS = [
-    { title: "Quick Nav", links: ["Home", "About Us", "Services", "Portfolio", "Contact"] },
-    { title: "Services", links: ["Publishing", "Ghostwriting", "Cover Design", "Book Marketing", "Audio Book"] },
-    { title: "Support", links: ["Contact Us", "FAQ", "Privacy Policy", "Terms of Service"] },
+  { title: "Quick Nav", links: ["Home", "About Us", "Services", "Portfolio", "Contact"] },
+  { title: "Services", links: ["Publishing", "Ghostwriting", "Cover Design", "Book Marketing", "Audio Book"] },
+  { title: "Support", links: ["Contact Us", "FAQ", "Privacy Policy", "Terms of Service"] },
 ];
 
 const SOCIAL_ICONS = [
-    { label: "Instagram", icon: <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#FF4545" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" /><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" /><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" /></svg> },
-    { label: "Twitter", icon: <svg width="15" height="15" viewBox="0 0 24 24" stroke="#FF4545" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" /></svg> },
-    { label: "Facebook", icon: <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#FF4545" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" /></svg> },
-    { label: "LinkedIn", icon: <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#FF4545" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z" /><circle cx="4" cy="4" r="2" /></svg> },
+  { label: "Instagram", icon: <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#FF4545" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" /><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" /><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" /></svg> },
+  { label: "Twitter", icon: <svg width="15" height="15" viewBox="0 0 24 24" stroke="#FF4545" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" /></svg> },
+  { label: "Facebook", icon: <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#FF4545" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" /></svg> },
+  { label: "LinkedIn", icon: <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#FF4545" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z" /><circle cx="4" cy="4" r="2" /></svg> },
 ];
 
 const FooterSection: React.FC = () => {
-    return (
-        <>
-            <style>{footerStyles}</style>
+  return (
+    <>
+      <style>{footerStyles}</style>
 
-            <footer className="ft-footer">
+      <footer className="ft-footer">
 
-                {/* Decorative BG */}
-                <div className="ft-orb-tl" />
-                <div className="ft-orb-br" />
-                <div className="ft-grid-bg" />
-                <div className="ft-ring" />
+        {/* Decorative BG */}
+        <div className="ft-orb-tl" />
+        <div className="ft-orb-br" />
+        <div className="ft-grid-bg" />
+        <div className="ft-ring" />
 
-                <div className="ft-container">
+        <div className="ft-container">
 
-                    {/* ── TOP GRID ── */}
-                    <div className="ft-top-grid">
+          {/* ── TOP GRID ── */}
+          <div className="ft-top-grid">
 
-                        {/* Logo column */}
-                        <div className="ft-logo-col">
-                            <div className="ft-logo-wrap">
-                                <img src="/images/footerlogo.png" alt="Bristol Publishers" />
-                            </div>
-                            <p className="ft-tagline">
-                                Bristol Publishers supports authors who want to move from a finished draft to a published book without confusion. We handle editing, design, publishing, and marketing so your work reaches readers clearly and professionally.
-                            </p>
-                            <div className="ft-socials">
-                                {SOCIAL_ICONS.map(s => (
-                                    <a key={s.label} href="#" className="ft-social-link" aria-label={s.label}>
-                                        {s.icon}
-                                    </a>
-                                ))}
-                            </div>
-                        </div>
+            {/* Logo column */}
+            <div className="ft-logo-col">
+              <div className="ft-logo-wrap">
+                <img src="/images/footerlogo.png" alt="Bristol Publishers" />
+              </div>
+              <p className="ft-tagline">
+                Bristol Publishers handle the complexity of publishing so your focus remains on creativity while we manage execution. Because finishing a book is not the end, it’s the transition from creation to recognition.
+              </p>
+              <div className="ft-socials">
+                {SOCIAL_ICONS.map(s => (
+                  <a key={s.label} href="#" className="ft-social-link" aria-label={s.label}>
+                    {s.icon}
+                  </a>
+                ))}
+              </div>
+            </div>
 
-                        {/* Nav columns — on laptop+ display:contents puts these directly in the 4-col grid */}
-                        <div className="ft-nav-cols">
-                            {NAV_COLS.map(col => (
-                                <div key={col.title}>
-                                    <p className="ft-nav-title">{col.title}</p>
-                                    <ul className="ft-nav-list">
-                                        {col.links.map(link => (
-                                            <li key={link}>
-                                                <a href="#" className="footer-link">{link}</a>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
-                            ))}
-                        </div>
-
-                    </div>
-
-                    {/* ── NEWSLETTER STRIP ── */}
-                    <div className="ft-newsletter">
-                        <div>
-                            <p className="ft-newsletter-title">Stay in the loop</p>
-                            <p className="ft-newsletter-sub">Get publishing tips, author stories & exclusive offers.</p>
-                        </div>
-                        <div className="ft-email-form">
-                            <input
-                                type="email"
-                                placeholder="Your email address"
-                                className="ft-email-input"
-                            />
-                            <button
-                                className="ft-subscribe-btn"
-                                onMouseEnter={e => (e.currentTarget as HTMLButtonElement).style.opacity = "0.85"}
-                                onMouseLeave={e => (e.currentTarget as HTMLButtonElement).style.opacity = "1"}
-                            >
-                                SUBSCRIBE
-                            </button>
-                        </div>
-                    </div>
-
-                    {/* ── BOTTOM BAR ── */}
-                    <div className="ft-bottom">
-                        <p className="ft-copyright">©2026 Bristol Publishers. All Rights Reserved.</p>
-                        <div className="ft-legal-links">
-                            {["Privacy Policy", "Terms of Service", "Cookie Policy"].map(l => (
-                                <a key={l} href="#" className="footer-link" style={{ }}>{l}</a>
-                            ))}
-                        </div>
-                    </div>
-
+            {/* Nav columns — on laptop+ display:contents puts these directly in the 4-col grid */}
+            <div className="ft-nav-cols">
+              {NAV_COLS.map(col => (
+                <div key={col.title}>
+                  <p className="ft-nav-title">{col.title}</p>
+                  <ul className="ft-nav-list">
+                    {col.links.map(link => (
+                      <li key={link}>
+                        <a href="#" className="footer-link">{link}</a>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-            </footer>
-        </>
-    );
+              ))}
+            </div>
+
+          </div>
+
+          {/* ── NEWSLETTER STRIP ── */}
+          <div className="ft-newsletter">
+            <div>
+              <p className="ft-newsletter-title">Stay in the loop</p>
+              <p className="ft-newsletter-sub">Get publishing tips, author stories & exclusive offers.</p>
+            </div>
+            <div className="ft-email-form">
+              <input
+                type="email"
+                placeholder="Your email address"
+                className="ft-email-input"
+              />
+              <button
+                className="ft-subscribe-btn"
+                onMouseEnter={e => (e.currentTarget as HTMLButtonElement).style.opacity = "0.85"}
+                onMouseLeave={e => (e.currentTarget as HTMLButtonElement).style.opacity = "1"}
+              >
+                SUBSCRIBE
+              </button>
+            </div>
+          </div>
+
+          {/* ── BOTTOM BAR ── */}
+          <div className="ft-bottom">
+            <p className="ft-copyright">©2026 Bristol Publishers. All Rights Reserved.</p>
+            <div className="ft-legal-links">
+              {["Privacy Policy", "Terms of Service", "Cookie Policy"].map(l => (
+                <a key={l} href="#" className="footer-link" style={{}}>{l}</a>
+              ))}
+            </div>
+          </div>
+
+        </div>
+      </footer>
+    </>
+  );
 };
 
 export default FooterSection;

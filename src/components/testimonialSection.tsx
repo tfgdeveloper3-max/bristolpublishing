@@ -614,7 +614,7 @@ const Testimonials: React.FC = () => {
                             {visible && (
                                 <>
                                     <SplitText
-                                        text="What Authors"
+                                        text="That Speak for"
                                         className="text-[#0A0A0A]"
                                         delay={35} duration={1.1} ease="power3.out"
                                         splitType="chars"
@@ -623,7 +623,7 @@ const Testimonials: React.FC = () => {
                                     />
                                     <br />
                                     <SplitText
-                                        text="Experienced"
+                                        text="Themselves"
                                         className="text-[#FF4545]"
                                         delay={42} duration={1.2} ease="power3.out"
                                         splitType="chars"

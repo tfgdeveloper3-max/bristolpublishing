@@ -581,16 +581,16 @@ function useAboutInView(threshold = 0.12) {
 }
 
 const CHECKS = [
-  "Unfinished manuscript",
-  "No professional to review your work",
-  "Mentally stressed about publishing",
-  "Tough to focus on writing",
-  "Being too much of a perfectionist",
-  "Stressful deadlines & schedules",
-  "Not getting questions answered",
-  "No creative direction or vision",
-  "Low motivation to continue",
-  "Not happy with your progress",
+  "Unfinished manuscripts that lose direction during development",
+  "Lack of professional editing and publishing guidance",
+  "Creative burnout and inconsistent writing progress",
+  "Uncertainty about formatting and publishing standards",
+  "No clear roadmap from manuscript to publication",
+  "Difficulty transitioning from writing to publishing",
+  "Limited feedback and industry insight",
+  "Overthinking, perfectionism, and delayed completion",
+  "Confusion in preparing books for global publishing platforms",
+  "Struggling to turn drafts into market-ready published books",
 ];
 
 const AboutSection: React.FC = () => {
@@ -629,7 +629,7 @@ const AboutSection: React.FC = () => {
           <div className="about-grid">
 
             {/* ── LEFT COL ── */}
-            <div
+            <div 
               className="about-left"
               style={{
                 opacity: visible ? 1 : 0,
@@ -640,7 +640,7 @@ const AboutSection: React.FC = () => {
                 {visible && (
                   <>
                     <SplitText
-                      text="Not Able To Make"
+                      text="A Complete"
                       className="text-[#0A0A0A]"
                       delay={30} duration={1.0} ease="power3.out"
                       splitType="chars"
@@ -649,7 +649,7 @@ const AboutSection: React.FC = () => {
                     />
                     <br />
                     <SplitText
-                      text="Ideas Into Words?"
+                      text="Publishing Partner"
                       className="text-[#FF4545]"
                       delay={38} duration={1.1} ease="power3.out"
                       splitType="chars"
@@ -658,7 +658,7 @@ const AboutSection: React.FC = () => {
                     />
                     <br />
                     <SplitText
-                      text="We Get It Done."
+                      text="for Modern Authors."
                       className="text-[#0A0A0A]"
                       delay={46} duration={1.1} ease="power3.out"
                       splitType="chars"
@@ -670,8 +670,7 @@ const AboutSection: React.FC = () => {
               </h2>
 
               <p className="about-para">
-                Many writers face burnout at some point — stressed about transforming ideas into words.
-                There are many reasons why this happens. Bristol Publishers is here to solve every one of them.
+                Bristol Publishers is a complete publishing partner dedicated to shaping manuscripts into market-ready books. From development to distribution, we provide structured support at every stage of the publishing journey. We focus on quality, clarity, and author success. Whether you're facing these challenges, we're here to support you. 
               </p>
 
               {/* Checklist */}

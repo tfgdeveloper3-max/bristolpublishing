@@ -154,7 +154,7 @@ const servicesStyles = `
     font-size: clamp(0.85rem, 2.5vw, 1.1rem);
     line-height: 1.75;
     color: rgba(255,255,255,0.45);
-    max-width: 360px;
+    max-width: 460px;
     margin: 0;
     font-weight: 300;
   }
@@ -611,38 +611,38 @@ function useInView(threshold = 0.12) {
 
 const SERVICES = [
     {
-        num: "01", title: "Book Publishing",
-        desc: "We handle the full publishing process, helping you release your book in digital and print formats. If your goal is to publish your book without confusion or delays, our team ensures your work is properly listed, accessible, and ready for readers worldwide.",
+        num: "01", title: "Ghostwriting & Writing Support",
+        desc: "If you have an idea but need help turning it into a complete manuscript, our ghostwriting team is here to assist. We collaborate with you to develop your concept into a structured, publish-ready book while preserving your voice and vision.",
         icon: (<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" /><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" /></svg>),
         featured: false,
     },
     {
-        num: "02", title: "Book Cover Design",
-        desc: "A strong cover helps your book stand out. We create designs that match your genre, connect with readers, and give your book a professional and appealing first impression.",
+        num: "02", title: "Editing & Proofreading",
+        desc: "We refine your manuscript for clarity, flow, grammar, and structure while maintaining your original tone. Our editorial process ensures your book is polished, consistent, and ready for professional publishing standards.",
         icon: (<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20h9" /><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" /></svg>),
         featured: false,
     },
     {
-        num: "03", title: "Writing",
-        desc: `If you have an idea but need help writing it, our ghostwriters can assist. We work closely with you to shape your story, message, or concept into a complete manuscript so you can confidently say, "I'm ready to publish my book."`,
+        num: "03", title: "Book Cover Design",
+        desc: `A powerful cover creates the first impression of your book. We design visually compelling, genre-specific covers that attract readers, communicate your story, and position your book as a professional publication in competitive markets."`,
         icon: (<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><path d="M8 12l2 2 4-4" /></svg>),
         featured: false,
     },
     {
-        num: "04", title: "Editing and Proofreading",
-        desc: "We review your manuscript for clarity, structure, and grammar. Our editing services improve readability while keeping your voice consistent throughout the book.",
+        num: "04", title: "Book Publishing",
+        desc: "We manage the complete publishing process from start to finish, ensuring your book is professionally released in both digital and print formats. Our team takes care of listing, formatting, and distribution so your book is accessible to readers worldwide without confusion or delays",
         icon: (<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 11 12 14 22 4" /><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" /></svg>),
         featured: false,
     },
     {
-        num: "05", title: "Book Marketing",
-        desc: "We offer strategic book promotion services, including PR writing, articles, and social media content. Our goal is to increase visibility and connect your book with the right audience.",
+        num: "05", title: "Book Marketing & Promotion",
+        desc: "We create strategic marketing campaigns to increase your book’s visibility and reach the right audience. From PR content and articles to social media promotion, we help position your book for stronger engagement and discoverability.",
         icon: (<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2" /></svg>),
         featured: false,
     },
     {
-        num: "06", title: "Audiobook Services",
-        desc: "We convert your book into an audiobook and create trailers to support promotion. This helps you reach listeners who prefer audio content.",
+        num: "06", title: "Audiobook Production",
+        desc: "We transform your book into a professionally produced audiobook and create promotional trailers to enhance visibility. This allows you to reach a wider audience, including readers who prefer audio formats.",
         icon: (<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6" /><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z" /></svg>),
         featured: false,
     },
@@ -678,7 +678,7 @@ const Services: React.FC = () => {
                                 className="srv-eyebrow-line"
                                 style={{ width: visible ? "48px" : "0" }}
                             />
-                            <span className="srv-eyebrow-text">WHAT WE OFFER</span>
+                            <span className="srv-eyebrow-text">OUR OFFERINGS</span>
                         </div>
 
                         <div className="srv-header-inner">
@@ -692,7 +692,7 @@ const Services: React.FC = () => {
                                 {visible && (
                                     <>
                                         <SplitText
-                                            text="All-in-One Publishing"
+                                            text="Complete"
                                             delay={35} duration={1.1} ease="power3.out"
                                             splitType="chars"
                                             from={{ opacity: 0, y: 45 }} to={{ opacity: 1, y: 0 }}
@@ -700,7 +700,7 @@ const Services: React.FC = () => {
                                         />
                                         <br />
                                         <SplitText
-                                            text="Services"
+                                            text="Publishing Roadmap"
                                             className="text-[#FF4545]"
                                             delay={40} duration={1.2} ease="power3.out"
                                             splitType="chars"
@@ -709,7 +709,7 @@ const Services: React.FC = () => {
                                         />
                                         {" "}
                                         <SplitText
-                                            text="You Can Rely On"
+                                            text="Under One Roof"
                                             delay={40} duration={1.2} ease="power3.out"
                                             splitType="chars"
                                             from={{ opacity: 0, y: 45 }} to={{ opacity: 1, y: 0 }}
@@ -726,7 +726,7 @@ const Services: React.FC = () => {
                                     animation: visible ? "fadeUp 0.7s ease 0.3s forwards" : "none",
                                 }}
                             >
-                                We support authors at every stage of the publishing journey. Our publishing services are designed to help you complete your book, present it professionally, and reach readers across the USA and global markets.
+                               Books become successful when they are shaped, refined, and positioned correctly. Bristol helps authors move beyond the writing stage with structured publishing solutions designed to refine, design, and distribute books globally. Your manuscript is prepared with us to meet professional standards and reach readers without limitations.
                             </p>
                         </div>
                     </div>
@@ -797,8 +797,8 @@ const Services: React.FC = () => {
                             animation: visible ? "fadeUp 0.7s ease 0.75s forwards" : "none",
                         }}
                     >
-                        <p className="srv-cta-heading">Not sure which service fits your needs?</p>
-                        <button className="srv-cta-btn">GET FREE CONSULTATION</button>
+                        <p className="srv-cta-heading">Not sure where to begin? Let’s guide your next step.</p>
+                        <button className="srv-cta-btn">BEGIN YOUR FREE CONSULTATION</button>
                     </div>
 
                 </div>

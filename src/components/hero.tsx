@@ -964,7 +964,7 @@ const Hero: React.FC = () => {
 
                         <div className="hero-bottom-card-text-wrap">
                             <p className="hero-bottom-card-text">
-                                Writing a book is only one part of the journey. Many authors struggle with editing, design, and getting their work noticed. Bristol Publishers helps you move forward with clear steps, reliable support, and complete book publishing services designed to take your manuscript to market.
+                                Completing your manuscript is only the creative phase of your journey. The real transformation happens next, where Bristol Publishers steps in to shape your work into a polished, globally accessible publication.
                             </p>
                         </div>
 

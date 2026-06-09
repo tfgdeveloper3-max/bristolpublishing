@@ -602,7 +602,7 @@ const Portfolio: React.FC = () => {
                         style={{ opacity: visible ? 1 : 0, animation: visible ? "fadeUp 0.6s ease forwards" : "none" }}
                     >
                         <div className="pf-eyebrow-line" style={{ width: visible ? "48px" : "0" }} />
-                        <span className="pf-eyebrow-text">OUR WORK</span>
+                        <span className="pf-eyebrow-text">Our Portfolio</span>
                     </div>
 
                     <div className="pf-header-inner">
@@ -613,7 +613,7 @@ const Portfolio: React.FC = () => {
                             {visible && (
                                 <>
                                     <SplitText
-                                        text="Our Work"
+                                        text="A Curated Selection of"
                                         className="text-[#0A0A0A]"
                                         delay={35} duration={1.1} ease="power3.out"
                                         splitType="chars"
@@ -622,7 +622,7 @@ const Portfolio: React.FC = () => {
                                     />
                                     {" "}
                                     <SplitText
-                                        text="Speaks"
+                                        text="Our Published Titles"
                                         className="text-[#FF4545]"
                                         delay={42} duration={1.2} ease="power3.out"
                                         splitType="chars"
@@ -637,7 +637,7 @@ const Portfolio: React.FC = () => {
                             className="pf-subtext"
                             style={{ opacity: visible ? 1 : 0, animation: visible ? "fadeUp 0.7s ease 0.3s forwards" : "none" }}
                         >
-                            We have worked with authors across different genres, helping them publish and promote their books successfully. Our portfolio reflects a wide range of projects built with care and attention to each author's vision.
+                            Our work spans diverse genres, where we support authors in transforming manuscripts into professionally published books. Every title in our portfolio is crafted with precision, care, and respect for the author’s original voice.
                         </p>
                     </div>
                 </div>

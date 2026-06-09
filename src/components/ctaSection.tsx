@@ -427,7 +427,7 @@ const CTABanner: React.FC = () => {
                                 style={{ opacity: visible ? 1 : 0, animation: visible ? "fadeUp 0.5s ease forwards" : "none" }}
                             >
                                 <span className="cta-badge-dot" />
-                                <span className="cta-badge-text">NOW ACCEPTING MANUSCRIPTS</span>
+                                <span className="cta-badge-text">JOIN OUR LIST OF PUBLISHED AUTHORS</span>
                             </div>
 
                             <h2
@@ -437,7 +437,7 @@ const CTABanner: React.FC = () => {
                                 {visible && (
                                     <>
                                         <SplitText
-                                            text="Your Book Is Not Meant"
+                                            text="The Invisible Process"
                                             delay={30} duration={1.0} ease="power3.out"
                                             splitType="chars"
                                             from={{ opacity: 0, y: 35 }} to={{ opacity: 1, y: 0 }}
@@ -445,7 +445,7 @@ const CTABanner: React.FC = () => {
                                         />
                                         <br />
                                         <SplitText
-                                            text="To Stay"
+                                            text="Behind"
                                             delay={35} duration={1.05} ease="power3.out"
                                             splitType="chars"
                                             from={{ opacity: 0, y: 35 }} to={{ opacity: 1, y: 0 }}
@@ -453,7 +453,7 @@ const CTABanner: React.FC = () => {
                                         />
                                         {" "}
                                         <SplitText
-                                            text="Unpublished"
+                                            text="Every Published Story"
                                             className="text-[#FF4545]"
                                             delay={40} duration={1.1} ease="power3.out"
                                             splitType="chars"
@@ -468,16 +468,15 @@ const CTABanner: React.FC = () => {
                                 className="cta-para"
                                 style={{ opacity: visible ? 1 : 0, animation: visible ? "fadeUp 0.7s ease 0.35s forwards" : "none" }}
                             >
-                                Take the next step with confidence. Let us help you complete your book,
-                                publish it, and reach the readers who are waiting for your story.
+                                A strong book is never accidental, it is built through layers of editing, design, and strategic publishing decisions. Our role is to manage that unseen process so your work reaches the world in its strongest form.
                             </p>
 
                             <div
                                 className="cta-btns"
                                 style={{ opacity: visible ? 1 : 0, animation: visible ? "fadeUp 0.7s ease 0.45s forwards" : "none" }}
                             >
-                                <button className="cta-btn-primary">GET STARTED</button>
-                                <button className="cta-btn-secondary">LEARN MORE</button>
+                                <button className="cta-btn-primary">SUBMIT MANUSCRIPT</button>
+                                <button className="cta-btn-secondary">REQUEST CONSULTATION</button>
                             </div>
                         </div>
 

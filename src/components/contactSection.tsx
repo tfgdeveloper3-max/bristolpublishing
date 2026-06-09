@@ -411,7 +411,7 @@ const contactStyles = `
 
 
   /* ════════════════════════════════════
-     MONITOR  1440px – 1919px
+     MONITOR  1440px - 1919px
      ════════════════════════════════════ */
   @media (min-width: 1440px) {
     .ct-section    { padding: 110px 0 120px; }
@@ -659,20 +659,21 @@ const ContactForm: React.FC = () => {
                             {visible && (
                                 <>
                                     <SplitText
-                                        text="Get In" delay={35} duration={1.1} ease="power3.out"
+                                        text="Let’s prepare your" delay={35} duration={1.1} ease="power3.out"
                                         splitType="chars" from={{ opacity: 0, y: 45 }} to={{ opacity: 1, y: 0 }}
                                         threshold={0.1} rootMargin="-50px" textAlign="left"
                                     />
                                     {" "}
+                                    <br />
                                     <SplitText
-                                        text="Touch" className="text-[#FF4545]"
+                                        text="book" className="text-[#FF4545]"
                                         delay={42} duration={1.2} ease="power3.out"
                                         splitType="chars" from={{ opacity: 0, y: 45 }} to={{ opacity: 1, y: 0 }}
                                         threshold={0.1} rootMargin="-50px" textAlign="left"
                                     />
                                     <br />
                                     <SplitText
-                                        text="And Take the Next Step"
+                                        text="for readers beyond the draft stage"
                                         delay={42} duration={1.2} ease="power3.out"
                                         splitType="chars" from={{ opacity: 0, y: 45 }} to={{ opacity: 1, y: 0 }}
                                         threshold={0.1} rootMargin="-50px" textAlign="left"
