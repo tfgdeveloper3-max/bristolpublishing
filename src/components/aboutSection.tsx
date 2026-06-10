@@ -731,7 +731,7 @@ const AboutSection: React.FC = () => {
               {/* Book image */}
               <div className="about-book-float about-img-wrap">
                 <img
-                  src="/images/About1.png"
+                  src="/images/About1.webp"
                   alt="Bristol Publishers — Author Book"
                   className="about-img"
                 />

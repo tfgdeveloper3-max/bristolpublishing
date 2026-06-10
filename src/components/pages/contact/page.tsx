@@ -170,12 +170,12 @@ const INFO_ITEMS = [
 ];
 
 const FAQS = [
-    { q: "How quickly will you respond?", a: "We respond to all inquiries within 24 business hours. For urgent matters, calling us directly is the fastest way to reach our team." },
-    { q: "Is the first consultation free?", a: "Yes, completely. Our initial consultation is always free with no obligation. We discuss your project, answer your questions, and recommend the right services for your goals." },
-    { q: "Can I get a quote before committing?", a: "Absolutely. After your consultation, we provide a detailed quote outlining exactly what's included, the timeline, and the investment required — no hidden fees." },
-    { q: "Do you work with first-time authors?", a: "Yes, and we love working with first-time authors. We guide you through every step clearly, explaining each stage so you always know what's happening with your book." },
-    { q: "What genres and formats do you support?", a: "We support virtually every genre — fiction, non-fiction, memoir, self-help, children's books, business, and more — in print, eBook, and audiobook formats." },
-    { q: "Can I contact you if I'm mid-project?", a: "Of course. Whether you're just starting or already mid-way through another publisher's process, we're happy to discuss where you are and how we can help move things forward." },
+    { q: "How quickly will you respond?", a: "We typically respond within 24 hours. Our team ensures every inquiry is reviewed carefully so you receive accurate and helpful guidance without delay." },
+    { q: "Is the initial consultation completely free?", a: "Yes, your first consultation is free. It’s designed to help us understand your goals and recommend the best publishing path for your book." },
+    { q: "Can I receive a customized quote before making a decision?", a: "Absolutely. After reviewing your manuscript or idea, we provide a tailored quote based on the services you actually need—no hidden costs." },
+    { q: "Do you work with first-time authors?", a: "Yes. Many of our clients are first-time authors. We guide you through every step, from concept development to final publication." },
+    { q: "How long does the publishing process take?", a: "Timelines vary depending on the project, but most books are completed within a few weeks to a few months depending on scope and revisions." },
+    { q: "Will I retain the rights to my book?", a: "Yes. You retain full rights and ownership of your book throughout and after the publishing process." },
 ];
 
 // ── HELPERS ───────────────────────────────────────────────────────────────────
@@ -229,13 +229,13 @@ const CpHero: React.FC = () => {
                         <div style={{ width: visible ? "32px" : "0", height: "2px", background: "#FF4545", transition: "width .8s ease .3s" }} />
                     </div>
                     <h1 style={{ fontFamily: "'Montserrat',sans-serif", fontWeight: 800, fontSize: "clamp(2rem,3.8vw,3.4rem)", letterSpacing: "-.025em", lineHeight: 1.1, color: "white", margin: "0 0 24px", opacity: visible ? 1 : 0, animation: visible ? "cp-fadeUp .7s ease .2s forwards" : "none" }}>
-                        Let's Talk About<br /><span style={{ color: "#FF4545" }}>Your Book.</span>
+                        Let's Explore What's Possible for <br /><span style={{ color: "#FF4545" }}>Your Book.</span>
                     </h1>
                     <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: "1.05rem", lineHeight: 1.85, color: "rgba(255,255,255,.52)", fontWeight: 300, margin: "0 auto 38px", maxWidth: "540px", opacity: visible ? 1 : 0, animation: visible ? "cp-fadeUp .7s ease .35s forwards" : "none" }}>
-                        Whether you have a finished manuscript or just an idea, we want to hear from you. Reach out and let's figure out the best path to publication together — no obligation, no pressure.
+                        Book a complimentary consultation and gain valuable insights into your publishing opportunities and discover what’s waiting for your manuscript.
                     </p>
                     <div style={{ display: "flex", justifyContent: "center", gap: "24px", flexWrap: "wrap", opacity: visible ? 1 : 0, animation: visible ? "cp-fadeUp .7s ease .5s forwards" : "none" }}>
-                        {[{ icon: <Phone size={15} />, label: "Free Consultation" }, { icon: <Clock size={15} />, label: "24h Response" }, { icon: <CheckCircle size={15} />, label: "No Obligation" }].map((b, i) => (
+                        {[{ icon: <Phone size={15} />, label: "Free Consultation" }, { icon: <Clock size={15} />, label: "Fast Response Time" }, { icon: <CheckCircle size={15} />, label: "Expert Publishing Guidance" }].map((b, i) => (
                             <div key={i} style={{ display: "flex", alignItems: "center", gap: "7px", color: "rgba(255,255,255,.4)" }}>
                                 <span style={{ color: "#FF4545" }}>{b.icon}</span>
                                 <span style={{ fontFamily: "'DM Sans',sans-serif", fontSize: ".82rem", fontWeight: 400 }}>{b.label}</span>
@@ -283,10 +283,12 @@ const CpForm: React.FC = () => {
                             <span style={{ fontFamily: "'Montserrat',sans-serif", fontSize: ".78rem", letterSpacing: ".28em", color: "#FF4545", fontWeight: 600 }}>GET IN TOUCH</span>
                         </div>
                         <h2 style={{ fontFamily: "'Montserrat',sans-serif", fontWeight: 800, fontSize: "clamp(2rem,3.5vw,3rem)", letterSpacing: "-.025em", lineHeight: 1.05, color: "white", margin: "0 0 16px" }}>
-                            {visible && (<><SplitText text="We're Ready" delay={30} duration={1.0} ease="power3.out" splitType="chars" from={{ opacity: 0, y: 40 }} to={{ opacity: 1, y: 0 }} threshold={0.1} rootMargin="-40px" textAlign="left" /><br /><SplitText text="When You Are" className="text-[#FF4545]" delay={36} duration={1.1} ease="power3.out" splitType="chars" from={{ opacity: 0, y: 40 }} to={{ opacity: 1, y: 0 }} threshold={0.1} rootMargin="-40px" textAlign="left" /></>)}
+                            {visible && (<><SplitText text="Let's Explore the" delay={30} duration={1.0} ease="power3.out" splitType="chars" from={{ opacity: 0, y: 40 }} to={{ opacity: 1, y: 0 }} threshold={0.1} rootMargin="-40px" textAlign="left" /><br /><SplitText text="Possibilities Ahead" className="text-[#FF4545]" delay={36} duration={1.1} ease="power3.out" splitType="chars" from={{ opacity: 0, y: 40 }} to={{ opacity: 1, y: 0 }} threshold={0.1} rootMargin="-40px" textAlign="left" /></>)}
                         </h2>
                         <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: "1rem", lineHeight: 1.85, color: "rgba(255,255,255,.42)", fontWeight: 300, margin: "0 0 36px" }}>
-                            No matter where you are in the process — idea, draft, or finished manuscript — our team is here to guide you to publication.
+                            Your manuscript represents months, or even years of dedication and creativity.
+                            Let's discuss how to transform that effort into a professionally published book with lasting impact.
+
                         </p>
 
                         <div style={{ display: "flex", flexDirection: "column", gap: "12px", marginBottom: "40px" }}>
@@ -300,17 +302,6 @@ const CpForm: React.FC = () => {
                                     </div>
                                 </div>
                             ))}
-                        </div>
-
-                        <div style={{ borderRadius: "18px", padding: "24px 26px", background: "rgba(255,69,69,.06)", border: "1px solid rgba(255,69,69,.15)" }}>
-                            <p style={{ fontFamily: "'Montserrat',sans-serif", fontWeight: 700, fontSize: ".82rem", letterSpacing: ".1em", color: "rgba(255,255,255,.5)", margin: "0 0 12px" }}>WHAT WE CAN HELP WITH</p>
-                            <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
-                                {SERVICES_LIST.slice(0, -1).map((s, i) => (
-                                    <span key={i} style={{ fontFamily: "'Montserrat',sans-serif", fontWeight: 600, fontSize: ".7rem", letterSpacing: ".05em", padding: "5px 12px", borderRadius: "999px", background: "rgba(255,255,255,.3)", border: "1px solid #1B465F", color: "#0A0A0A", cursor: "default" }}>
-                                        {s}
-                                    </span>
-                                ))}
-                            </div>
                         </div>
                     </div>
 
@@ -425,7 +416,7 @@ const CpFaq: React.FC = () => {
                         <div style={{ height: "2px", background: "#FF4545", width: visible ? "32px" : "0", transition: "width .8s ease .2s" }} />
                     </div>
                     <h2 style={{ fontFamily: "'Montserrat',sans-serif", fontWeight: 800, fontSize: "clamp(2rem,4vw,3rem)", letterSpacing: "-.025em", lineHeight: 1.05, color: "#0A0A0A", margin: 0, opacity: visible ? 1 : 0, animation: visible ? "cp-fadeUp .7s ease .2s forwards" : "none" }}>
-                        Before You Reach Out <span style={{ color: "#FF4545" }}>—</span>
+                        Here Are Answers Every Author Should Know <span style={{ color: "#FF4545" }}>—</span>
                     </h2>
                 </div>
 

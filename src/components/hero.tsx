@@ -19,25 +19,13 @@ const animStyles = `
     100% { transform: translateX(-50%); }
   }
 
-  @keyframes marqueeRight {
-    0%   { transform: translateX(-50%); }
-    100% { transform: translateX(0); }
-  }
-
   .marquee-track-left {
     display: flex;
     width: max-content;
     animation: marqueeLeft 55s linear infinite;
   }
 
-  .marquee-track-right {
-    display: flex;
-    width: max-content;
-    animation: marqueeRight 60s linear infinite;
-  }
-
-  .marquee-track-left:hover,
-  .marquee-track-right:hover {
+  .marquee-track-left:hover {
     animation-play-state: paused;
   }
 
@@ -70,13 +58,15 @@ const animStyles = `
     overflow: hidden;
   }
 
+  /* Single marquee row — positioned just above the heading area */
   .hero-marquee-bg {
     position: absolute;
-    inset: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 190px;   /* sirf ek row ki height */
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 10px;
+    align-items: center;
     overflow: hidden;
     z-index: 0;
     pointer-events: none;
@@ -140,10 +130,11 @@ const animStyles = `
     padding-top: 2rem;
   }
 
+  /* ★ CHOTA: base ~65% of original */
   .hero-book-mockup img {
-    height: 220px;
-    width: 380px;
-    object-fit: cover;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
     object-position: top;
   }
 
@@ -258,6 +249,10 @@ const animStyles = `
       margin-top: 0.6rem;
     }
 
+    .hero-marquee-bg {
+      height: 230px;
+    }
+
     .hero-book-mockup {
       width: 260px;
       top: 3%;
@@ -265,8 +260,8 @@ const animStyles = `
     }
 
     .hero-book-mockup img {
-      height: 280px;
-      width: 480px;
+      width: 100%;
+      height: auto;
     }
 
     .hero-bottom-card {
@@ -309,10 +304,6 @@ const animStyles = `
       height: 210px;
       margin: 0 6px;
     }
-
-    .hero-marquee-bg {
-      gap: 14px;
-    }
   }
 
 
@@ -341,6 +332,10 @@ const animStyles = `
       margin-top: 0.75rem;
     }
 
+    .hero-marquee-bg {
+      height: 280px;
+    }
+
     .hero-book-mockup {
       width: 320px;
       top: 4%;
@@ -348,8 +343,8 @@ const animStyles = `
     }
 
     .hero-book-mockup img {
-      height: 360px;
-      width: 600px;
+      width: 100%;
+      height: auto;
     }
 
     .hero-bottom-card {
@@ -394,16 +389,11 @@ const animStyles = `
       height: 260px;
       margin: 0 8px;
     }
-
-    .hero-marquee-bg {
-      gap: 18px;
-    }
   }
 
 
   /* ════════════════════════════════════
      LAPTOP  1024px – 1439px
-     ★ Heading chota — book original position
      ════════════════════════════════════ */
   @media (min-width: 1024px) {
     .hero-main-content {
@@ -421,22 +411,25 @@ const animStyles = `
       margin-top: 0.75rem;
     }
 
+    .hero-marquee-bg {
+      height: 320px;
+    }
+
     .hero-book-mockup {
-      width: clamp(380px, 16vw, 450px);
-      top: 7%;
+      width: clamp(280px, 22vw, 380px);
+      top: 5%;
       padding-top: 3.5rem;
     }
 
     .hero-book-mockup img {
-      height: 380px;
-      width: 600px;
+      width: 100%;
+      height: auto;
     }
 
     .hero-bottom-card {
       margin: 2.5rem 0.875rem 1.375rem;
       border-radius: 22px;
-      height: 40vh;
-      min-height: 330px;
+      height: auto;
     }
 
     .hero-bottom-card-inner {
@@ -444,9 +437,9 @@ const animStyles = `
       align-items: center;
       justify-content: space-between;
       gap: 0;
-      padding: 0 2rem;
-      position: absolute;
-      inset: 0;
+      padding: 2.25rem 2rem;
+      position: relative;
+      inset: auto;
     }
 
     .hero-bottom-card-text-wrap {
@@ -486,10 +479,6 @@ const animStyles = `
       height: 305px;
       margin: 0 10px;
     }
-
-    .hero-marquee-bg {
-      gap: 24px;
-    }
   }
 
 
@@ -512,25 +501,28 @@ const animStyles = `
       margin-top: 1.2rem;
     }
 
+    .hero-marquee-bg {
+      height: 380px;
+    }
+
     .hero-book-mockup {
-      width: clamp(560px, 26vw, 750px);
-      top: 6%;
+      width: clamp(360px, 26vw, 500px);
+      top: 20%;
       padding-top: 3.875rem;
     }
 
     .hero-book-mockup img {
-      height: 580px;
-      width: 1050px;
+      width: 100%;
+      height: auto;
     }
 
     .hero-bottom-card {
-      height: 38vh;
-      min-height: 370px;
+      height: auto;
       margin: 2.5rem 1.5rem 1.375rem;
     }
 
     .hero-bottom-card-inner {
-      padding: 0 2.5rem;
+      padding: 2.5rem 2.5rem;
     }
 
     .hero-bottom-card-text-wrap {
@@ -568,10 +560,6 @@ const animStyles = `
       height: 360px;
       margin: 0 10px;
     }
-
-    .hero-marquee-bg {
-      gap: 28px;
-    }
   }
 
 
@@ -594,26 +582,29 @@ const animStyles = `
       margin-top: 1.5rem;
     }
 
+    .hero-marquee-bg {
+      height: 420px;
+    }
+
     .hero-book-mockup {
-      width: clamp(600px, 24vw, 800px);
-      top: 10%;
+      width: clamp(400px, 24vw, 560px);
+      top: 25%;
       padding-top: 4.5rem;
     }
 
     .hero-book-mockup img {
-      height: 600px;
-      width: 900px;
+      width: 100%;
+      height: auto;
     }
 
     .hero-bottom-card {
-      height: 26vh;
-      min-height: 500px;
+      height: auto;
       margin: 3rem 2.5rem 1.5rem;
       border-radius: 26px;
     }
 
     .hero-bottom-card-inner {
-      padding: 0 3.5rem;
+      padding: 3rem 3.5rem;
     }
 
     .hero-bottom-card-text-wrap {
@@ -659,10 +650,6 @@ const animStyles = `
       height: 390px;
       margin: 0 12px;
     }
-
-    .hero-marquee-bg {
-      gap: 10px;
-    }
   }
 
   @media (min-width: 2560px) {
@@ -681,26 +668,29 @@ const animStyles = `
       margin-top: 1.5rem;
     }
 
+    .hero-marquee-bg {
+      height: 480px;
+    }
+
     .hero-book-mockup {
-      width: clamp(680px, 28vw, 860px);
+      width: clamp(460px, 28vw, 620px);
       top: 10%;
       padding-top: 4.5rem;
     }
 
     .hero-book-mockup img {
-      height: 700px;
-      width: 1200px;
+      width: 100%;
+      height: auto;
     }
 
     .hero-bottom-card {
-      height: 36vh;
-      min-height: 500px;
+      height: auto;
       margin: 3rem 2.5rem 1.5rem;
       border-radius: 26px;
     }
 
     .hero-bottom-card-inner {
-      padding: 0 3.5rem;
+      padding: 3rem 3.5rem;
     }
 
     .hero-bottom-card-text-wrap {
@@ -746,80 +736,58 @@ const animStyles = `
       height: 390px;
       margin: 0 12px;
     }
-
-    .hero-marquee-bg {
-      gap: 10px;
-    }
   }
-
-
 
   /* ════════════════════════════════════
      REDUCE MOTION
      ════════════════════════════════════ */
   @media (prefers-reduced-motion: reduce) {
-    .marquee-track-left,
-    .marquee-track-right { animation: none !important; }
-    .hero-book-mockup    { animation: none !important; }
+    .marquee-track-left { animation: none !important; }
+    .hero-book-mockup   { animation: none !important; }
   }
 `;
 
 const ROW_TOP = [
-    { src: "/images/Portfolio/01.jpg", title: "Reflections" },
-    { src: "/images/Portfolio/02.jpg", title: "The Man From ST. Claus" },
-    { src: "/images/Portfolio/03.jpg", title: "Margo" },
-    { src: "/images/Portfolio/04.jpg", title: "Casters" },
-    { src: "/images/Portfolio/05.jpg", title: "Human Resources Professional" },
-    { src: "/images/Portfolio/06.jpg", title: "Lady Justice Aya" },
-    { src: "/images/Portfolio/07.jpg", title: "Yes to Beyond" },
-    { src: "/images/Portfolio/08.jpg", title: "My Poetry Inspired By Goat" },
-    { src: "/images/Portfolio/09.jpg", title: "Mr. TerriTaff" },
-    { src: "/images/Portfolio/10.jpg", title: "From Broken To Redeemed" },
-    { src: "/images/Portfolio/11.jpg", title: "Both Sides of the fence" },
-    { src: "/images/Portfolio/12.jpg", title: "Adjust Your Crown" },
-];
-
-const ROW_BOTTOM = [
-    { src: "/images/Portfolio/15.jpg", title: "The Mirror Within" },
-    { src: "/images/Portfolio/16.jpg", title: "Want Me" },
-    { src: "/images/Portfolio/17.jpg", title: "Chasing Or Being Chased" },
-    { src: "/images/Portfolio/18.jpg", title: "Mucho Que Contar" },
-    { src: "/images/Portfolio/19.jpg", title: "Awesome" },
-    { src: "/images/Portfolio/20.jpg", title: "Green Pastures" },
-    { src: "/images/Portfolio/21.jpg", title: "The Manifestos" },
-    { src: "/images/Portfolio/22.jpg", title: "The Cocoon" },
-    { src: "/images/Portfolio/23.jpg", title: "GreenLand" },
-    { src: "/images/Portfolio/24.jpg", title: "The Atrocity" },
-    { src: "/images/Portfolio/25.jpg", title: "Agony" },
-    { src: "/images/Portfolio/26.jpg", title: "Renaissance Man" },
+  { src: "/images/Portfolio/01.jpg", title: "Reflections" },
+  { src: "/images/Portfolio/02.jpg", title: "The Man From ST. Claus" },
+  { src: "/images/Portfolio/03.jpg", title: "Margo" },
+  { src: "/images/Portfolio/04.jpg", title: "Casters" },
+  { src: "/images/Portfolio/05.jpg", title: "Human Resources Professional" },
+  { src: "/images/Portfolio/06.jpg", title: "Lady Justice Aya" },
+  { src: "/images/Portfolio/07.jpg", title: "Yes to Beyond" },
+  { src: "/images/Portfolio/08.jpg", title: "My Poetry Inspired By Goat" },
+  { src: "/images/Portfolio/09.jpg", title: "Mr. TerriTaff" },
+  { src: "/images/Portfolio/10.jpg", title: "From Broken To Redeemed" },
+  { src: "/images/Portfolio/11.jpg", title: "Both Sides of the fence" },
+  { src: "/images/Portfolio/12.jpg", title: "Adjust Your Crown" },
 ];
 
 const HeroBookCard: React.FC<{ src: string; title: string }> = ({ src, title }) => (
-    <div className="hero-book-card hero-book-card-item">
-        <img
-            src={src}
-            alt={title}
-            style={{ width: "100%", height: "100%" }}
-            onError={(e) => {
-                const t = e.currentTarget;
-                t.style.display = "none";
-                const p = t.parentElement!;
-                p.style.background = `hsl(${Math.random() * 360},20%,15%)`;
-            }}
-        />
-    </div>
+  <div className="hero-book-card hero-book-card-item">
+    <img
+      src={src}
+      alt={title}
+      style={{ width: "100%", height: "100%" }}
+      onError={(e) => {
+        const t = e.currentTarget;
+        t.style.display = "none";
+        const p = t.parentElement!;
+        p.style.background = `hsl(${Math.random() * 360},20%,15%)`;
+      }}
+    />
+  </div>
 );
 
 const Hero: React.FC = () => {
-    return (
-        <>
-            <style>{fontStyle}</style>
-            <style>{animStyles}</style>
+  return (
+    <>
+      <style>{fontStyle}</style>
+      <style>{animStyles}</style>
 
-            <section
-                className="hero-section"
-                style={{
-                    background: `
+      <section
+        className="hero-section"
+        style={{
+          background: `
                         radial-gradient(ellipse at 0% 50%,   #1B465F 0%, transparent 38%),
                         radial-gradient(ellipse at 20% 100%, #205270 0%, transparent 36%),
                         radial-gradient(ellipse at 75% 0%,   #14384C 0%, transparent 42%),
@@ -827,112 +795,103 @@ const Hero: React.FC = () => {
                         radial-gradient(ellipse at 50% 50%,  #102838 0%, transparent 55%),
                         #0A1A24
                     `,
-                }}
-            >
-                {/* ── BACKGROUND MARQUEE LAYER ── */}
-                <div className="hero-marquee-bg">
-                    <div style={{ overflow: "hidden" }}>
-                        <div className="marquee-track-left">
-                            {ROW_TOP.map((b, i) => <HeroBookCard key={i} src={b.src} title={b.title} />)}
-                            {ROW_TOP.map((b, i) => <HeroBookCard key={`d${i}`} src={b.src} title={b.title} />)}
-                        </div>
-                    </div>
-                    <div style={{ overflow: "hidden" }}>
-                        <div className="marquee-track-right">
-                            {ROW_BOTTOM.map((b, i) => <HeroBookCard key={i} src={b.src} title={b.title} />)}
-                            {ROW_BOTTOM.map((b, i) => <HeroBookCard key={`d${i}`} src={b.src} title={b.title} />)}
-                        </div>
-                    </div>
-                </div>
+        }}
+      >
+        {/* ── BACKGROUND MARQUEE — single row, pinned to top ── */}
+        <div className="hero-marquee-bg">
+          <div style={{ overflow: "hidden", width: "100%" }}>
+            <div className="marquee-track-left">
+              {ROW_TOP.map((b, i) => <HeroBookCard key={i} src={b.src} title={b.title} />)}
+              {ROW_TOP.map((b, i) => <HeroBookCard key={`d${i}`} src={b.src} title={b.title} />)}
+            </div>
+          </div>
+        </div>
 
-                {/* Dark overlay */}
-                <div
-                    className="absolute inset-0"
-                    style={{
-                        zIndex: 1,
-                        background: `linear-gradient(to bottom,
+        {/* Dark overlay */}
+        <div
+          className="absolute inset-0"
+          style={{
+            zIndex: 1,
+            background: `linear-gradient(to bottom,
                             rgba(10,26,36,0.91) 0%,
                             rgba(10,26,36,0.80) 40%,
                             rgba(10,26,36,0.83) 60%,
                             rgba(10,26,36,0.96) 100%
                         )`,
-                    }}
-                />
+          }}
+        />
 
-                {/* ── MAIN CONTENT ── */}
-                <div className="hero-main-content">
-                    <h1 className="hero-title-main">
-                        <SplitText
-                            text="Bristol"
-                            delay={100}
-                            duration={2.25}
-                            ease="power3.out"
-                            splitType="chars"
-                            from={{ opacity: 0, y: 40 }}
-                            to={{ opacity: 1, y: 0 }}
-                            threshold={0.1}
-                            rootMargin="-100px"
-                            textAlign="center"
-                        />
-                        <SplitText
-                            text="Publishers"
-                            className="text-[#FF4545]"
-                            delay={100}
-                            duration={2.25}
-                            ease="power3.out"
-                            splitType="chars"
-                            from={{ opacity: 0, y: 40 }}
-                            to={{ opacity: 1, y: 0 }}
-                            threshold={0.1}
-                            rootMargin="-100px"
-                            textAlign="center"
-                        />
-                    </h1>
+        {/* ── MAIN CONTENT ── */}
+        <div className="hero-main-content">
+          <h1 className="hero-title-main">
+            <SplitText
+              text="Bristol"
+              delay={100}
+              duration={2.25}
+              ease="power3.out"
+              splitType="chars"
+              from={{ opacity: 0, y: 40 }}
+              to={{ opacity: 1, y: 0 }}
+              threshold={0.1}
+              rootMargin="-100px"
+              textAlign="center"
+            />
+            <SplitText
+              text="Publishers"
+              className="text-[#FF4545]"
+              delay={100}
+              duration={2.25}
+              ease="power3.out"
+              splitType="chars"
+              from={{ opacity: 0, y: 40 }}
+              to={{ opacity: 1, y: 0 }}
+              threshold={0.1}
+              rootMargin="-100px"
+              textAlign="center"
+            />
+          </h1>
 
-                    <h1 className="hero-title-sub">
-                        <SplitText
-                            text="The Trusted Name"
-                            delay={100}
-                            duration={2.25}
-                            ease="power3.out"
-                            splitType="chars"
-                            from={{ opacity: 0, y: 40 }}
-                            to={{ opacity: 1, y: 0 }}
-                            threshold={0.1}
-                            rootMargin="-100px"
-                            textAlign="center"
-                        />
-                        <SplitText
-                            text="For Authors"
-                            className="text-[#FF4545]"
-                            delay={100}
-                            duration={2.25}
-                            ease="power3.out"
-                            splitType="chars"
-                            from={{ opacity: 0, y: 40 }}
-                            to={{ opacity: 1, y: 0 }}
-                            threshold={0.1}
-                            rootMargin="-100px"
-                            textAlign="center"
-                        />
-                    </h1>
-                </div>
+          <h1 className="hero-title-sub">
+            <SplitText
+              text="The Trusted Name"
+              delay={100}
+              duration={2.25}
+              ease="power3.out"
+              splitType="chars"
+              from={{ opacity: 0, y: 40 }}
+              to={{ opacity: 1, y: 0 }}
+              threshold={0.1}
+              rootMargin="-100px"
+              textAlign="center"
+            />
+            <SplitText
+              text="For Authors"
+              className="text-[#FF4545]"
+              delay={100}
+              duration={2.25}
+              ease="power3.out"
+              splitType="chars"
+              from={{ opacity: 0, y: 40 }}
+              to={{ opacity: 1, y: 0 }}
+              threshold={0.1}
+              rootMargin="-100px"
+              textAlign="center"
+            />
+          </h1>
+        </div>
 
-                {/* ── FLOATING BOOK MOCKUP ── */}
-                <div className="hero-book-mockup">
-                    <img src={BOOK_MOCKUP} alt="Book Mockup" />
-                </div>
+        <div className="hero-book-mockup">
+          <img src={BOOK_MOCKUP} alt="Book Mockup" />
+        </div>
 
-                <div className="flex-grow" />
+        <div className="flex-grow" />
 
-                {/* ── BOTTOM CARD ── */}
-                <div className="hero-bottom-card">
+        <div className="hero-bottom-card">
 
-                    {/* Card background */}
-                    <div
-                        className="absolute inset-0"
-                        style={{
-                            background: `
+          <div
+            className="absolute inset-0"
+            style={{
+              background: `
                                 radial-gradient(ellipse at 0% 50%,   #1B465F 0%, transparent 38%),
                                 radial-gradient(ellipse at 20% 100%, #205270 0%, transparent 36%),
                                 radial-gradient(ellipse at 75% 0%,   #14384C 0%, transparent 42%),
@@ -940,56 +899,54 @@ const Hero: React.FC = () => {
                                 radial-gradient(ellipse at 50% 50%,  #102838 0%, transparent 55%),
                                 #0A1A24
                             `,
-                            zIndex: 0,
-                            opacity: 0.65,
-                        }}
-                    />
+              zIndex: 0,
+              opacity: 0.92,
+            }}
+          />
 
-                    {/* Decorative slabs */}
-                    {[
-                        { left: "-4%", width: "25%", background: "linear-gradient(170deg,#205270,#102838)", transform: "rotate(-8deg)", opacity: 0.15 },
-                        { left: "17%", width: "18%", background: "linear-gradient(170deg,#2A6A89,#14384C)", transform: "rotate(-8deg)", opacity: 0.10 },
-                        { right: "2%", width: "35%", background: "linear-gradient(170deg,#1B465F,#0E2432)", transform: "rotate(-10deg)", opacity: 0.12 },
-                        { right: "27%", width: "26%", background: "linear-gradient(170deg,#245D78,#112B3C)", transform: "rotate(-8deg)", opacity: 0.08 },
-                    ].map((sl, i) => (
-                        <div
-                            key={i}
-                            className="absolute"
-                            style={{ height: "200%", top: "-50%", transformOrigin: "top left", zIndex: 1, ...sl }}
-                        />
-                    ))}
+          {[
+            { left: "-4%", width: "25%", background: "linear-gradient(170deg,#205270,#102838)", transform: "rotate(-8deg)", opacity: 0.15 },
+            { left: "17%", width: "18%", background: "linear-gradient(170deg,#2A6A89,#14384C)", transform: "rotate(-8deg)", opacity: 0.10 },
+            { right: "2%", width: "35%", background: "linear-gradient(170deg,#1B465F,#0E2432)", transform: "rotate(-10deg)", opacity: 0.12 },
+            { right: "27%", width: "26%", background: "linear-gradient(170deg,#245D78,#112B3C)", transform: "rotate(-8deg)", opacity: 0.08 },
+          ].map((sl, i) => (
+            <div
+              key={i}
+              className="absolute"
+              style={{ height: "200%", top: "-50%", transformOrigin: "top left", zIndex: 1, ...sl }}
+            />
+          ))}
 
-                    {/* Card inner */}
-                    <div className="hero-bottom-card-inner">
+          <div className="hero-bottom-card-inner" style={{ alignItems: "flex-start" }}>
 
-                        <div className="hero-bottom-card-text-wrap">
-                            <p className="hero-bottom-card-text">
-                                Completing your manuscript is only the creative phase of your journey. The real transformation happens next, where Bristol Publishers steps in to shape your work into a polished, globally accessible publication.
-                            </p>
-                        </div>
+            <div className="hero-bottom-card-text-wrap">
+              <p className="hero-bottom-card-text">
+                Completing your manuscript is only the creative phase of your journey. The real transformation happens next, where Bristol Publishers steps in to shape your work into a polished, globally accessible publication.
+              </p>
+            </div>
 
-                        <div className="hero-bottom-form">
-                            <p className="hero-bottom-form-title">Get Started Today</p>
-                            <div className="hero-bottom-form-fields">
-                                {["Your Name", "Email Address", "Phone Number"].map((ph) => (
-                                    <input
-                                        key={ph}
-                                        type="text"
-                                        placeholder={ph}
-                                        className="hero-bottom-form-input"
-                                    />
-                                ))}
-                                <button className="hero-bottom-form-btn">
-                                    SUBMIT →
-                                </button>
-                            </div>
-                        </div>
+            <div className="hero-bottom-form">
+              <p className="hero-bottom-form-title">Get Started Today</p>
+              <div className="hero-bottom-form-fields">
+                {["Your Name", "Email Address", "Phone Number"].map((ph) => (
+                  <input
+                    key={ph}
+                    type="text"
+                    placeholder={ph}
+                    className="hero-bottom-form-input"
+                  />
+                ))}
+                <button className="hero-bottom-form-btn">
+                  SUBMIT →
+                </button>
+              </div>
+            </div>
 
-                    </div>
-                </div>
-            </section>
-        </>
-    );
+          </div>
+        </div>
+      </section>
+    </>
+  );
 };
 
 export default Hero;
