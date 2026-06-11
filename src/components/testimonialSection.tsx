@@ -590,7 +590,7 @@ const Testimonials: React.FC = () => {
         <>
             <style>{testimonialsStyles}</style>
 
-            <section ref={ref} className="tm-section">
+            <section ref={ref} id="testimonials" className="tm-section">
 
                 <div className="tm-orb-tl" />
                 <div className="tm-orb-br" />

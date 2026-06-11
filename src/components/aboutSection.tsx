@@ -600,7 +600,7 @@ const AboutSection: React.FC = () => {
     <>
       <style>{aboutStyles}</style>
 
-      <section ref={sectionRef} className="about-section">
+      <section ref={sectionRef} id="about" className="about-section">
 
         {/* Background glows */}
         <div className="about-glow-tl" />

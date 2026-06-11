@@ -631,7 +631,7 @@ const ContactForm: React.FC = () => {
         <>
             <style>{contactStyles}</style>
 
-            <section ref={ref} className="ct-section">
+            <section ref={ref} id="contact" className="ct-section">
 
                 {/* Decorative BG */}
                 <div className="ct-orb-tr" />

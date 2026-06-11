@@ -786,6 +786,7 @@ const Hero: React.FC = () => {
 
       <section
         className="hero-section"
+        id="home"
         style={{
           background: `
                         radial-gradient(ellipse at 0% 50%,   #1B465F 0%, transparent 38%),

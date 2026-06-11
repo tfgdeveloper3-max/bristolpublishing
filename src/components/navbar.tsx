@@ -1,29 +1,15 @@
-import React, { useState, useRef, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import { Phone } from "lucide-react";
 
 const NAV_ITEMS = [
-    { label: "HOME", path: "/" },
-    { label: "ABOUT", path: "/about" },
-    { label: "SERVICES", path: null },
-    { label: "PORTFOLIO", path: "/portfolio" },
-    { label: "CONTACT", path: "/contact" },
-];
-
-const SERVICE_ITEMS = [
-    { label: "Publishing", path: "/services/publishing" },
-    { label: "Ghostwriting", path: "/services/ghostwriting" },
-    { label: "Formatting & Proofreading", path: "/services/formatting" },
-    { label: "Book Cover Design", path: "/services/cover-design" },
-    { label: "Book Marketing", path: "/services/marketing" },
-    { label: "Audio Book", path: "/services/audio-book" },
+  { label: "HOME", href: "#home" },
+  { label: "ABOUT", href: "#about" },
+  { label: "SERVICES", href: "#services" },
+  { label: "PORTFOLIO", href: "#portfolio" },
+  { label: "CONTACT", href: "#contact" },
 ];
 
 const navStyles = `
-  @keyframes dropIn {
-    from { opacity: 0; transform: translateY(-8px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
   @keyframes slideDown {
     from { opacity: 0; transform: translateY(-16px); max-height: 0; }
     to   { opacity: 1; transform: translateY(0);     max-height: 600px; }
@@ -47,8 +33,6 @@ const navStyles = `
     0%   { transform: translate(0,0) scale(1); opacity: 1; }
     100% { transform: translate(var(--p-tx),var(--p-ty)) scale(0); opacity: 0; }
   }
-
-  .services-dropdown { animation: dropIn 0.2s ease forwards; }
 
   /* ── Hamburger lines ── */
   .hbg-line {
@@ -84,23 +68,6 @@ const navStyles = `
   }
   .mobile-nav-link:hover,
   .mobile-nav-link.active { color: #FF4545; background: rgba(255,69,69,0.07); }
-
-  .mobile-services-list {
-    overflow: hidden;
-    transition: max-height 0.3s ease, opacity 0.3s ease;
-  }
-  .mobile-service-link {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 0.78rem;
-    letter-spacing: 0.05em;
-    color: rgba(255,255,255,0.55);
-    text-decoration: none;
-    display: block;
-    padding: 10px 20px 10px 36px;
-    transition: color 0.2s, background 0.2s;
-    border-radius: 8px;
-  }
-  .mobile-service-link:hover { color: #FF4545; background: rgba(255,69,69,0.06); }
 
   /* ── CTA button ── */
   .cta-btn-outer {
@@ -166,10 +133,16 @@ const navStyles = `
 
   /* ── Navbar base ── */
   .nb-nav {
-    position: absolute;
+    position: fixed;
     top: 0; left: 0; right: 0;
     z-index: 50;
     width: 100%;
+    transition: background 0.35s ease, box-shadow 0.35s ease, backdrop-filter 0.35s ease;
+  }
+  .nb-nav.scrolled {
+    background: linear-gradient(180deg, #1B465F 0%, #14384C 50%, #0E2432 100%);
+    backdrop-filter: blur(14px);
+    box-shadow: 0 4px 32px rgba(0,0,0,0.35);
   }
 
   /* Top bar */
@@ -181,6 +154,9 @@ const navStyles = `
   }
 
   /* Logo */
+  .nb-logo {
+    cursor: pointer;
+  }
   .nb-logo img { height: 44px; width: auto; display: block; }
 
   /* Desktop nav links — hidden by default, shown md+ */
@@ -191,6 +167,23 @@ const navStyles = `
     list-style: none;
     margin: 0; padding: 0;
   }
+
+  /* Desktop nav link style */
+  .nb-link {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+    text-decoration: none;
+    color: white;
+    padding-bottom: 2px;
+    border-bottom: 1px solid transparent;
+    transition: color 0.2s ease, border-color 0.2s ease;
+    cursor: pointer;
+    background: none;
+  }
+  .nb-link:hover { color: #FF4545; }
+  .nb-link.active { color: #FF4545; border-bottom-color: #FF4545; }
 
   /* Hamburger button */
   .nb-hamburger {
@@ -234,22 +227,6 @@ const navStyles = `
     margin: 6px 4px;
   }
 
-  /* Dropdown for desktop */
-  .nb-dropdown {
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    margin-top: 12px;
-    width: 240px;
-    border-radius: 14px;
-    overflow: hidden;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-    background: linear-gradient(160deg, #0d1230 0%, #040517 100%);
-    border: 1px solid rgba(255,69,69,0.25);
-    animation: dropIn 0.2s ease forwards;
-  }
-
   /* ════ TABLET 768px ════ */
   @media (min-width: 768px) {
     .nb-bar        { padding: 16px 28px; }
@@ -287,262 +264,184 @@ const navStyles = `
   }
 `;
 
+const NAV_SECTION_IDS = ["home", "about", "services", "portfolio", "contact"];
+
 const Navbar: React.FC = () => {
-    const [servicesOpen, setServicesOpen] = useState(false);
-    const [mobileOpen, setMobileOpen] = useState(false);
-    const [mobileServicesOpen, setMobileSvcs] = useState(false);
-    const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-    const btnOuterRef = useRef<HTMLDivElement>(null);
-    const location = useLocation();
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("home");
+  const [scrolled, setScrolled] = useState(false);
+  const btnOuterRef = useRef<HTMLDivElement>(null);
 
-    // Close mobile menu on route change
-    useEffect(() => {
-        setMobileOpen(false);
-        setMobileSvcs(false);
-    }, [location.pathname]);
+  /* ── Scroll spy: track which section is in view ── */
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
 
-    // Desktop dropdown hover
-    const handleMouseEnter = () => { if (timeoutRef.current) clearTimeout(timeoutRef.current); setServicesOpen(true); };
-    const handleMouseLeave = () => { timeoutRef.current = setTimeout(() => setServicesOpen(false), 150); };
-
-    const isActive = (path: string | null) => {
-        if (!path) return false;
-        if (path === "/") return location.pathname === "/";
-        return location.pathname.startsWith(path);
-    };
-    const isServicesActive = location.pathname.startsWith("/services");
-
-    // Particles
-    useEffect(() => {
-        const outer = btnOuterRef.current;
-        if (!outer) return;
-        const colors = ["#FF4545", "#FF6B6B", "#FFB3B3", "#FF8C8C", "#FFCECE", "#fe5858"];
-        const created: HTMLDivElement[] = [];
-        for (let i = 0; i < 14; i++) {
-            const p = document.createElement("div");
-            p.className = "cta-particle";
-            const angle = (360 / 14) * i + Math.random() * 20;
-            const dist = 36 + Math.random() * 26;
-            const rad = angle * Math.PI / 180;
-            const tx = (Math.cos(rad) * dist).toFixed(1);
-            const ty = (Math.sin(rad) * dist).toFixed(1);
-            p.style.cssText = `
-        --p-tx:${tx}px;--p-ty:${ty}px;
-        --p-dur:${(1.4 + Math.random() * 1.2).toFixed(2)}s;
-        --p-delay:${(Math.random() * 1.6).toFixed(2)}s;
-        width:${(4 + Math.random() * 4).toFixed(1)}px;
-        height:${(4 + Math.random() * 4).toFixed(1)}px;
-        background:${colors[i % colors.length]};
-      `;
-            outer.appendChild(p);
-            created.push(p);
+      const scrollPos = window.scrollY + 160;
+      let current = "home";
+      for (const id of NAV_SECTION_IDS) {
+        const el = document.getElementById(id);
+        if (el && el.offsetTop <= scrollPos) {
+          current = id;
         }
-        return () => created.forEach(p => p.remove());
-    }, []);
+      }
+      setActiveSection(current);
+    };
 
-    return (
-        <>
-            <style>{navStyles}</style>
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
-            <nav className="nb-nav">
+  /* ── Smooth scroll handler ── */
+  const handleNavClick = useCallback((e: React.MouseEvent, href: string) => {
+    e.preventDefault();
+    setMobileOpen(false);
 
-                {/* ── TOP BAR ── */}
-                <div className="nb-bar">
+    const id = href.replace("#", "");
+    const el = document.getElementById(id);
+    if (el) {
+      const navHeight = 80;
+      const top = el.getBoundingClientRect().top + window.scrollY - navHeight;
+      window.scrollTo({ top, behavior: "smooth" });
+    }
+  }, []);
 
-                    {/* Logo */}
-                    <Link to="/" className="nb-logo">
-                        <img src="/images/logo.png" alt="Bristol Publishers" />
-                    </Link>
+  /* ── Logo click → scroll to top ── */
+  const handleLogoClick = useCallback((e: React.MouseEvent) => {
+    e.preventDefault();
+    setMobileOpen(false);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
 
-                    {/* Desktop nav links */}
-                    <ul className="nb-links">
-                        {NAV_ITEMS.map(item =>
-                            item.label === "SERVICES" ? (
-                                <li
-                                    key="SERVICES"
-                                    style={{ position: "relative" }}
-                                    onMouseEnter={handleMouseEnter}
-                                    onMouseLeave={handleMouseLeave}
-                                >
-                                    <button
-                                        style={{
-                                            fontFamily: "'Montserrat', sans-serif",
-                                            fontSize: "0.78rem",
-                                            letterSpacing: "0.05em",
-                                            fontWeight: 600,
-                                            color: isServicesActive ? "#FF4545" : "white",
-                                            background: "none",
-                                            border: "none",
-                                            cursor: "pointer",
-                                            display: "flex",
-                                            alignItems: "center",
-                                            gap: "4px",
-                                        }}
-                                    >
-                                        SERVICES
-                                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
-                                            style={{ transition: "transform 0.2s", transform: servicesOpen ? "rotate(180deg)" : "rotate(0deg)" }}>
-                                            <path d="M6 9l6 6 6-6" />
-                                        </svg>
-                                    </button>
+  /* ── Particles ── */
+  useEffect(() => {
+    const outer = btnOuterRef.current;
+    if (!outer) return;
+    const colors = ["#FF4545", "#FF6B6B", "#FFB3B3", "#FF8C8C", "#FFCECE", "#fe5858"];
+    const created: HTMLDivElement[] = [];
+    for (let i = 0; i < 14; i++) {
+      const p = document.createElement("div");
+      p.className = "cta-particle";
+      const angle = (360 / 14) * i + Math.random() * 20;
+      const dist = 36 + Math.random() * 26;
+      const rad = (angle * Math.PI) / 180;
+      const tx = (Math.cos(rad) * dist).toFixed(1);
+      const ty = (Math.sin(rad) * dist).toFixed(1);
+      p.style.cssText = `
+                --p-tx:${tx}px;--p-ty:${ty}px;
+                --p-dur:${(1.4 + Math.random() * 1.2).toFixed(2)}s;
+                --p-delay:${(Math.random() * 1.6).toFixed(2)}s;
+                width:${(4 + Math.random() * 4).toFixed(1)}px;
+                height:${(4 + Math.random() * 4).toFixed(1)}px;
+                background:${colors[i % colors.length]};
+            `;
+      outer.appendChild(p);
+      created.push(p);
+    }
+    return () => created.forEach(p => p.remove());
+  }, []);
 
-                                    {servicesOpen && (
-                                        <div className="nb-dropdown">
-                                            <div style={{ height: "2px", background: "linear-gradient(90deg,#FF4545,transparent)" }} />
-                                            <ul style={{ listStyle: "none", padding: "8px 0", margin: 0 }}>
-                                                {SERVICE_ITEMS.map((s, i) => (
-                                                    <li key={i}>
-                                                        <Link
-                                                            to={s.path}
-                                                            style={{ textDecoration: "none" }}
-                                                            onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "rgba(255,69,69,0.08)"}
-                                                            onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = "transparent"}
-                                                            onClick={() => setServicesOpen(false)}
-                                                        >
-                                                            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "11px 18px" }}>
-                                                                <span style={{
-                                                                    fontFamily: "'Montserrat',sans-serif",
-                                                                    fontSize: "0.8rem",
-                                                                    letterSpacing: "0.06em",
-                                                                    color: location.pathname === s.path ? "#FF4545" : "rgba(255,255,255,0.8)",
-                                                                }}>{s.label}</span>
-                                                                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#FF4545" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.6 }}>
-                                                                    <path d="M9 18l6-6-6-6" />
-                                                                </svg>
-                                                            </div>
-                                                        </Link>
-                                                        {i < SERVICE_ITEMS.length - 1 && (
-                                                            <div style={{ height: "1px", background: "rgba(255,255,255,0.05)", margin: "0 14px" }} />
-                                                        )}
-                                                    </li>
-                                                ))}
-                                            </ul>
-                                        </div>
-                                    )}
-                                </li>
-                            ) : (
-                                <li key={item.label}>
-                                    <Link
-                                        to={item.path!}
-                                        style={{
-                                            fontFamily: "'Montserrat',sans-serif",
-                                            fontSize: "0.78rem",
-                                            letterSpacing: "0.05em",
-                                            fontWeight: 600,
-                                            textDecoration: "none",
-                                            color: isActive(item.path) ? "#FF4545" : "white",
-                                            borderBottom: isActive(item.path) ? "1px solid #FF4545" : "1px solid transparent",
-                                            paddingBottom: "2px",
-                                        }}
-                                    >
-                                        {item.label}
-                                    </Link>
-                                </li>
-                            )
-                        )}
-                    </ul>
+  return (
+    <>
+      <style>{navStyles}</style>
 
-                    {/* Right side — CTA + hamburger */}
-                    <div className="nb-right">
-                        {/* CTA Button */}
-                        <div style={{ overflow: "visible" }}>
-                            <div className="cta-btn-outer" ref={btnOuterRef}>
-                                <button className="cta-main-btn">
-                                    <span className="cta-shine" />
-                                    <span className="cta-phone-icon">
-                                        <Phone size={14} strokeWidth={2.3} />
-                                    </span>
-                                    <span>+99 123 456 789</span>
-                                </button>
-                            </div>
-                        </div>
+      <nav className={`nb-nav${scrolled ? " scrolled" : ""}`}>
 
-                        {/* Hamburger — only visible on mobile/tablet (<768px) */}
-                        <button
-                            className={`nb-hamburger${mobileOpen ? " hbg-open" : ""}`}
-                            onClick={() => setMobileOpen(o => !o)}
-                            aria-label={mobileOpen ? "Close menu" : "Open menu"}
-                        >
-                            <span className="hbg-line" />
-                            <span className="hbg-line" />
-                            <span className="hbg-line" />
-                        </button>
-                    </div>
-                </div>
+        {/* ── TOP BAR ── */}
+        <div className="nb-bar">
 
-                {/* ── MOBILE DRAWER ── */}
-                <div className={`nb-drawer${mobileOpen ? " open mobile-menu" : ""}`}>
+          {/* Logo — scrolls to top */}
+          <a href="#home" className="nb-logo" onClick={handleLogoClick}>
+            <img src="/images/logo.png" alt="Bristol Publishers" />
+          </a>
 
-                    {NAV_ITEMS.map(item =>
-                        item.label === "SERVICES" ? (
-                            <div key="SERVICES">
-                                <button
-                                    className={`mobile-nav-link${isServicesActive ? " active" : ""}`}
-                                    style={{ width: "100%", background: "none", border: "none", cursor: "pointer", textAlign: "left" }}
-                                    onClick={() => setMobileSvcs(o => !o)}
-                                >
-                                    SERVICES
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"
-                                        style={{ transition: "transform 0.25s", transform: mobileServicesOpen ? "rotate(180deg)" : "rotate(0deg)", flexShrink: 0 }}>
-                                        <path d="M6 9l6 6 6-6" />
-                                    </svg>
-                                </button>
+          {/* Desktop nav links */}
+          <ul className="nb-links">
+            {NAV_ITEMS.map((item) => (
+              <li key={item.label}>
+                <a
+                  href={item.href}
+                  className={`nb-link${activeSection === item.href.replace("#", "") ? " active" : ""}`}
+                  onClick={(e) => handleNavClick(e, item.href)}
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
 
-                                <div
-                                    className="mobile-services-list"
-                                    style={{ maxHeight: mobileServicesOpen ? "400px" : "0", opacity: mobileServicesOpen ? 1 : 0 }}
-                                >
-                                    {SERVICE_ITEMS.map((s, i) => (
-                                        <Link
-                                            key={i}
-                                            to={s.path}
-                                            className="mobile-service-link"
-                                            style={{ color: location.pathname === s.path ? "#FF4545" : undefined }}
-                                            onClick={() => setMobileOpen(false)}
-                                        >
-                                            {s.label}
-                                        </Link>
-                                    ))}
-                                </div>
-                            </div>
-                        ) : (
-                            <Link
-                                key={item.label}
-                                to={item.path!}
-                                className={`mobile-nav-link${isActive(item.path) ? " active" : ""}`}
-                                onClick={() => setMobileOpen(false)}
-                            >
-                                {item.label}
-                            </Link>
-                        )
-                    )}
+          {/* Right side — CTA + hamburger */}
+          <div className="nb-right">
+            {/* CTA Button */}
+            <div style={{ overflow: "visible" }}>
+              <div className="cta-btn-outer" ref={btnOuterRef}>
+                <a href="tel:+99123456789" style={{ textDecoration: "none" }}>
+                  <button className="cta-main-btn">
+                    <span className="cta-shine" />
+                    <span className="cta-phone-icon">
+                      <Phone size={14} strokeWidth={2.3} />
+                    </span>
+                    <span>+99 123 456 789</span>
+                  </button>
+                </a>
+              </div>
+            </div>
 
-                    <div className="nb-drawer-divider" />
+            {/* Hamburger — only visible on mobile/tablet (<768px) */}
+            <button
+              className={`nb-hamburger${mobileOpen ? " hbg-open" : ""}`}
+              onClick={() => setMobileOpen((o) => !o)}
+              aria-label={mobileOpen ? "Close menu" : "Open menu"}
+            >
+              <span className="hbg-line" />
+              <span className="hbg-line" />
+              <span className="hbg-line" />
+            </button>
+          </div>
+        </div>
 
-                    {/* Mobile CTA */}
-                    <a
-                        href="tel:+99123456789"
-                        style={{
-                            display: "flex", alignItems: "center", gap: "10px",
-                            padding: "12px 20px",
-                            background: "linear-gradient(90deg,#fe5858e8,#FF4545)",
-                            borderRadius: "10px",
-                            textDecoration: "none",
-                            color: "white",
-                            fontFamily: "'Montserrat',sans-serif",
-                            fontSize: "0.84rem",
-                            fontWeight: 600,
-                            letterSpacing: "0.08em",
-                        }}
-                    >
-                        <Phone size={15} strokeWidth={2.2} />
-                        +99 123 456 789
-                    </a>
-                </div>
+        {/* ── MOBILE DRAWER ── */}
+        <div className={`nb-drawer${mobileOpen ? " open mobile-menu" : ""}`}>
+          {NAV_ITEMS.map((item) => (
+            <a
+              key={item.label}
+              href={item.href}
+              className={`mobile-nav-link${activeSection === item.href.replace("#", "") ? " active" : ""
+                }`}
+              onClick={(e) => handleNavClick(e, item.href)}
+            >
+              {item.label}
+            </a>
+          ))}
 
-            </nav>
-        </>
-    );
+          <div className="nb-drawer-divider" />
+
+          {/* Mobile CTA */}
+          <a
+            href="tel:+99123456789"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "10px",
+              padding: "12px 20px",
+              background: "linear-gradient(90deg,#fe5858e8,#FF4545)",
+              borderRadius: "10px",
+              textDecoration: "none",
+              color: "white",
+              fontFamily: "'Montserrat',sans-serif",
+              fontSize: "0.84rem",
+              fontWeight: 600,
+              letterSpacing: "0.08em",
+            }}
+          >
+            <Phone size={15} strokeWidth={2.2} />
+            +99 123 456 789
+          </a>
+        </div>
+      </nav>
+    </>
+  );
 };
 
 export default Navbar;

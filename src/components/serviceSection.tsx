@@ -655,7 +655,7 @@ const Services: React.FC = () => {
         <>
             <style>{servicesStyles}</style>
 
-            <section ref={ref} className="srv-section">
+            <section ref={ref} id="services" className="srv-section">
 
                 {/* Decorative BG */}
                 <div className="srv-orb-tr" />

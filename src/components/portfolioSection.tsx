@@ -63,24 +63,21 @@ const portfolioStyles = `
     color: #FF4545;
     margin-top: 2px;
   }
-  .portfolio-img-card .card-accent {
-    position: absolute;
-    top: 0; right: 0;
-    width: 3px; height: 36px;
-    background: linear-gradient(to bottom, #FF4545, transparent);
-    border-radius: 0 12px 0 0;
-  }
 
   .pf-edge-left {
     position: absolute;
-    left: 0; top: 0; bottom: 0;
+    left: 0;
+    top: -70px;
+    bottom: -40px;
     width: 80px;
     z-index: 10;
     pointer-events: none;
   }
   .pf-edge-right {
     position: absolute;
-    right: 0; top: 0; bottom: 0;
+    right: 0;
+    top: -70px;
+    bottom: -40px;
     width: 80px;
     z-index: 10;
     pointer-events: none;
@@ -117,14 +114,6 @@ const portfolioStyles = `
       linear-gradient(rgba(255,255,255,0.012) 1px, transparent 1px),
       linear-gradient(90deg, rgba(255,255,255,0.012) 1px, transparent 1px);
     background-size: 60px 60px;
-    pointer-events: none;
-  }
-  .pf-ring {
-    position: absolute; top: 6%; right: 5%;
-    width: 100px; height: 100px;
-    border: 1px dashed rgba(255,69,69,0.12);
-    border-radius: 50%;
-    animation: rotateSlow 22s linear infinite;
     pointer-events: none;
   }
 
@@ -208,6 +197,8 @@ const portfolioStyles = `
     .pf-orb-br     { width: 250px; height: 250px; }
     .pf-ring       { width: 120px; height: 120px; }
     .pf-rows       { gap: 13px; }
+    .pf-edge-left,
+    .pf-edge-right { width: 100px; top: -80px; bottom: -50px; }
   }
 
   /* ════════════════════════════════════
@@ -230,7 +221,7 @@ const portfolioStyles = `
     .pf-ring       { width: 140px; height: 140px; }
     .pf-rows       { gap: 14px; }
     .pf-edge-left,
-    .pf-edge-right { width: 100px; }
+    .pf-edge-right { width: 100px; top: -90px; bottom: -55px; }
   }
 
   /* ════════════════════════════════════
@@ -245,7 +236,7 @@ const portfolioStyles = `
     .pf-ring       { width: 155px; height: 155px; }
     .pf-rows       { gap: 15px; }
     .pf-edge-left,
-    .pf-edge-right { width: 120px; }
+    .pf-edge-right { width: 120px; top: -100px; bottom: -60px; }
   }
 
   /* ════════════════════════════════════
@@ -260,7 +251,7 @@ const portfolioStyles = `
     .pf-ring       { width: 170px; height: 170px; }
     .pf-rows       { gap: 16px; }
     .pf-edge-left,
-    .pf-edge-right { width: 130px; }
+    .pf-edge-right { width: 130px; top: -110px; bottom: -65px; }
   }
 
   /* ════════════════════════════════════
@@ -275,51 +266,50 @@ const portfolioStyles = `
     .pf-ring       { width: 190px; height: 190px; }
     .pf-rows       { gap: 18px; }
     .pf-edge-left,
-    .pf-edge-right { width: 150px; }
+    .pf-edge-right { width: 150px; top: -130px; bottom: -80px; }
 
     .pf-heading {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 800;
-    font-size: 4rem;
-    padding: 0 0 80px 0;
-    letter-spacing: -0.02em;
-    line-height: 1;
-    color: #0A0A0A;
-    margin: 0;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 4rem;
+      padding: 0 0 80px 0;
+      letter-spacing: -0.02em;
+      line-height: 1;
+      color: #0A0A0A;
+      margin: 0;
     }
 
     .pf-subtext {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 24px;
-    line-height: 1.6;
-    color: #444;
-    max-width: 700px;
-    margin: 0;
-    font-weight: 300;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 24px;
+      line-height: 1.6;
+      color: #444;
+      max-width: 700px;
+      margin: 0;
+      font-weight: 300;
     }
 
     .pf-eyebrow {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
     }
-   .pf-eyebrow-line {
-    height: 4px;
-    background: #FF4545;
-    transition: width 0.8s ease 0.2s;
+    .pf-eyebrow-line {
+      height: 4px;
+      background: #FF4545;
+      transition: width 0.8s ease 0.2s;
     }
-   .pf-eyebrow-text {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 1.1rem;
-    letter-spacing: 0.25em;
-    color: #FF4545;
-    font-weight: 600;
+    .pf-eyebrow-text {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.1rem;
+      letter-spacing: 0.25em;
+      color: #FF4545;
+      font-weight: 600;
     }
   }
 
-
-    @media (min-width: 2560px) {
+  @media (min-width: 2560px) {
     .pf-section    { padding: 130px 0 140px; }
     .pf-container  { padding: 0 80px; margin-bottom: 72px; max-width: 80%; }
     .pf-book-card  { --card-w: 350px; --card-h: 540px; --card-mx: 12px; }
@@ -328,46 +318,46 @@ const portfolioStyles = `
     .pf-ring       { width: 190px; height: 190px; }
     .pf-rows       { gap: 18px; }
     .pf-edge-left,
-    .pf-edge-right { width: 150px; }
+    .pf-edge-right { width: 150px; top: -140px; bottom: -90px; }
 
     .pf-heading {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 800;
-    font-size: 5rem;
-    padding: 0 0 130px 0;
-    letter-spacing: -0.02em;
-    line-height: 1;
-    color: #0A0A0A;
-    margin: 0;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 5rem;
+      padding: 0 0 130px 0;
+      letter-spacing: -0.02em;
+      line-height: 1;
+      color: #0A0A0A;
+      margin: 0;
     }
 
     .pf-subtext {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 28px;
-    line-height: 1.6;
-    color: #444;
-    max-width: 700px;
-    margin: 0;
-    font-weight: 300;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 28px;
+      line-height: 1.6;
+      color: #444;
+      max-width: 700px;
+      margin: 0;
+      font-weight: 300;
     }
 
     .pf-eyebrow {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
     }
-   .pf-eyebrow-line {
-    height: 4px;
-    background: #FF4545;
-    transition: width 0.8s ease 0.2s;
+    .pf-eyebrow-line {
+      height: 4px;
+      background: #FF4545;
+      transition: width 0.8s ease 0.2s;
     }
-   .pf-eyebrow-text {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 1.3rem;
-    letter-spacing: 0.25em;
-    color: #FF4545;
-    font-weight: 600;
+    .pf-eyebrow-text {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.3rem;
+      letter-spacing: 0.25em;
+      color: #FF4545;
+      font-weight: 600;
     }
   }
 
@@ -381,293 +371,316 @@ const portfolioStyles = `
 `;
 
 function useInView(threshold = 0.1) {
-    const ref = useRef<HTMLDivElement>(null);
-    const [visible, setVisible] = useState(false);
-    useEffect(() => {
-        const el = ref.current;
-        if (!el) return;
-        const obs = new IntersectionObserver(
-            ([e]) => { if (e.isIntersecting) { setVisible(true); obs.disconnect(); } },
-            { threshold }
-        );
-        obs.observe(el);
-        return () => obs.disconnect();
-    }, [threshold]);
-    return { ref, visible };
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) { setVisible(true); obs.disconnect(); } },
+      { threshold }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [threshold]);
+  return { ref, visible };
 }
 
 const ROW_TOP: { src: string; title: string; genre: string }[] = [
-    { src: "/images/Portfolio/01.jpg", title: "Reflections", genre: "Fantasy" },
-    { src: "/images/Portfolio/02.jpg", title: "The Man From ST. Claus", genre: "Thriller" },
-    { src: "/images/Portfolio/03.jpg", title: "Margo", genre: "Adventure" },
-    { src: "/images/Portfolio/04.jpg", title: "Casters", genre: "Horror" },
-    { src: "/images/Portfolio/05.jpg", title: "Human Resources Professional", genre: "Sci-Fi" },
-    { src: "/images/Portfolio/06.jpg", title: "Lady Justice Aya", genre: "Literary" },
-    { src: "/images/Portfolio/07.jpg", title: "Yes to Beyond", genre: "Romance" },
-    { src: "/images/Portfolio/08.jpg", title: "My Poetry Inspired By Goat", genre: "Mystery" },
-    { src: "/images/Portfolio/09.jpg", title: "Mr. TerriTaff", genre: "Self-Help" },
-    { src: "/images/Portfolio/10.jpg", title: "From Broken To Redeemed", genre: "History" },
-    { src: "/images/Portfolio/11.jpg", title: "Both Sides of the fence", genre: "Children's" },
-    { src: "/images/Portfolio/12.jpg", title: "Adjust Your Crown", genre: "Sci-Fi" },
-    { src: "/images/Portfolio/13.jpg", title: "Choose Me", genre: "Poetry" },
-    { src: "/images/Portfolio/14.jpg", title: "My Testimony", genre: "Fantasy" },
+  { src: "/images/Portfolio/01.jpg", title: "Reflections", genre: "Fantasy" },
+  { src: "/images/Portfolio/02.jpg", title: "The Man From ST. Claus", genre: "Thriller" },
+  { src: "/images/Portfolio/03.jpg", title: "Margo", genre: "Adventure" },
+  { src: "/images/Portfolio/04.jpg", title: "Casters", genre: "Horror" },
+  { src: "/images/Portfolio/05.jpg", title: "Human Resources Professional", genre: "Sci-Fi" },
+  { src: "/images/Portfolio/06.jpg", title: "Lady Justice Aya", genre: "Literary" },
+  { src: "/images/Portfolio/07.jpg", title: "Yes to Beyond", genre: "Romance" },
+  { src: "/images/Portfolio/08.jpg", title: "My Poetry Inspired By Goat", genre: "Mystery" },
+  { src: "/images/Portfolio/09.jpg", title: "Mr. TerriTaff", genre: "Self-Help" },
+  { src: "/images/Portfolio/10.jpg", title: "From Broken To Redeemed", genre: "History" },
+  { src: "/images/Portfolio/11.jpg", title: "Both Sides of the fence", genre: "Children's" },
+  { src: "/images/Portfolio/12.jpg", title: "Adjust Your Crown", genre: "Sci-Fi" },
+  { src: "/images/Portfolio/13.jpg", title: "Choose Me", genre: "Poetry" },
+  { src: "/images/Portfolio/14.jpg", title: "My Testimony", genre: "Fantasy" },
 ];
 
 const ROW_BOTTOM: { src: string; title: string; genre: string }[] = [
-    { src: "/images/Portfolio/15.jpg", title: "The Mirror Within", genre: "Adventure" },
-    { src: "/images/Portfolio/16.jpg", title: "Want Me", genre: "Thriller" },
-    { src: "/images/Portfolio/17.jpg", title: "Chasing Or Being Chased", genre: "Romance" },
-    { src: "/images/Portfolio/18.jpg", title: "Mucho Que Contar", genre: "Sci-Fi" },
-    { src: "/images/Portfolio/19.jpg", title: "Awesome", genre: "History" },
-    { src: "/images/Portfolio/20.jpg", title: "Green Pastures", genre: "Crime" },
-    { src: "/images/Portfolio/21.jpg", title: "The Manifestos", genre: "Literary" },
-    { src: "/images/Portfolio/22.jpg", title: "The Cocoon", genre: "Fantasy" },
-    { src: "/images/Portfolio/23.jpg", title: "GreenLand", genre: "Psychology" },
-    { src: "/images/Portfolio/24.jpg", title: "The Atrocity", genre: "Mystery" },
-    { src: "/images/Portfolio/25.jpg", title: "Agony", genre: "Memoir" },
-    { src: "/images/Portfolio/26.jpg", title: "Renaissance Man", genre: "Sci-Fi" },
-    { src: "/images/Portfolio/27.jpg", title: "The Untold Truth", genre: "Romance" },
-    { src: "/images/Portfolio/28.jpg", title: "Black Holes", genre: "Fantasy" },
+  { src: "/images/Portfolio/15.jpg", title: "The Mirror Within", genre: "Adventure" },
+  { src: "/images/Portfolio/16.jpg", title: "Want Me", genre: "Thriller" },
+  { src: "/images/Portfolio/17.jpg", title: "Chasing Or Being Chased", genre: "Romance" },
+  { src: "/images/Portfolio/18.jpg", title: "Mucho Que Contar", genre: "Sci-Fi" },
+  { src: "/images/Portfolio/19.jpg", title: "Awesome", genre: "History" },
+  { src: "/images/Portfolio/20.jpg", title: "Green Pastures", genre: "Crime" },
+  { src: "/images/Portfolio/21.jpg", title: "The Manifestos", genre: "Literary" },
+  { src: "/images/Portfolio/22.jpg", title: "The Cocoon", genre: "Fantasy" },
+  { src: "/images/Portfolio/23.jpg", title: "GreenLand", genre: "Psychology" },
+  { src: "/images/Portfolio/24.jpg", title: "The Atrocity", genre: "Mystery" },
+  { src: "/images/Portfolio/25.jpg", title: "Agony", genre: "Memoir" },
+  { src: "/images/Portfolio/26.jpg", title: "Renaissance Man", genre: "Sci-Fi" },
+  { src: "/images/Portfolio/27.jpg", title: "The Untold Truth", genre: "Romance" },
+  { src: "/images/Portfolio/28.jpg", title: "Black Holes", genre: "Fantasy" },
 ];
 
 /* BookCard reads size from CSS custom properties via a ref */
 const BookCard: React.FC<{ item: { src: string; title: string; genre: string } }> = ({ item }) => {
-    const cardRef = useRef<HTMLDivElement>(null);
-    const [size, setSize] = useState({ w: 130, h: 195 });
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [size, setSize] = useState({ w: 130, h: 195 });
 
-    useEffect(() => {
-        const update = () => {
-            if (!cardRef.current) return;
-            const style = getComputedStyle(cardRef.current);
-            const w = parseFloat(style.getPropertyValue("--card-w")) || 130;
-            const h = parseFloat(style.getPropertyValue("--card-h")) || 195;
-            setSize({ w, h });
-        };
-        update();
-        const ro = new ResizeObserver(update);
-        if (cardRef.current) ro.observe(cardRef.current);
-        return () => ro.disconnect();
-    }, []);
+  useEffect(() => {
+    const update = () => {
+      if (!cardRef.current) return;
+      const style = getComputedStyle(cardRef.current);
+      const w = parseFloat(style.getPropertyValue("--card-w")) || 130;
+      const h = parseFloat(style.getPropertyValue("--card-h")) || 195;
+      setSize({ w, h });
+    };
+    update();
+    const ro = new ResizeObserver(update);
+    if (cardRef.current) ro.observe(cardRef.current);
+    return () => ro.disconnect();
+  }, []);
 
-    return (
-        <div
-            ref={cardRef}
-            className="portfolio-img-card pf-book-card"
-            style={{
-                width: `var(--card-w, ${size.w}px)`,
-                height: `var(--card-h, ${size.h}px)`,
-                margin: `0 var(--card-mx, 6px)`,
-            }}
-        >
-            <img
-                src={item.src}
-                alt={item.title}
-                onError={e => {
-                    const t = e.currentTarget;
-                    t.style.display = "none";
-                    const p = t.parentElement!;
-                    p.style.background = `hsl(${Math.random() * 360}, 25%, 18%)`;
-                    const fb = document.createElement("div");
-                    fb.style.cssText = "width:100%;height:100%;display:flex;align-items:center;justify-content:center;padding:14px;";
-                    fb.innerHTML = `<span style="font-family:'Bebas Neue',sans-serif;font-size:0.9rem;color:rgba(255,255,255,0.35);text-align:center;letter-spacing:0.05em;">${item.title}</span>`;
-                    p.appendChild(fb);
-                }}
-            />
-            <div className="overlay" style={{
-                background: "linear-gradient(to top, rgba(0,0,0,0.72) 0%, transparent 60%)",
-            }}>
-                <div>
-                    <p className="overlay-label">{item.title}</p>
-                    <p className="overlay-sub">{item.genre}</p>
-                </div>
-            </div>
-            <div className="card-accent" />
+  return (
+    <div
+      ref={cardRef}
+      className="portfolio-img-card pf-book-card"
+      style={{
+        width: `var(--card-w, ${size.w}px)`,
+        height: `var(--card-h, ${size.h}px)`,
+        margin: `0 var(--card-mx, 6px)`,
+      }}
+    >
+      <img
+        src={item.src}
+        alt={item.title}
+        onError={e => {
+          const t = e.currentTarget;
+          t.style.display = "none";
+          const p = t.parentElement!;
+          p.style.background = `hsl(${Math.random() * 360}, 25%, 18%)`;
+          const fb = document.createElement("div");
+          fb.style.cssText = "width:100%;height:100%;display:flex;align-items:center;justify-content:center;padding:14px;";
+          fb.innerHTML = `<span style="font-family:'Bebas Neue',sans-serif;font-size:0.9rem;color:rgba(255,255,255,0.35);text-align:center;letter-spacing:0.05em;">${item.title}</span>`;
+          p.appendChild(fb);
+        }}
+      />
+      <div className="overlay" style={{
+        background: "linear-gradient(to top, rgba(0,0,0,0.72) 0%, transparent 60%)",
+      }}>
+        <div>
+          <p className="overlay-label">{item.title}</p>
+          <p className="overlay-sub">{item.genre}</p>
         </div>
-    );
+      </div>
+      <div className="card-accent" />
+    </div>
+  );
 };
 
 interface MarqueeRowProps {
-    items: { src: string; title: string; genre: string }[];
-    direction: "left" | "right";
-    speed?: number;
+  items: { src: string; title: string; genre: string }[];
+  direction: "left" | "right";
+  speed?: number;
 }
 
 const MarqueeRow: React.FC<MarqueeRowProps> = ({ items, direction, speed = 1.2 }) => {
-    const trackRef = useRef<HTMLDivElement>(null);
-    const isDragging = useRef(false);
-    const startX = useRef(0);
-    const currentT = useRef(0);
-    const startT = useRef(0);
-    const setWidth = useRef(0);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const isDragging = useRef(false);
+  const startX = useRef(0);
+  const currentT = useRef(0);
+  const startT = useRef(0);
+  const setWidth = useRef(0);
 
-    useEffect(() => {
-        const updateW = () => {
-            if (trackRef.current) setWidth.current = trackRef.current.scrollWidth / 2;
-        };
-        updateW();
-        const ro = new ResizeObserver(updateW);
-        if (trackRef.current) ro.observe(trackRef.current);
-        return () => ro.disconnect();
-    }, [items]);
+  // State for responsive clipPath
+  const [clipInset, setClipInset] = useState({ top: 70, bottom: 40 });
 
-    useEffect(() => {
-        let id: number;
-        const animate = () => {
-            if (!isDragging.current && setWidth.current > 0) {
-                if (direction === "left") {
-                    currentT.current -= speed;
-                    if (currentT.current <= -setWidth.current) currentT.current += setWidth.current;
-                } else {
-                    currentT.current += speed;
-                    if (currentT.current >= 0) currentT.current -= setWidth.current;
-                }
-            }
-            if (trackRef.current) trackRef.current.style.transform = `translateX(${currentT.current}px)`;
-            id = requestAnimationFrame(animate);
-        };
-        id = requestAnimationFrame(animate);
-        return () => cancelAnimationFrame(id);
-    }, [direction, speed]);
-
-    const dragStart = (cx: number) => {
-        isDragging.current = true;
-        startX.current = cx;
-        startT.current = currentT.current;
-        if (trackRef.current) trackRef.current.style.cursor = "grabbing";
+  // Update clipPath inset based on viewport width
+  useEffect(() => {
+    const update = () => {
+      const w = window.innerWidth;
+      if (w >= 1920) setClipInset({ top: 130, bottom: 80 });
+      else if (w >= 1440) setClipInset({ top: 110, bottom: 65 });
+      else if (w >= 1024) setClipInset({ top: 100, bottom: 60 });
+      else if (w >= 768) setClipInset({ top: 90, bottom: 55 });
+      else if (w >= 480) setClipInset({ top: 80, bottom: 50 });
+      else setClipInset({ top: 70, bottom: 40 });
     };
-    const dragMove = (cx: number) => {
-        if (!isDragging.current) return;
-        let t = startT.current + (cx - startX.current);
-        if (setWidth.current > 0) {
-            if (t <= -setWidth.current) { t += setWidth.current; startT.current += setWidth.current; }
-            else if (t >= 0) { t -= setWidth.current; startT.current -= setWidth.current; }
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
+
+  useEffect(() => {
+    const updateW = () => {
+      if (trackRef.current) setWidth.current = trackRef.current.scrollWidth / 2;
+    };
+    updateW();
+    const ro = new ResizeObserver(updateW);
+    if (trackRef.current) ro.observe(trackRef.current);
+    return () => ro.disconnect();
+  }, [items]);
+
+  useEffect(() => {
+    let id: number;
+    const animate = () => {
+      if (!isDragging.current && setWidth.current > 0) {
+        if (direction === "left") {
+          currentT.current -= speed;
+          if (currentT.current <= -setWidth.current) currentT.current += setWidth.current;
+        } else {
+          currentT.current += speed;
+          if (currentT.current >= 0) currentT.current -= setWidth.current;
         }
-        currentT.current = t;
+      }
+      if (trackRef.current) trackRef.current.style.transform = `translateX(${currentT.current}px)`;
+      id = requestAnimationFrame(animate);
     };
-    const dragEnd = () => {
-        isDragging.current = false;
-        if (trackRef.current) trackRef.current.style.cursor = "grab";
-    };
+    id = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(id);
+  }, [direction, speed]);
 
-    const onMouseDown = (e: React.MouseEvent) => {
-        e.preventDefault();
-        dragStart(e.clientX);
-        const mm = (ev: MouseEvent) => dragMove(ev.clientX);
-        const mu = () => { dragEnd(); window.removeEventListener("mousemove", mm); window.removeEventListener("mouseup", mu); };
-        window.addEventListener("mousemove", mm);
-        window.addEventListener("mouseup", mu);
-    };
-    const onTouchStart = (e: React.TouchEvent) => {
-        dragStart(e.touches[0].clientX);
-        const tm = (ev: TouchEvent) => dragMove(ev.touches[0].clientX);
-        const te = () => { dragEnd(); window.removeEventListener("touchmove", tm); window.removeEventListener("touchend", te); };
-        window.addEventListener("touchmove", tm);
-        window.addEventListener("touchend", te);
-    };
+  const dragStart = (cx: number) => {
+    isDragging.current = true;
+    startX.current = cx;
+    startT.current = currentT.current;
+    if (trackRef.current) trackRef.current.style.cursor = "grabbing";
+  };
+  const dragMove = (cx: number) => {
+    if (!isDragging.current) return;
+    let t = startT.current + (cx - startX.current);
+    if (setWidth.current > 0) {
+      if (t <= -setWidth.current) { t += setWidth.current; startT.current += setWidth.current; }
+      else if (t >= 0) { t -= setWidth.current; startT.current -= setWidth.current; }
+    }
+    currentT.current = t;
+  };
+  const dragEnd = () => {
+    isDragging.current = false;
+    if (trackRef.current) trackRef.current.style.cursor = "grab";
+  };
 
-    return (
-        <div style={{ clipPath: "inset(-70px 0 -40px 0)", WebkitClipPath: "inset(-70px 0 -40px 0)", position: "relative" }}>
-            <div
-                ref={trackRef}
-                style={{ display: "flex", width: "max-content", cursor: "grab", touchAction: "pan-y" }}
-                onMouseDown={onMouseDown}
-                onTouchStart={onTouchStart}
-            >
-                {items.map((item, i) => <BookCard key={i} item={item} />)}
-                {items.map((item, i) => <BookCard key={`d${i}`} item={item} />)}
-            </div>
-        </div>
-    );
+  const onMouseDown = (e: React.MouseEvent) => {
+    e.preventDefault();
+    dragStart(e.clientX);
+    const mm = (ev: MouseEvent) => dragMove(ev.clientX);
+    const mu = () => { dragEnd(); window.removeEventListener("mousemove", mm); window.removeEventListener("mouseup", mu); };
+    window.addEventListener("mousemove", mm);
+    window.addEventListener("mouseup", mu);
+  };
+  const onTouchStart = (e: React.TouchEvent) => {
+    dragStart(e.touches[0].clientX);
+    const tm = (ev: TouchEvent) => dragMove(ev.touches[0].clientX);
+    const te = () => { dragEnd(); window.removeEventListener("touchmove", tm); window.removeEventListener("touchend", te); };
+    window.addEventListener("touchmove", tm);
+    window.addEventListener("touchend", te);
+  };
+
+  return (
+    <div style={{
+      clipPath: `inset(-${clipInset.top}px 0 -${clipInset.bottom}px 0)`,
+      WebkitClipPath: `inset(-${clipInset.top}px 0 -${clipInset.bottom}px 0)`,
+      position: "relative"
+    }}>
+      <div
+        ref={trackRef}
+        style={{ display: "flex", width: "max-content", cursor: "grab", touchAction: "pan-y" }}
+        onMouseDown={onMouseDown}
+        onTouchStart={onTouchStart}
+      >
+        {items.map((item, i) => <BookCard key={i} item={item} />)}
+        {items.map((item, i) => <BookCard key={`d${i}`} item={item} />)}
+      </div>
+    </div>
+  );
 };
 
 const Portfolio: React.FC = () => {
-    const { ref, visible } = useInView(0.08);
+  const { ref, visible } = useInView(0.08);
 
-    return (
-        <>
-            <style>{portfolioStyles}</style>
+  return (
+    <>
+      <style>{portfolioStyles}</style>
 
-            <section ref={ref} className="pf-section">
+      <section ref={ref} id="portfolio" className="pf-section">
 
-                {/* Decorative BG */}
-                <div className="pf-orb-tl" />
-                <div className="pf-orb-br" />
-                <div className="pf-grid-bg" />
-                <div className="pf-ring" />
+        {/* Decorative BG */}
+        <div className="pf-orb-tl" />
+        <div className="pf-orb-br" />
+        <div className="pf-grid-bg" />
+        <div className="pf-ring" />
 
-                {/* ── HEADER ── */}
-                <div className="pf-container">
-                    <div
-                        className="pf-eyebrow"
-                        style={{ opacity: visible ? 1 : 0, animation: visible ? "fadeUp 0.6s ease forwards" : "none" }}
-                    >
-                        <div className="pf-eyebrow-line" style={{ width: visible ? "48px" : "0" }} />
-                        <span className="pf-eyebrow-text">Our Portfolio</span>
-                    </div>
+        {/* ── HEADER ── */}
+        <div className="pf-container">
+          <div
+            className="pf-eyebrow"
+            style={{ opacity: visible ? 1 : 0, animation: visible ? "fadeUp 0.6s ease forwards" : "none" }}
+          >
+            <div className="pf-eyebrow-line" style={{ width: visible ? "48px" : "0" }} />
+            <span className="pf-eyebrow-text">Our Portfolio</span>
+          </div>
 
-                    <div className="pf-header-inner">
-                        <h2
-                            className="pf-heading"
-                            style={{ opacity: visible ? 1 : 0, animation: visible ? "fadeUp 0.65s ease 0.1s forwards" : "none" }}
-                        >
-                            {visible && (
-                                <>
-                                    <SplitText
-                                        text="A Curated Selection of"
-                                        className="text-[#0A0A0A]"
-                                        delay={35} duration={1.1} ease="power3.out"
-                                        splitType="chars"
-                                        from={{ opacity: 0, y: 45 }} to={{ opacity: 1, y: 0 }}
-                                        threshold={0.1} rootMargin="-50px" textAlign="left"
-                                    />
-                                    {" "}
-                                    <SplitText
-                                        text="Our Published Titles"
-                                        className="text-[#FF4545]"
-                                        delay={42} duration={1.2} ease="power3.out"
-                                        splitType="chars"
-                                        from={{ opacity: 0, y: 45 }} to={{ opacity: 1, y: 0 }}
-                                        threshold={0.1} rootMargin="-50px" textAlign="left"
-                                    />
-                                </>
-                            )}
-                        </h2>
+          <div className="pf-header-inner">
+            <h2
+              className="pf-heading"
+              style={{ opacity: visible ? 1 : 0, animation: visible ? "fadeUp 0.65s ease 0.1s forwards" : "none" }}
+            >
+              {visible && (
+                <>
+                  <SplitText
+                    text="A Curated Selection of"
+                    className="text-[#0A0A0A]"
+                    delay={35} duration={1.1} ease="power3.out"
+                    splitType="chars"
+                    from={{ opacity: 0, y: 45 }} to={{ opacity: 1, y: 0 }}
+                    threshold={0.1} rootMargin="-50px" textAlign="left"
+                  />
+                  {" "}
+                  <SplitText
+                    text="Our Published Titles"
+                    className="text-[#FF4545]"
+                    delay={42} duration={1.2} ease="power3.out"
+                    splitType="chars"
+                    from={{ opacity: 0, y: 45 }} to={{ opacity: 1, y: 0 }}
+                    threshold={0.1} rootMargin="-50px" textAlign="left"
+                  />
+                </>
+              )}
+            </h2>
 
-                        <p
-                            className="pf-subtext"
-                            style={{ opacity: visible ? 1 : 0, animation: visible ? "fadeUp 0.7s ease 0.3s forwards" : "none" }}
-                        >
-                            Our work spans diverse genres, where we support authors in transforming manuscripts into professionally published books. Every title in our portfolio is crafted with precision, care, and respect for the author’s original voice.
-                        </p>
-                    </div>
-                </div>
+            <p
+              className="pf-subtext"
+              style={{ opacity: visible ? 1 : 0, animation: visible ? "fadeUp 0.7s ease 0.3s forwards" : "none" }}
+            >
+              Our work spans diverse genres, where we support authors in transforming manuscripts into professionally published books. Every title in our portfolio is crafted with precision, care, and respect for the author's original voice.
+            </p>
+          </div>
+        </div>
 
-                {/* ── MARQUEE ROWS ── */}
-                <div className="pf-rows">
-                    <div className="pf-row-wrap">
-                        <div className="pf-edge-left" style={{
-                            background: "linear-gradient(to right, #FFF9F9, transparent)",
-                        }} />
-                        <div className="pf-edge-right" style={{
-                            background: "linear-gradient(to left, #FFF9F9, transparent)",
-                        }} />
-                        <MarqueeRow items={ROW_TOP} direction="left" speed={1.2} />
-                    </div>
+        {/* ── MARQUEE ROWS ── */}
+        <div className="pf-rows">
+          <div className="pf-row-wrap">
+            <div className="pf-edge-left" style={{
+              background: "linear-gradient(to right, rgba(255,255,255,1) 0%, rgba(255,255,255,0.85) 30%, rgba(255,255,255,0.4) 65%, rgba(255,255,255,0) 100%)",
+            }} />
+            <div className="pf-edge-right" style={{
+              background: "linear-gradient(to left, rgba(255,255,255,1) 0%, rgba(255,255,255,0.85) 30%, rgba(255,255,255,0.4) 65%, rgba(255,255,255,0) 100%)",
+            }} />
+            <MarqueeRow items={ROW_TOP} direction="left" speed={1.2} />
+          </div>
 
-                    <div className="pf-row-wrap">
-                        <div className="pf-edge-left" style={{
-                            background: "linear-gradient(to right, #FFD6D6, transparent)",
-                        }} />
-                        <div className="pf-edge-right" style={{
-                            background: "linear-gradient(to left, #FFD6D6, transparent)",
-                        }} />
-                        <MarqueeRow items={ROW_BOTTOM} direction="right" speed={1.2} />
-                    </div>
-                </div>
+          <div className="pf-row-wrap">
+            <div className="pf-edge-left" style={{
+              background: "linear-gradient(to right, rgba(255,255,255,1) 0%, rgba(255,255,255,0.85) 30%, rgba(255,255,255,0.4) 65%, rgba(255,255,255,0) 100%)",
+            }} />
+            <div className="pf-edge-right" style={{
+              background: "linear-gradient(to left, rgba(255,255,255,1) 0%, rgba(255,255,255,0.85) 30%, rgba(255,255,255,0.4) 65%, rgba(255,255,255,0) 100%)",
+            }} />
+            <MarqueeRow items={ROW_BOTTOM} direction="right" speed={1.2} />
+          </div>
+        </div>
 
-            </section>
-        </>
-    );
+      </section>
+    </>
+  );
 };
 
 export default Portfolio;

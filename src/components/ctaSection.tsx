@@ -166,7 +166,7 @@ const ctaStyles = `
     color: rgba(255,255,255,0.5);
     margin: 0 0 26px;
     font-weight: 300;
-    max-width: 420px;
+    max-width: 520px;
   }
 
   .cta-btns {
@@ -219,7 +219,7 @@ const ctaStyles = `
       align-items: center;
       justify-content: space-between;
       gap: 24px;
-      min-height: 220px;
+      min-height: 320px;           /* ← Increased from 220px */
     }
     .cta-content       { max-width: 500px; flex: 1; }
     .cta-badge-text    { font-size: 0.75rem; }
@@ -239,10 +239,10 @@ const ctaStyles = `
         drop-shadow(-16px 8px 40px rgba(0,0,0,0.65))
         drop-shadow(0 0 24px rgba(255,69,69,0.10));
       pointer-events: none;
-      height: 240px;
+      height: 300px;               /* ← Increased from 240px */
     }
     .cta-mockup img {
-      height: 240px;
+      height: 300px;               /* ← Increased from 240px */
       width: auto;
       object-fit: contain;
       object-position: top right;
@@ -260,7 +260,7 @@ const ctaStyles = `
     .cta-section     { padding: 72px 36px 80px; }
     .cta-card        {
       padding: 48px 52px 48px 56px;
-      min-height: 240px;
+      min-height: 360px;           /* ← Increased from 240px */
       border-radius: 24px;
     }
     .cta-content     { max-width: 520px; }
@@ -271,12 +271,12 @@ const ctaStyles = `
     .cta-btns        { gap: 14px; }
 
     .cta-mockup      {
-      height: 320px;
+      height: 420px;               /* ← Increased from 320px */
       position: absolute;
-      right: 44px;
-      bottom: 16px;
+      right: 40px;
+      bottom: 12px;
     }
-    .cta-mockup img  { height: 320px; }
+    .cta-mockup img  { height: 420px; }  /* ← Increased from 320px */
 
     .cta-bg-orb { width: 620px; height: 280px; }
   }
@@ -290,7 +290,7 @@ const ctaStyles = `
     .cta-border-wrap { border-radius: 28px; max-width: 1200px; }
     .cta-card        {
       padding: 52px 60px 52px 64px;
-      min-height: 260px;
+      min-height: 400px;           /* ← Increased from 260px */
       border-radius: 26px;
     }
     .cta-content     { max-width: 540px; }
@@ -301,8 +301,8 @@ const ctaStyles = `
     .cta-btn-secondary { font-size: 1rem; padding: 14px 38px; }
     .cta-btns        { gap: 14px; }
 
-    .cta-mockup      { height: 380px; right: 48px; bottom: 18px; }
-    .cta-mockup img  { height: 380px; }
+    .cta-mockup      { height: 500px; right: 44px; bottom: 14px; }  /* ← Increased from 380px */
+    .cta-mockup img  { height: 500px; }                               /* ← Increased from 380px */
 
     .cta-bg-orb { width: 700px; height: 300px; }
   }
@@ -316,7 +316,7 @@ const ctaStyles = `
     .cta-border-wrap { max-width: 100%; border-radius: 32px; }
     .cta-card        {
       padding: 64px 72px 64px 80px;
-      min-height: 400px;
+      min-height: 500px;           /* ← Increased from 400px */
       border-radius: 30px;
     }
     .cta-content     { max-width: 1020px; }
@@ -336,8 +336,8 @@ const ctaStyles = `
     .cta-btn-secondary { padding: 14px 38px; font-size: 1.5rem; }
     .cta-btns        { gap: 16px; }
 
-    .cta-mockup      { height: 440px; right: 60px; bottom: 20px; }
-    .cta-mockup img  { height: 440px; }
+    .cta-mockup      { height: 580px; right: 60px; bottom: 16px; }  /* ← Increased from 440px */
+    .cta-mockup img  { height: 580px; }                               /* ← Increased from 440px */
 
     .cta-bg-orb { width: 860px; height: 360px; }
   }
@@ -347,7 +347,7 @@ const ctaStyles = `
     .cta-border-wrap { max-width: 80%; border-radius: 32px; }
     .cta-card        {
       padding: 64px 72px 64px 80px;
-      min-height: 400px;
+      min-height: 560px;           /* ← Increased from 400px */
       border-radius: 30px;
     }
     .cta-content     { max-width: 1020px; }
@@ -367,8 +367,8 @@ const ctaStyles = `
     .cta-btn-secondary { padding: 14px 38px; font-size: 1.5rem; }
     .cta-btns        { gap: 16px; }
 
-    .cta-mockup      { height: 440px; right: 60px; bottom: 20px; }
-    .cta-mockup img  { height: 440px; }
+    .cta-mockup      { height: 640px; right: 60px; bottom: 16px; }  /* ← Increased from 440px */
+    .cta-mockup img  { height: 640px; }                               /* ← Increased from 440px */
 
     .cta-bg-orb { width: 860px; height: 360px; }
   }
@@ -407,7 +407,7 @@ const CTABanner: React.FC = () => {
         <>
             <style>{ctaStyles}</style>
 
-            <section className="cta-section">
+            <section id="cta" className="cta-section">
 
                 <div className="cta-bg-orb" />
 
