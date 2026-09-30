@@ -4,7 +4,7 @@ import { LiveChatWidget } from "@livechat/widget-react";
 
 import Navbar from "./components/navbar";
 import FooterSection from "./components/footerSection";
-import { QuoteModalProvider } from "./components/QuoteModal";
+import { QuoteModalProvider } from "./components/Quotemodal";
 
 const Hero = lazy(() => import("./components/hero"));
 const LogoBar = lazy(() => import("./components/logobar"));
@@ -15,9 +15,9 @@ const CTASection = lazy(() => import("./components/ctaSection"));
 const Testimonials = lazy(() => import("./components/testimonialSection"));
 const ContactForm = lazy(() => import("./components/contactSection"));
 const ThankYou = lazy(() => import("./components/pages/Thankyou/page"));
-const PrivacyPolicy = lazy(() => import("./components/pages/Policies/PrivacyPolicy"));
-const TermsOfService = lazy(() => import("./components/pages/Policies/TermsOfService"));
-const RefundPolicy = lazy(() => import("./components/pages/Policies/RefundPolicy"));
+const PrivacyPolicy = lazy(() => import("./components/pages/Policies/Privacypolicy"));
+const TermsOfService = lazy(() => import("./components/pages/Policies/Termsofservice"));
+const RefundPolicy = lazy(() => import("./components/pages/Policies/Refundpolicy"));
 
 
 const Loader = () => {
