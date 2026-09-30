@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import SplitText from "./SplitText";
+import { Link } from 'react-scroll';
 
 const ctaStyles = `
   @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap');
@@ -385,114 +386,122 @@ const ctaStyles = `
 `;
 
 function useInView(threshold = 0.12) {
-    const ref = useRef<HTMLDivElement>(null);
-    const [visible, setVisible] = useState(false);
-    useEffect(() => {
-        const el = ref.current;
-        if (!el) return;
-        const obs = new IntersectionObserver(
-            ([e]) => { if (e.isIntersecting) { setVisible(true); obs.disconnect(); } },
-            { threshold }
-        );
-        obs.observe(el);
-        return () => obs.disconnect();
-    }, [threshold]);
-    return { ref, visible };
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) { setVisible(true); obs.disconnect(); } },
+      { threshold }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [threshold]);
+  return { ref, visible };
 }
 
 const CTABanner: React.FC = () => {
-    const { ref, visible } = useInView(0.12);
+  const { ref, visible } = useInView(0.12);
 
-    return (
-        <>
-            <style>{ctaStyles}</style>
+  return (
+    <>
+      <style>{ctaStyles}</style>
 
-            <section id="cta" className="cta-section">
+      <section id="cta" className="cta-section">
 
-                <div className="cta-bg-orb" />
+        <div className="cta-bg-orb" />
 
-                <div ref={ref} className="cta-border-wrap">
-                    <div className="cta-card">
+        <div ref={ref} className="cta-border-wrap">
+          <div className="cta-card">
 
-                        {/* Decorative layers */}
-                        <div className="cta-card-orb-tl" />
-                        <div className="cta-card-orb-br" />
-                        <div className="cta-card-grid" />
+            {/* Decorative layers */}
+            <div className="cta-card-orb-tl" />
+            <div className="cta-card-orb-br" />
+            <div className="cta-card-grid" />
 
-                        {/* ── TEXT CONTENT ── */}
-                        <div className="cta-content">
+            {/* ── TEXT CONTENT ── */}
+            <div className="cta-content">
 
-                            <div
-                                className="cta-badge"
-                                style={{ opacity: visible ? 1 : 0, animation: visible ? "fadeUp 0.5s ease forwards" : "none" }}
-                            >
-                                <span className="cta-badge-dot" />
-                                <span className="cta-badge-text">JOIN OUR LIST OF PUBLISHED AUTHORS</span>
-                            </div>
+              <div
+                className="cta-badge"
+                style={{ opacity: visible ? 1 : 0, animation: visible ? "fadeUp 0.5s ease forwards" : "none" }}
+              >
+                <span className="cta-badge-dot" />
+                <span className="cta-badge-text">JOIN OUR LIST OF PUBLISHED AUTHORS</span>
+              </div>
 
-                            <h2
-                                className="cta-heading"
-                                style={{ opacity: visible ? 1 : 0, animation: visible ? "fadeUp 0.6s ease 0.1s forwards" : "none" }}
-                            >
-                                {visible && (
-                                    <>
-                                        <SplitText
-                                            text="The Invisible Process"
-                                            delay={30} duration={1.0} ease="power3.out"
-                                            splitType="chars"
-                                            from={{ opacity: 0, y: 35 }} to={{ opacity: 1, y: 0 }}
-                                            threshold={0.1} rootMargin="-30px" textAlign="left"
-                                        />
-                                        <br />
-                                        <SplitText
-                                            text="Behind"
-                                            delay={35} duration={1.05} ease="power3.out"
-                                            splitType="chars"
-                                            from={{ opacity: 0, y: 35 }} to={{ opacity: 1, y: 0 }}
-                                            threshold={0.1} rootMargin="-30px" textAlign="left"
-                                        />
-                                        {" "}
-                                        <SplitText
-                                            text="Every Published Story"
-                                            className="text-[#FF4545]"
-                                            delay={40} duration={1.1} ease="power3.out"
-                                            splitType="chars"
-                                            from={{ opacity: 0, y: 35 }} to={{ opacity: 1, y: 0 }}
-                                            threshold={0.1} rootMargin="-30px" textAlign="left"
-                                        />
-                                    </>
-                                )}
-                            </h2>
+              <h2
+                className="cta-heading"
+                style={{ opacity: visible ? 1 : 0, animation: visible ? "fadeUp 0.6s ease 0.1s forwards" : "none" }}
+              >
+                {visible && (
+                  <>
+                    <SplitText
+                      text="The Invisible Process"
+                      delay={30} duration={1.0} ease="power3.out"
+                      splitType="chars"
+                      from={{ opacity: 0, y: 35 }} to={{ opacity: 1, y: 0 }}
+                      threshold={0.1} rootMargin="-30px" textAlign="left"
+                    />
+                    <br />
+                    <SplitText
+                      text="Behind"
+                      delay={35} duration={1.05} ease="power3.out"
+                      splitType="chars"
+                      from={{ opacity: 0, y: 35 }} to={{ opacity: 1, y: 0 }}
+                      threshold={0.1} rootMargin="-30px" textAlign="left"
+                    />
+                    {" "}
+                    <SplitText
+                      text="Every Published Story"
+                      className="text-[#FF4545]"
+                      delay={40} duration={1.1} ease="power3.out"
+                      splitType="chars"
+                      from={{ opacity: 0, y: 35 }} to={{ opacity: 1, y: 0 }}
+                      threshold={0.1} rootMargin="-30px" textAlign="left"
+                    />
+                  </>
+                )}
+              </h2>
 
-                            <p
-                                className="cta-para"
-                                style={{ opacity: visible ? 1 : 0, animation: visible ? "fadeUp 0.7s ease 0.35s forwards" : "none" }}
-                            >
-                                A strong book is never accidental, it is built through layers of editing, design, and strategic publishing decisions. Our role is to manage that unseen process so your work reaches the world in its strongest form.
-                            </p>
+              <p
+                className="cta-para"
+                style={{ opacity: visible ? 1 : 0, animation: visible ? "fadeUp 0.7s ease 0.35s forwards" : "none" }}
+              >
+                A strong book is never accidental, it is built through layers of editing, design, and strategic publishing decisions. Our role is to manage that unseen process so your work reaches the world in its strongest form.
+              </p>
 
-                            <div
-                                className="cta-btns"
-                                style={{ opacity: visible ? 1 : 0, animation: visible ? "fadeUp 0.7s ease 0.45s forwards" : "none" }}
-                            >
-                                <button className="cta-btn-primary">SUBMIT MANUSCRIPT</button>
-                                <button className="cta-btn-secondary">REQUEST CONSULTATION</button>
-                            </div>
-                        </div>
+              <div
+                className="cta-btns"
+                style={{ opacity: visible ? 1 : 0, animation: visible ? "fadeUp 0.7s ease 0.45s forwards" : "none" }}
+              >
+                {/* <button className="cta-btn-primary">SUBMIT MANUSCRIPT</button> */}
+                <Link
+                  to="contact"
+                  smooth={true}
+                  duration={500}
+                  className="cta-btn-primary"
+                  style={{ cursor: 'pointer' }}
+                >
+                  REQUEST CONSULTATION
+                </Link>
+              </div>
+            </div>
 
-                        {/* ── MOCKUP IMAGE — hidden on mobile, visible tablet+ ── */}
-                        <div className="cta-mockup">
-                            <img
-                                src="/images/Portfolio/MOCKUP.png"
-                                alt="Book and tablet mockup"
-                            />
-                        </div>
+            {/* ── MOCKUP IMAGE — hidden on mobile, visible tablet+ ── */}
+            <div className="cta-mockup">
+              <img
+                src="/images/Portfolio/MOCKUP.png"
+                alt="Book and tablet mockup"
+              />
+            </div>
 
-                    </div>
-                </div>
-            </section>
-        </>
-    );
+          </div>
+        </div>
+      </section>
+    </>
+  );
 };
 
 export default CTABanner;

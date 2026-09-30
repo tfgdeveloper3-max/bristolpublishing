@@ -190,7 +190,7 @@ const portfolioStyles = `
      LARGE MOBILE  480px – 767px
      ════════════════════════════════════ */
   @media (min-width: 480px) {
-    .pf-section    { padding: 70px 0 80px; }
+    .pf-section    { padding: 44px 0 80px; }
     .pf-container  { padding: 0 24px; margin-bottom: 40px; }
     .pf-book-card  { --card-w: 155px; --card-h: 230px; --card-mx: 7px; }
     .pf-orb-tl     { width: 280px; height: 280px; }
@@ -205,7 +205,7 @@ const portfolioStyles = `
      TABLET  768px – 1023px
      ════════════════════════════════════ */
   @media (min-width: 768px) {
-    .pf-section    { padding: 80px 0 90px; }
+    .pf-section    { padding: 52px 0 90px; }
     .pf-container  { padding: 0 32px; margin-bottom: 48px; }
 
     .pf-header-inner {
@@ -228,7 +228,7 @@ const portfolioStyles = `
      LAPTOP  1024px – 1439px
      ════════════════════════════════════ */
   @media (min-width: 1024px) {
-    .pf-section    { padding: 100px 0 110px; }
+    .pf-section    { padding: 64px 0 110px; }
     .pf-container  { padding: 0 40px; margin-bottom: 56px; }
     .pf-book-card  { --card-w: 220px; --card-h: 330px; --card-mx: 9px; }
     .pf-orb-tl     { width: 400px; height: 400px; }
@@ -243,7 +243,7 @@ const portfolioStyles = `
      MONITOR  1440px – 1919px
      ════════════════════════════════════ */
   @media (min-width: 1440px) {
-    .pf-section    { padding: 110px 0 120px; }
+    .pf-section    { padding: 72px 0 120px; }
     .pf-container  { padding: 0 56px; margin-bottom: 64px; max-width: 1380px; }
     .pf-book-card  { --card-w: 250px; --card-h: 390px; --card-mx: 10px; }
     .pf-orb-tl     { width: 450px; height: 450px; }
@@ -258,7 +258,7 @@ const portfolioStyles = `
      ULTRA-WIDE  ≥ 1920px
      ════════════════════════════════════ */
   @media (min-width: 1920px) {
-    .pf-section    { padding: 130px 0 140px; }
+    .pf-section    { padding: 88px 0 140px; }
     .pf-container  { padding: 0 80px; margin-bottom: 72px; max-width: 100%; }
     .pf-book-card  { --card-w: 350px; --card-h: 540px; --card-mx: 12px; }
     .pf-orb-tl     { width: 540px; height: 540px; }
@@ -310,7 +310,7 @@ const portfolioStyles = `
   }
 
   @media (min-width: 2560px) {
-    .pf-section    { padding: 130px 0 140px; }
+    .pf-section    { padding: 96px 0 140px; }
     .pf-container  { padding: 0 80px; margin-bottom: 72px; max-width: 80%; }
     .pf-book-card  { --card-w: 350px; --card-h: 540px; --card-mx: 12px; }
     .pf-orb-tl     { width: 540px; height: 540px; }

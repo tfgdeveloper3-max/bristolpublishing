@@ -100,9 +100,9 @@ const navStyles = `
     background: linear-gradient(90deg, #fe5858e8 0%, #FF4545 100%);
     font-family: 'Montserrat', sans-serif;
     font-weight: 600;
-    font-size: 12px;
+    font-size: 18px!important;
     letter-spacing: 0.08em;
-    color: #fff;
+    color: #ffffff;
     white-space: nowrap;
     transition: transform 0.15s ease, box-shadow 0.15s ease;
     box-shadow: 0 4px 18px rgba(255,69,69,0.48);
@@ -376,13 +376,13 @@ const Navbar: React.FC = () => {
             {/* CTA Button */}
             <div style={{ overflow: "visible" }}>
               <div className="cta-btn-outer" ref={btnOuterRef}>
-                <a href="tel:+99123456789" style={{ textDecoration: "none" }}>
+                <a href="tel:2794654017" style={{ textDecoration: "none" }}>
                   <button className="cta-main-btn">
                     <span className="cta-shine" />
                     <span className="cta-phone-icon">
                       <Phone size={14} strokeWidth={2.3} />
                     </span>
-                    <span>+99 123 456 789</span>
+                    <span>(279) 465-4017</span>
                   </button>
                 </a>
               </div>
@@ -419,7 +419,7 @@ const Navbar: React.FC = () => {
 
           {/* Mobile CTA */}
           <a
-            href="tel:+99123456789"
+            href="tel:2794654017"
             style={{
               display: "flex",
               alignItems: "center",
@@ -436,7 +436,7 @@ const Navbar: React.FC = () => {
             }}
           >
             <Phone size={15} strokeWidth={2.2} />
-            +99 123 456 789
+            (279) 465-4017
           </a>
         </div>
       </nav>

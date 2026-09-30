@@ -1,8 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
 import SplitText from "./SplitText";
+import { Link } from "react-scroll";
 
+const PHONE_DISPLAY = "(279) 465-4017";
+const PHONE_TEL = "tel:2794654017";
+const openQuoteModal = (service?: string) => {
+  window.dispatchEvent(new CustomEvent("bp:open-quote-modal", { detail: service ?? "" }));
+};
 const aboutStyles = `
-  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap');
 
   @keyframes about-fadeUp {
     from { opacity: 0; transform: translateY(32px); }
@@ -24,9 +30,27 @@ const aboutStyles = `
     0%, 100% { transform: rotate(3deg) translateY(0px); }
     50%       { transform: rotate(3deg) translateY(-16px); }
   }
-  @keyframes about-borderPulse {
-    0%, 100% { opacity: 0.4; }
-    50%       { opacity: 1; }
+
+  /* ── Animated phone CTA (same as hero) ── */
+  @keyframes aboutCtaFloat {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(-4px); }
+  }
+  @keyframes aboutCtaShimmer {
+    0%        { left: -120%; }
+    40%, 100% { left: 160%; }
+  }
+  @keyframes aboutCtaPhonePulse {
+    0%, 70%, 100% { transform: rotate(0deg) scale(1); }
+    75%           { transform: rotate(-14deg) scale(1.12); }
+    80%           { transform: rotate(12deg) scale(1.12); }
+    85%           { transform: rotate(-10deg) scale(1.08); }
+    90%           { transform: rotate(8deg) scale(1.04); }
+  }
+  @keyframes aboutCtaParticleFly {
+    0%   { transform: translate(0, 0) scale(1); opacity: 0; }
+    15%  { opacity: 1; }
+    100% { transform: translate(var(--p-x), var(--p-y)) scale(0.2); opacity: 0; }
   }
 
   .about-check-item {
@@ -39,26 +63,8 @@ const aboutStyles = `
     transform: translateX(0);
   }
 
-  .about-cta-primary {
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-  }
-  .about-cta-primary:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 32px rgba(255,69,69,0.45);
-  }
-  .about-cta-outline {
-    transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
-  }
-  .about-cta-outline:hover {
-    background: #FF4545 !important;
-    color: #fff !important;
-    transform: translateY(-3px);
-  }
   .about-book-float {
     animation: about-floatBook 5s ease-in-out infinite;
-  }
-  .about-border-pulse {
-    animation: about-borderPulse 4s ease-in-out infinite;
   }
 
   /* ═══════════════════════════════════
@@ -77,6 +83,8 @@ const aboutStyles = `
     max-width: 1240px;
     margin: 0 auto;
     padding: 0 20px;
+    position: relative;
+    z-index: 1;
   }
 
   .about-eyebrow {
@@ -85,13 +93,11 @@ const aboutStyles = `
     gap: 12px;
     margin-bottom: 24px;
   }
-
   .about-eyebrow-line {
     height: 2px;
     background: #FF4545;
     transition: width 0.8s ease 0.2s;
   }
-
   .about-eyebrow-text {
     font-family: 'Montserrat', sans-serif;
     font-size: 0.75rem;
@@ -100,18 +106,15 @@ const aboutStyles = `
     font-weight: 600;
   }
 
-  /* Grid: single column on mobile, 2-col on desktop */
+  /* Grid: single column on mobile, 60 / 40 on desktop */
   .about-grid {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 48px;
     align-items: center;
   }
 
-  /* Left col */
-  .about-left {
-    width: 100%;
-  }
+  .about-left { width: 100%; min-width: 0; }
 
   .about-heading {
     font-family: 'Montserrat', sans-serif;
@@ -130,23 +133,21 @@ const aboutStyles = `
     color: #444;
     font-weight: 300;
     margin-bottom: 24px;
-    max-width: 560px;
+    max-width: 640px;
   }
 
-  /* Checklist grid */
+  /* Checklist */
   .about-checks {
     display: grid;
     grid-template-columns: 1fr;
     gap: 9px 0;
     margin-bottom: 28px;
   }
-
   .about-check-inner {
     display: flex;
     align-items: flex-start;
     gap: 9px;
   }
-
   .about-check-dot {
     flex-shrink: 0;
     width: 19px;
@@ -158,7 +159,6 @@ const aboutStyles = `
     justify-content: center;
     margin-top: 2px;
   }
-
   .about-check-label {
     font-family: 'DM Sans', sans-serif;
     font-size: clamp(0.82rem, 1.8vw, 0.9rem);
@@ -173,10 +173,10 @@ const aboutStyles = `
     margin-bottom: 28px;
   }
 
-  /* CTA row */
+  /* ── CTA row ── */
   .about-cta-row {
     display: flex;
-    gap: 12px;
+    gap: 14px;
     flex-wrap: wrap;
     align-items: center;
   }
@@ -193,74 +193,111 @@ const aboutStyles = `
     cursor: pointer;
     font-size: clamp(0.78rem, 1.6vw, 0.9rem);
     white-space: nowrap;
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .about-cta-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 32px rgba(255,69,69,0.45);
   }
 
-  .about-cta-outline {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 500;
-    letter-spacing: 0.10em;
-    padding: 10px 28px;
-    border-radius: 999px;
-    background: transparent;
-    color: #FF4545;
-    border: 2px solid #FF4545;
+  .about-cta-btn-outer {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    margin: -16px;
+    animation: aboutCtaFloat 3.2s ease-in-out infinite;
+  }
+  .about-cta-particle {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    top: 50%; left: 50%;
+    margin-top: -2px; margin-left: -2px;
+    opacity: 0;
+    animation: aboutCtaParticleFly var(--p-dur) ease-out var(--p-delay) infinite;
+  }
+  .about-cta-main-btn {
+    position: relative;
+    overflow: hidden;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 11px 24px;
+    border-radius: 9999px;
+    border: none;
     cursor: pointer;
-    font-size: clamp(0.78rem, 1.6vw, 0.9rem);
-    white-space: nowrap;
-  }
-
-  .about-phone-link {
+    background: linear-gradient(90deg, #fe5858e8 0%, #FF4545 100%);
     font-family: 'Montserrat', sans-serif;
     font-weight: 600;
     font-size: clamp(0.78rem, 1.6vw, 0.9rem);
-    color: #0A0A0A;
+    letter-spacing: 0.08em;
+    color: #ffffff;
     text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    white-space: nowrap;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    box-shadow: 0 4px 18px rgba(255,69,69,0.48);
+  }
+  .about-cta-main-btn:hover { transform: scale(1.05); box-shadow: 0 6px 26px rgba(255,69,69,0.68); }
+  .about-cta-shine {
+    position: absolute; top: 0; left: -120%;
+    width: 50%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.28), transparent);
+    animation: aboutCtaShimmer 3.5s ease-in-out infinite 1.2s;
+    pointer-events: none;
+  }
+  .about-cta-phone-icon {
+    animation: aboutCtaPhonePulse 3s ease-in-out infinite 1.5s;
+    display: inline-flex; flex-shrink: 0;
   }
 
-  .about-phone-icon {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background: rgba(255,69,69,0.1);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
+  .about-cta-primary:focus-visible,
+  .about-cta-main-btn:focus-visible {
+    outline: 2px solid #FF4545;
+    outline-offset: 3px;
   }
 
-  /* Right col — image */
+  /* ── Right col — image fills its column ── */
   .about-right {
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 340px;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .about-img-frame {
+    position: relative;
+    width: 100%;
+    max-width: 300px;
   }
 
   .about-img-glow {
     position: absolute;
-    width: 260px;
-    height: 260px;
+    inset: -12%;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(255,69,69,0.15) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(255,69,69,0.16) 0%, transparent 65%);
     pointer-events: none;
+    z-index: 0;
   }
 
   .about-img-wrap {
     position: relative;
     z-index: 2;
-    border-radius: 6px;
+    width: 100%;
+    border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 30px 60px rgba(0,0,0,0.18), 0 0 0 1px rgba(255,69,69,0.12);
   }
 
   .about-img {
     display: block;
-    width: 240px;
-    height: 320px;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3 / 4;
     object-fit: cover;
     filter: brightness(0.93) saturate(1.05);
   }
@@ -274,26 +311,24 @@ const aboutStyles = `
 
   .about-dots-tl {
     position: absolute;
-    top: -16px;
-    right: -8px;
+    top: -26px;
+    right: -22px;
     display: grid;
     grid-template-columns: repeat(7, 10px);
     gap: 7px;
     opacity: 0.45;
-    z-index: 0;
+    z-index: 1;
   }
-
   .about-dots-br {
     position: absolute;
-    bottom: -8px;
-    left: -8px;
+    bottom: -22px;
+    left: -22px;
     display: grid;
     grid-template-columns: repeat(5, 10px);
     gap: 7px;
     opacity: 0.35;
-    z-index: 0;
+    z-index: 1;
   }
-
   .about-dot {
     width: 3px;
     height: 3px;
@@ -301,7 +336,7 @@ const aboutStyles = `
     background: #FF4545;
   }
 
-  /* Decorative rings */
+  /* Decorative rings / glows */
   .about-ring-1 {
     position: absolute;
     top: 6%;
@@ -347,15 +382,21 @@ const aboutStyles = `
 
 
   /* ═══════════════════════════════════
+     SMALL MOBILE  ≤ 479px
+     ═══════════════════════════════════ */
+  @media (max-width: 479px) {
+    .about-cta-main-btn { padding: 10px 18px; gap: 6px; }
+  }
+
+
+  /* ═══════════════════════════════════
      LARGE MOBILE  480px – 767px
      ═══════════════════════════════════ */
   @media (min-width: 480px) {
     .about-section { padding: 70px 0 70px; }
     .about-container { padding: 0 28px; }
     .about-checks { grid-template-columns: 1fr 1fr; gap: 9px 20px; }
-    .about-img { width: 270px; height: 360px; }
-    .about-img-glow { width: 280px; height: 280px; }
-    .about-right { min-height: 380px; }
+    .about-img-frame { max-width: 340px; }
   }
 
 
@@ -374,11 +415,9 @@ const aboutStyles = `
     .about-check-label { font-size: 0.88rem; }
 
     .about-cta-primary,
-    .about-cta-outline { padding: 11px 30px; font-size: 0.85rem; }
+    .about-cta-main-btn { padding: 11px 30px; font-size: 0.85rem; }
 
-    .about-img { width: 290px; height: 390px; }
-    .about-img-glow { width: 300px; height: 300px; }
-    .about-right { min-height: 420px; }
+    .about-img-frame { max-width: 380px; }
 
     .about-ring-1 { width: 180px; height: 180px; }
     .about-ring-2 { width: 130px; height: 130px; }
@@ -386,17 +425,16 @@ const aboutStyles = `
 
 
   /* ═══════════════════════════════════
-     LAPTOP  1024px – 1439px
+     LAPTOP  1024px – 1439px   → 60 / 40
      ═══════════════════════════════════ */
   @media (min-width: 1024px) {
     .about-section { padding: 100px 0 100px; }
     .about-container { padding: 0 48px; }
     .about-eyebrow { margin-bottom: 28px; }
 
-    /* Switch to 2-col layout */
     .about-grid {
-      grid-template-columns: 1fr 380px;
-      gap: 60px;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+      gap: 56px;
     }
 
     .about-heading { font-size: clamp(2.4rem, 3.5vw, 3.2rem); }
@@ -406,12 +444,10 @@ const aboutStyles = `
     .about-check-label { font-size: 0.9rem; }
 
     .about-cta-primary,
-    .about-cta-outline { padding: 12px 32px; font-size: 0.88rem; }
-    .about-cta-row { gap: 13px; }
+    .about-cta-main-btn { padding: 12px 32px; font-size: 0.88rem; }
 
-    .about-img { width: 280px; height: 380px; }
-    .about-img-glow { width: 280px; height: 280px; }
-    .about-right { min-height: 460px; }
+    /* image now fills the whole 40% column */
+    .about-img-frame { max-width: 100%; }
 
     .about-ring-1 { width: 190px; height: 190px; }
     .about-ring-2 { width: 135px; height: 135px; }
@@ -425,29 +461,22 @@ const aboutStyles = `
      ═══════════════════════════════════ */
   @media (min-width: 1440px) {
     .about-section { padding: 110px 0 100px; }
-    .about-container { padding: 0 64px; max-width: 1380px; }
+    .about-container { padding: 0 64px; max-width: 1440px; }
 
-    .about-grid {
-      grid-template-columns: 1fr 420px;
-      gap: 80px;
-    }
+    .about-grid { gap: 72px; }
 
     .about-heading { font-size: 3.6rem; }
-    .about-para { font-size: 1.05rem; margin-bottom: 28px; }
+    .about-para { font-size: 1.05rem; margin-bottom: 28px; max-width: 720px; }
 
     .about-checks { gap: 10px 28px; margin-bottom: 36px; }
     .about-check-label { font-size: 0.92rem; }
 
     .about-cta-primary,
-    .about-cta-outline { padding: 13px 34px; font-size: 0.9rem; }
-    .about-cta-row { gap: 14px; }
+    .about-cta-main-btn { padding: 13px 34px; font-size: 0.9rem; }
+    .about-cta-row { gap: 16px; }
 
-    .about-img { width: 300px; height: 400px; }
-    .about-img-glow { width: 300px; height: 300px; }
-    .about-right { min-height: 500px; }
+    .about-img-frame { max-width: 520px; }
 
-    .about-ring-1 { width: 190px; height: 190px; }
-    .about-ring-2 { width: 135px; height: 135px; }
     .about-glow-tl { width: 420px; height: 420px; }
     .about-glow-br { width: 480px; height: 480px; }
   }
@@ -458,100 +487,42 @@ const aboutStyles = `
      ═══════════════════════════════════ */
   @media (min-width: 1920px) {
     .about-section { padding: 130px 0 120px; }
-    .about-container { padding: 0 80px; max-width: 100%; }
+    .about-container { padding: 0 80px; max-width: 1840px; }
 
-    .about-grid {
-      grid-template-columns: 1fr 580px;
-      gap: 100px;
-    }
+    .about-grid { gap: 96px; }
 
-    .about-heading { font-size: 4rem;  max-width: 2080px; }
-    .about-para { font-size: 24px; margin-bottom: 32px; max-width: 1080px; }
+    .about-eyebrow-text { font-size: 1.1rem; }
+    .about-heading { font-size: 4.4rem; }
+    .about-para { font-size: 24px; margin-bottom: 32px; max-width: 1000px; }
 
-    .about-checks { gap: 12px 32px; margin-bottom: 40px; }
+    .about-checks { gap: 14px 32px; margin-bottom: 40px; }
     .about-check-label { font-size: 22px; }
     .about-check-dot { width: 25px; height: 25px; }
 
     .about-cta-primary,
-    .about-cta-outline { padding: 14px 38px; font-size: 1.5rem; }
-    .about-cta-row { gap: 16px; }
+    .about-cta-main-btn { padding: 16px 40px; font-size: 1.4rem; }
+    .about-cta-main-btn { gap: 10px; }
+    .about-cta-phone-icon svg { width: 20px; height: 20px; }
+    .about-cta-row { gap: 20px; }
 
-    .about-img { width: 440px; height: 560px; }
-    .about-img-glow { width: 360px; height: 360px; }
-    .about-right { min-height: 560px; }
-
-    .about-phone-link {font-size: 1.5rem;}
-
-    .about-eyebrow {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 24px;
-  }
-
-  .about-eyebrow-line {
-    height: 2px;
-    background: #FF4545;
-    transition: width 0.8s ease 0.2s;
-  }
-
-  .about-eyebrow-text {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 1.1rem;
-    letter-spacing: 0.28em;
-    color: #FF4545;
-    font-weight: 600;
-  }
-
+    .about-img-frame { max-width: 640px; }
   }
 
   @media (min-width: 2560px) {
-    .about-section { padding: 130px 0 120px; }
-    .about-container { padding: 0 80px; max-width: 80%; }
+    .about-container { max-width: 2200px; }
 
-    .about-grid {
-      grid-template-columns: 1fr 580px;
-      gap: 100px;
-    }
+    .about-eyebrow-text { font-size: 1.3rem; }
+    .about-heading { font-size: 5.5rem; }
+    .about-para { font-size: 28px; max-width: 1200px; }
 
-    .about-heading { font-size: 5rem;  max-width: 1580px; }
-    .about-para { font-size: 28px; margin-bottom: 32px; max-width: 1080px; }
-
-    .about-checks { gap: 12px 32px; margin-bottom: 40px; }
     .about-check-label { font-size: 26px; }
-    .about-check-dot { width: 25px; height: 25px; }
 
     .about-cta-primary,
-    .about-cta-outline { padding: 14px 38px; font-size: 1.5rem; }
-    .about-cta-row { gap: 16px; }
+    .about-cta-main-btn { padding: 20px 48px; font-size: 1.6rem; }
+    .about-cta-main-btn { gap: 12px; }
+    .about-cta-phone-icon svg { width: 24px; height: 24px; }
 
-    .about-img { width: 440px; height: 560px; }
-    .about-img-glow { width: 360px; height: 360px; }
-    .about-right { min-height: 560px; }
-
-    .about-phone-link {font-size: 1.5rem;}
-
-    .about-eyebrow {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 24px;
-  }
-
-  .about-eyebrow-line {
-    height: 2px;
-    background: #FF4545;
-    transition: width 0.8s ease 0.2s;
-  }
-
-  .about-eyebrow-text {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 1.3rem;
-    letter-spacing: 0.28em;
-    color: #FF4545;
-    font-weight: 600;
-  }
-
+    .about-img-frame { max-width: 780px; }
   }
 
 
@@ -561,8 +532,24 @@ const aboutStyles = `
   @media (prefers-reduced-motion: reduce) {
     .about-book-float { animation: none !important; }
     .about-ring-1, .about-ring-2 { animation: none !important; }
+    .about-cta-btn-outer, .about-cta-shine, .about-cta-phone-icon { animation: none !important; }
+    .about-cta-particle { display: none; }
   }
 `;
+
+/* Sparks around the phone CTA — red/pink so they show on the light background */
+const CTA_PARTICLES = Array.from({ length: 10 }, (_, i) => {
+  const angle = (i / 10) * Math.PI * 2;
+  const dist = 34 + (i % 3) * 10;
+  return {
+    x: `${Math.round(Math.cos(angle) * dist * 1.8)}px`,
+    y: `${Math.round(Math.sin(angle) * dist)}px`,
+    size: i % 3 === 0 ? 5 : 4,
+    color: i % 2 === 0 ? "#FF4545" : "#FF9A9A",
+    dur: `${2.2 + (i % 4) * 0.35}s`,
+    delay: `${(i * 0.27).toFixed(2)}s`,
+  };
+});
 
 function useAboutInView(threshold = 0.12) {
   const ref = useRef<HTMLDivElement>(null);
@@ -618,18 +605,15 @@ const AboutSection: React.FC = () => {
               animation: visible ? "about-fadeUp 0.6s ease forwards" : "none",
             }}
           >
-            <div
-              className="about-eyebrow-line"
-              style={{ width: visible ? "36px" : "0" }}
-            />
+            <div className="about-eyebrow-line" style={{ width: visible ? "36px" : "0" }} />
             <span className="about-eyebrow-text">ABOUT US</span>
           </div>
 
-          {/* Main grid */}
+          {/* Main grid — 60 / 40 */}
           <div className="about-grid">
 
-            {/* ── LEFT COL ── */}
-            <div 
+            {/* ── LEFT COL (60%) ── */}
+            <div
               className="about-left"
               style={{
                 opacity: visible ? 1 : 0,
@@ -670,7 +654,7 @@ const AboutSection: React.FC = () => {
               </h2>
 
               <p className="about-para">
-                Bristol Publishers is a complete publishing partner dedicated to shaping manuscripts into market-ready books. From development to distribution, we provide structured support at every stage of the publishing journey. We focus on quality, clarity, and author success. Whether you're facing these challenges, we're here to support you. 
+                Bristol Publishers is a complete publishing partner dedicated to shaping manuscripts into market-ready books. From development to distribution, we provide structured support at every stage of the publishing journey. We focus on quality, clarity, and author success. Whether you're facing these challenges, we're here to support you.
               </p>
 
               {/* Checklist */}
@@ -695,23 +679,47 @@ const AboutSection: React.FC = () => {
 
               <div className="about-divider" />
 
-              {/* CTA buttons */}
               <div className="about-cta-row">
-                <button className="about-cta-primary">GET A QUOTE</button>
-                <button className="about-cta-outline">LIVE CHAT</button>
-                <a href="tel:+13025184405" className="about-phone-link">
-                  <div className="about-phone-icon">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
-                      stroke="#FF4545" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8a19.79 19.79 0 01-3.07-8.64A2 2 0 012 .82h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" />
-                    </svg>
-                  </div>
-                  +1 302-518-4405
-                </a>
+                 <button
+                type="button"
+                className="hero-cta-primary"
+                onClick={() => openQuoteModal()}
+              >
+                GET A QUOTE
+              </button>
+
+                <span className="about-cta-btn-outer">
+                  {CTA_PARTICLES.map((p, i) => (
+                    <span
+                      key={i}
+                      className="about-cta-particle"
+                      aria-hidden="true"
+                      style={{
+                        width: p.size,
+                        height: p.size,
+                        background: p.color,
+                        "--p-x": p.x,
+                        "--p-y": p.y,
+                        "--p-dur": p.dur,
+                        "--p-delay": p.delay,
+                      } as React.CSSProperties}
+                    />
+                  ))}
+                  <a href={PHONE_TEL} className="about-cta-main-btn">
+                    <span className="about-cta-shine" aria-hidden="true" />
+                    <span className="about-cta-phone-icon" aria-hidden="true">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
+                        stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8a19.79 19.79 0 01-3.07-8.64A2 2 0 012 .82h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" />
+                      </svg>
+                    </span>
+                    {PHONE_DISPLAY}
+                  </a>
+                </span>
               </div>
             </div>
 
-            {/* ── RIGHT COL — Image ── */}
+            {/* ── RIGHT COL (40%) — Image ── */}
             <div
               className="about-right"
               style={{
@@ -719,30 +727,25 @@ const AboutSection: React.FC = () => {
                 animation: visible ? "about-fadeRight 0.9s ease 0.35s forwards" : "none",
               }}
             >
-              <div className="about-img-glow" />
+              <div className="about-img-frame">
+                <div className="about-img-glow" />
 
-              {/* Dots top-right */}
-              <div className="about-dots-tl">
-                {Array.from({ length: 42 }).map((_, i) => (
-                  <div key={i} className="about-dot" />
-                ))}
-              </div>
+                <div className="about-dots-tl" aria-hidden="true">
+                  {Array.from({ length: 42 }).map((_, i) => <div key={i} className="about-dot" />)}
+                </div>
 
-              {/* Book image */}
-              <div className="about-book-float about-img-wrap">
-                <img
-                  src="/images/About1.webp"
-                  alt="Bristol Publishers — Author Book"
-                  className="about-img"
-                />
-                <div className="about-img-shimmer" />
-              </div>
+                <div className="about-book-float about-img-wrap">
+                  <img
+                    src="/images/About1.webp"
+                    alt="Bristol Publishers — Author Book"
+                    className="about-img"
+                  />
+                  <div className="about-img-shimmer" />
+                </div>
 
-              {/* Dots bottom-left */}
-              <div className="about-dots-br">
-                {Array.from({ length: 25 }).map((_, i) => (
-                  <div key={i} className="about-dot" />
-                ))}
+                <div className="about-dots-br" aria-hidden="true">
+                  {Array.from({ length: 25 }).map((_, i) => <div key={i} className="about-dot" />)}
+                </div>
               </div>
             </div>
 

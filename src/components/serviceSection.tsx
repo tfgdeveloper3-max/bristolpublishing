@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import SplitText from "./SplitText";
+import { Link } from 'react-scroll';
 
 const servicesStyles = `
   @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap');
@@ -70,7 +71,7 @@ const servicesStyles = `
   .srv-section {
     background: linear-gradient(180deg, #1B465F 0%, #14384C 50%, #0E2432 100%);
     overflow: hidden;
-    padding: 60px 0 70px;
+    padding: 60px 0 70px !important;
     position: relative;
   }
 
@@ -128,7 +129,8 @@ const servicesStyles = `
   }
   .srv-eyebrow-text {
     font-family: 'Montserrat', sans-serif;
-    font-size: 0.75rem;
+    font-size: 0.90rem;
+    font-weight: 600;
     letter-spacing: 0.25em;
     color: #FF4545;
   }
@@ -153,7 +155,7 @@ const servicesStyles = `
     font-family: 'DM Sans', sans-serif;
     font-size: clamp(0.85rem, 2.5vw, 1.1rem);
     line-height: 1.75;
-    color: rgba(255,255,255,0.45);
+    color: rgba(255, 255, 255, 0.91);
     max-width: 460px;
     margin: 0;
     font-weight: 300;
@@ -231,7 +233,7 @@ const servicesStyles = `
     font-family: 'DM Sans', sans-serif;
     font-size: clamp(0.82rem, 2vw, 1rem);
     line-height: 1.7;
-    color: rgba(255,255,255,0.5);
+    color: rgba(255, 255, 255, 0.81);
     margin: 0 0 16px;
     font-weight: 300;
     flex-grow: 1;
@@ -594,217 +596,225 @@ const servicesStyles = `
 `;
 
 function useInView(threshold = 0.12) {
-    const ref = useRef<HTMLDivElement>(null);
-    const [visible, setVisible] = useState(false);
-    useEffect(() => {
-        const el = ref.current;
-        if (!el) return;
-        const obs = new IntersectionObserver(
-            ([e]) => { if (e.isIntersecting) { setVisible(true); obs.disconnect(); } },
-            { threshold }
-        );
-        obs.observe(el);
-        return () => obs.disconnect();
-    }, [threshold]);
-    return { ref, visible };
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) { setVisible(true); obs.disconnect(); } },
+      { threshold }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [threshold]);
+  return { ref, visible };
 }
 
 const SERVICES = [
-    {
-        num: "01", title: "Ghostwriting & Writing Support",
-        desc: "If you have an idea but need help turning it into a complete manuscript, our ghostwriting team is here to assist. We collaborate with you to develop your concept into a structured, publish-ready book while preserving your voice and vision.",
-        icon: (<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" /><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" /></svg>),
-        featured: false,
-    },
-    {
-        num: "02", title: "Editing & Proofreading",
-        desc: "We refine your manuscript for clarity, flow, grammar, and structure while maintaining your original tone. Our editorial process ensures your book is polished, consistent, and ready for professional publishing standards.",
-        icon: (<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20h9" /><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" /></svg>),
-        featured: false,
-    },
-    {
-        num: "03", title: "Book Cover Design",
-        desc: `A powerful cover creates the first impression of your book. We design visually compelling, genre-specific covers that attract readers, communicate your story, and position your book as a professional publication in competitive markets."`,
-        icon: (<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><path d="M8 12l2 2 4-4" /></svg>),
-        featured: false,
-    },
-    {
-        num: "04", title: "Book Publishing",
-        desc: "We manage the complete publishing process from start to finish, ensuring your book is professionally released in both digital and print formats. Our team takes care of listing, formatting, and distribution so your book is accessible to readers worldwide without confusion or delays",
-        icon: (<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 11 12 14 22 4" /><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" /></svg>),
-        featured: false,
-    },
-    {
-        num: "05", title: "Book Marketing & Promotion",
-        desc: "We create strategic marketing campaigns to increase your book’s visibility and reach the right audience. From PR content and articles to social media promotion, we help position your book for stronger engagement and discoverability.",
-        icon: (<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2" /></svg>),
-        featured: false,
-    },
-    {
-        num: "06", title: "Audiobook Production",
-        desc: "We transform your book into a professionally produced audiobook and create promotional trailers to enhance visibility. This allows you to reach a wider audience, including readers who prefer audio formats.",
-        icon: (<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6" /><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z" /></svg>),
-        featured: false,
-    },
+  {
+    num: "01", title: "Ghostwriting & Writing Support",
+    desc: "If you have an idea but need help turning it into a complete manuscript, our ghostwriting team is here to assist. We collaborate with you to develop your concept into a structured, publish-ready book while preserving your voice and vision.",
+    icon: (<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" /><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" /></svg>),
+    featured: false,
+  },
+  {
+    num: "02", title: "Editing & Proofreading",
+    desc: "We refine your manuscript for clarity, flow, grammar, and structure while maintaining your original tone. Our editorial process ensures your book is polished, consistent, and ready for professional publishing standards.",
+    icon: (<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20h9" /><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" /></svg>),
+    featured: false,
+  },
+  {
+    num: "03", title: "Book Cover Design",
+    desc: `A powerful cover creates the first impression of your book. We design visually compelling, genre-specific covers that attract readers, communicate your story, and position your book as a professional publication in competitive markets."`,
+    icon: (<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><path d="M8 12l2 2 4-4" /></svg>),
+    featured: false,
+  },
+  {
+    num: "04", title: "Book Publishing",
+    desc: "We manage the complete publishing process from start to finish, ensuring your book is professionally released in both digital and print formats. Our team takes care of listing, formatting, and distribution so your book is accessible to readers worldwide without confusion or delays",
+    icon: (<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 11 12 14 22 4" /><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" /></svg>),
+    featured: false,
+  },
+  {
+    num: "05", title: "Book Marketing & Promotion",
+    desc: "We create strategic marketing campaigns to increase your book’s visibility and reach the right audience. From PR content and articles to social media promotion, we help position your book for stronger engagement and discoverability.",
+    icon: (<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2" /></svg>),
+    featured: false,
+  },
+  {
+    num: "06", title: "Audiobook Production",
+    desc: "We transform your book into a professionally produced audiobook and create promotional trailers to enhance visibility. This allows you to reach a wider audience, including readers who prefer audio formats.",
+    icon: (<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6" /><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z" /></svg>),
+    featured: false,
+  },
 ];
 
 const Services: React.FC = () => {
-    const { ref, visible } = useInView(0.08);
+  const { ref, visible } = useInView(0.08);
 
-    return (
-        <>
-            <style>{servicesStyles}</style>
+  return (
+    <>
+      <style>{servicesStyles}</style>
 
-            <section ref={ref} id="services" className="srv-section">
+      <section ref={ref} id="services" className="srv-section">
 
-                {/* Decorative BG */}
-                <div className="srv-orb-tr" />
-                <div className="srv-orb-bl" />
-                <div className="srv-grid-bg" />
-                <div className="srv-ring" />
+        {/* Decorative BG */}
+        <div className="srv-orb-tr" />
+        <div className="srv-orb-bl" />
+        <div className="srv-grid-bg" />
+        <div className="srv-ring" />
 
-                <div className="srv-container">
+        <div className="srv-container">
 
-                    {/* ── HEADER ── */}
-                    <div className="srv-header">
-                        <div
-                            className="srv-eyebrow"
-                            style={{
-                                opacity: visible ? 1 : 0,
-                                animation: visible ? "fadeUp 0.6s ease forwards" : "none",
-                            }}
-                        >
-                            <div
-                                className="srv-eyebrow-line"
-                                style={{ width: visible ? "48px" : "0" }}
-                            />
-                            <span className="srv-eyebrow-text">OUR OFFERINGS</span>
-                        </div>
+          {/* ── HEADER ── */}
+          <div className="srv-header">
+            <div
+              className="srv-eyebrow"
+              style={{
+                opacity: visible ? 1 : 0,
+                animation: visible ? "fadeUp 0.6s ease forwards" : "none",
+              }}
+            >
+              <div
+                className="srv-eyebrow-line"
+                style={{ width: visible ? "48px" : "0" }}
+              />
+              <span className="srv-eyebrow-text">OUR OFFERINGS</span>
+            </div>
 
-                        <div className="srv-header-inner">
-                            <h2
-                                className="srv-heading"
-                                style={{
-                                    opacity: visible ? 1 : 0,
-                                    animation: visible ? "fadeUp 0.65s ease 0.1s forwards" : "none",
-                                }}
-                            >
-                                {visible && (
-                                    <>
-                                        <SplitText
-                                            text="Complete"
-                                            delay={35} duration={1.1} ease="power3.out"
-                                            splitType="chars"
-                                            from={{ opacity: 0, y: 45 }} to={{ opacity: 1, y: 0 }}
-                                            threshold={0.1} rootMargin="-50px" textAlign="left"
-                                        />
-                                        <br />
-                                        <SplitText
-                                            text="Publishing Roadmap"
-                                            className="text-[#FF4545]"
-                                            delay={40} duration={1.2} ease="power3.out"
-                                            splitType="chars"
-                                            from={{ opacity: 0, y: 45 }} to={{ opacity: 1, y: 0 }}
-                                            threshold={0.1} rootMargin="-50px" textAlign="left"
-                                        />
-                                        {" "}
-                                        <SplitText
-                                            text="Under One Roof"
-                                            delay={40} duration={1.2} ease="power3.out"
-                                            splitType="chars"
-                                            from={{ opacity: 0, y: 45 }} to={{ opacity: 1, y: 0 }}
-                                            threshold={0.1} rootMargin="-50px" textAlign="left"
-                                        />
-                                    </>
-                                )}
-                            </h2>
+            <div className="srv-header-inner">
+              <h2
+                className="srv-heading"
+                style={{
+                  opacity: visible ? 1 : 0,
+                  animation: visible ? "fadeUp 0.65s ease 0.1s forwards" : "none",
+                }}
+              >
+                {visible && (
+                  <>
+                    <SplitText
+                      text="Complete"
+                      delay={35} duration={1.1} ease="power3.out"
+                      splitType="chars"
+                      from={{ opacity: 0, y: 45 }} to={{ opacity: 1, y: 0 }}
+                      threshold={0.1} rootMargin="-50px" textAlign="left"
+                    />
+                    <br />
+                    <SplitText
+                      text="Publishing Roadmap"
+                      className="text-[#FF4545]"
+                      delay={40} duration={1.2} ease="power3.out"
+                      splitType="chars"
+                      from={{ opacity: 0, y: 45 }} to={{ opacity: 1, y: 0 }}
+                      threshold={0.1} rootMargin="-50px" textAlign="left"
+                    />
+                    {" "}
+                    <SplitText
+                      text="Under One Roof"
+                      delay={40} duration={1.2} ease="power3.out"
+                      splitType="chars"
+                      from={{ opacity: 0, y: 45 }} to={{ opacity: 1, y: 0 }}
+                      threshold={0.1} rootMargin="-50px" textAlign="left"
+                    />
+                  </>
+                )}
+              </h2>
 
-                            <p
-                                className="srv-subtext"
-                                style={{
-                                    opacity: visible ? 1 : 0,
-                                    animation: visible ? "fadeUp 0.7s ease 0.3s forwards" : "none",
-                                }}
-                            >
-                               Books become successful when they are shaped, refined, and positioned correctly. Bristol helps authors move beyond the writing stage with structured publishing solutions designed to refine, design, and distribute books globally. Your manuscript is prepared with us to meet professional standards and reach readers without limitations.
-                            </p>
-                        </div>
-                    </div>
+              <p
+                className="srv-subtext"
+                style={{
+                  opacity: visible ? 1 : 0,
+                  animation: visible ? "fadeUp 0.7s ease 0.3s forwards" : "none",
+                }}
+              >
+                Books become successful when they are shaped, refined, and positioned correctly. Bristol helps authors move beyond the writing stage with structured publishing solutions designed to refine, design, and distribute books globally. Your manuscript is prepared with us to meet professional standards and reach readers without limitations.
+              </p>
+            </div>
+          </div>
 
-                    {/* ── CARDS GRID ── */}
-                    <div className="srv-cards-grid">
-                        {SERVICES.map((s, i) => (
-                            <div
-                                key={i}
-                                className={`srv-card${s.featured ? " featured-card" : ""}`}
-                                style={{
-                                    opacity: visible ? 1 : 0,
-                                    animation: visible
-                                        ? `cardReveal 0.65s cubic-bezier(0.22,1,0.36,1) ${0.15 + i * 0.08}s forwards`
-                                        : "none",
-                                }}
-                            >
-                                <div className="srv-card-inner" style={s.featured ? {
-                                    background: "linear-gradient(135deg, #FF4545 0%, #c42020 100%)",
-                                    border: "1px solid transparent",
-                                } : {}}>
+          {/* ── CARDS GRID ── */}
+          <div className="srv-cards-grid">
+            {SERVICES.map((s, i) => (
+              <div
+                key={i}
+                className={`srv-card${s.featured ? " featured-card" : ""}`}
+                style={{
+                  opacity: visible ? 1 : 0,
+                  animation: visible
+                    ? `cardReveal 0.65s cubic-bezier(0.22,1,0.36,1) ${0.15 + i * 0.08}s forwards`
+                    : "none",
+                }}
+              >
+                <div className="srv-card-inner" style={s.featured ? {
+                  background: "linear-gradient(135deg, #FF4545 0%, #c42020 100%)",
+                  border: "1px solid transparent",
+                } : {}}>
 
-                                    <div className="srv-card-top">
-                                        <span className="srv-num">{s.num}</span>
-                                        <div
-                                            className="srv-icon-wrap"
-                                            style={s.featured ? {
-                                                background: "rgba(255,255,255,0.15)",
-                                                boxShadow: "none",
-                                            } : {}}
-                                        >
-                                            <span className="srv-icon" style={s.featured ? { color: "white" } : {}}>
-                                                {s.icon}
-                                            </span>
-                                        </div>
-                                    </div>
-
-                                    <div
-                                        className="srv-line"
-                                        style={s.featured ? { background: "rgba(255,255,255,0.25)" } : {}}
-                                    />
-
-                                    <h3 className="srv-title">{s.title}</h3>
-                                    <p className="srv-desc">{s.desc}</p>
-
-                                    <div style={{ display: "flex", justifyContent: "flex-end" }}>
-                                        <span
-                                            className="srv-arrow"
-                                            style={s.featured ? { color: "white" } : {}}
-                                        >
-                                            LEARN MORE
-                                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                                                <path d="M5 12h14M12 5l7 7-7 7" />
-                                            </svg>
-                                        </span>
-                                    </div>
-
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-
-                    {/* ── BOTTOM CTA BANNER ── */}
+                  <div className="srv-card-top">
+                    <span className="srv-num">{s.num}</span>
                     <div
-                        className="srv-cta-banner"
-                        style={{
-                            opacity: visible ? 1 : 0,
-                            animation: visible ? "fadeUp 0.7s ease 0.75s forwards" : "none",
-                        }}
+                      className="srv-icon-wrap"
+                      style={s.featured ? {
+                        background: "rgba(255,255,255,0.15)",
+                        boxShadow: "none",
+                      } : {}}
                     >
-                        <p className="srv-cta-heading">Not sure where to begin? Let’s guide your next step.</p>
-                        <button className="srv-cta-btn">BEGIN YOUR FREE CONSULTATION</button>
+                      <span className="srv-icon" style={s.featured ? { color: "white" } : {}}>
+                        {s.icon}
+                      </span>
                     </div>
+                  </div>
+
+                  <div
+                    className="srv-line"
+                    style={s.featured ? { background: "rgba(255,255,255,0.25)" } : {}}
+                  />
+
+                  <h3 className="srv-title">{s.title}</h3>
+                  <p className="srv-desc">{s.desc}</p>
+
+                  <div style={{ display: "flex", justifyContent: "flex-end" }}>
+                    <span
+                      className="srv-arrow"
+                      style={s.featured ? { color: "white" } : {}}
+                    >
+                      LEARN MORE
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                      </svg>
+                    </span>
+                  </div>
 
                 </div>
-            </section>
-        </>
-    );
+              </div>
+            ))}
+          </div>
+
+          {/* ── BOTTOM CTA BANNER ── */}
+          <div
+            className="srv-cta-banner"
+            style={{
+              opacity: visible ? 1 : 0,
+              animation: visible ? "fadeUp 0.7s ease 0.75s forwards" : "none",
+            }}
+          >
+            <p className="srv-cta-heading">Not sure where to begin? Let’s guide your next step.</p>
+            <Link
+              to="contact"
+              smooth={true}
+              duration={500}
+              className="srv-cta-btn"
+              style={{ cursor: 'pointer' }}
+            >
+              BEGIN YOUR FREE CONSULTATION
+            </Link>
+          </div>
+
+        </div>
+      </section>
+    </>
+  );
 };
 
 export default Services;
