@@ -3,6 +3,13 @@ import { Link } from "react-router-dom";
 import PolicyLayout, { ContactCard } from "./PolicyLayout";
 import type { PolicySection } from "./PolicyLayout";
 
+const PARTNER_PRIVACY = "https://privacy.microsoft.com/en-us/privacystatement";
+const PARTNER_AD_SETTINGS = "https://account.microsoft.com/privacy/ad-settings";
+
+const ExtLink: React.FC<{ href: string; children: React.ReactNode }> = ({ href, children }) => (
+  <a href={href} target="_blank" rel="noopener noreferrer">{children}</a>
+);
+
 const sections: PolicySection[] = [
   {
     id: "information-we-collect",
@@ -16,7 +23,7 @@ const sections: PolicySection[] = [
           <li>Manuscripts, drafts, images, audio and other materials you share for your project</li>
           <li>Billing details needed to process payments (card payments are handled by our payment processors, not stored by us)</li>
         </ul>
-        <p><strong>Information collected automatically.</strong> When you visit our website, we may collect basic technical information such as your browser type, device, IP address, the pages you view and how you arrived at our site. This is gathered through cookies and similar technologies.</p>
+        <p><strong>Information collected automatically.</strong> When you visit our website, we and our analytics partner may collect technical and usage information, such as your browser type, device, IP address, the pages you view, how you arrived at our site, and how you interact with our pages (for example clicks, scrolling and mouse movements). This is gathered through cookies and similar technologies, as described in the "Website analytics" section below.</p>
       </>
     ),
   },
@@ -31,10 +38,12 @@ const sections: PolicySection[] = [
           <li>Deliver the services you have hired us for, such as writing, editing, design, publishing, marketing and audiobook production</li>
           <li>Send project updates, invoices and service-related messages</li>
           <li>Process payments and keep business and tax records</li>
-          <li>Improve our website and services</li>
+          <li>Understand how visitors use our website so we can improve it</li>
+          <li>Detect fraud and keep our website secure</li>
           <li>Send occasional updates or offers, where permitted. You can opt out at any time.</li>
           <li>Meet legal obligations and protect our rights</li>
         </ul>
+        <p>We do not show advertisements on our website.</p>
       </>
     ),
   },
@@ -55,7 +64,8 @@ const sections: PolicySection[] = [
       <>
         <p><strong>We do not sell your personal information.</strong> We share it only in these situations:</p>
         <ul>
-          <li><strong>Service providers</strong> who help us run our business, such as website hosting, lead and customer management, email and payment processing</li>
+          <li><strong>Service providers</strong> who help us run our business, such as website hosting, lead and customer management, live chat, email and payment processing</li>
+          <li><strong>Our analytics partner</strong>, as described in the "Website analytics" section below</li>
           <li><strong>Publishing and distribution platforms</strong> when you ask us to publish or distribute your book on your behalf</li>
           <li><strong>Legal reasons</strong>, when required by law or to protect our rights, users or the public</li>
           <li><strong>Business transfers</strong>, if our business is merged, sold or reorganised</li>
@@ -64,10 +74,16 @@ const sections: PolicySection[] = [
     ),
   },
   {
-    id: "cookies",
-    title: "Cookies and analytics",
+    id: "analytics",
+    title: "Website analytics",
     content: (
-      <p>We use cookies and similar tools to keep the website working, understand how visitors use it and improve it. You can block or delete cookies in your browser settings. Some parts of the site may not work as intended without them.</p>
+      <>
+        <p>We partner with a third-party analytics provider to capture how you use and interact with our website through behavioural metrics, heatmaps and session replay, so we can improve our website and services.</p>
+        <p>Website usage data is captured using first-party and third-party cookies and other tracking technologies to understand which pages and services are popular and how visitors use the site. We also use this information for site optimisation and fraud and security purposes.</p>
+        <p>The analytics service records how visitors move around our pages, including clicks, scrolling, mouse movements and the pages viewed, and turns this into heatmaps and session replays. Sensitive text you type into forms is masked before it is sent to our partner.</p>
+        <p>Our analytics partner collects and receives this data as an independent party and may use it to provide and improve its own products and services, which can include advertising on other websites and services. It may process this data in the United States. For more information, see our <ExtLink href={PARTNER_PRIVACY}>analytics partner's privacy statement</ExtLink>.</p>
+        <p>You can block or delete cookies in your browser settings, and you can control how our analytics partner uses your data for personalised ads in their <ExtLink href={PARTNER_AD_SETTINGS}>ad settings</ExtLink>.</p>
+      </>
     ),
   },
   {
@@ -86,7 +102,7 @@ const sections: PolicySection[] = [
   },
   {
     id: "your-rights",
-    title: "Your rights and choices",
+    title: "Your rights",
     content: (
       <>
         <p>Depending on where you live, you may have the right to:</p>
@@ -94,7 +110,8 @@ const sections: PolicySection[] = [
           <li>Ask what personal information we hold about you</li>
           <li>Ask us to correct or delete it</li>
           <li>Opt out of marketing messages</li>
-          <li>Ask us not to sell or share your information (we do not sell it)</li>
+          <li>Opt out of the sale or sharing of your information (we do not sell it)</li>
+          <li>Withdraw consent you have given us</li>
         </ul>
         <p>Residents of some US states, including California, may have additional rights under state law. To make a request, contact us using the details below. We will not treat you differently for using these rights.</p>
       </>
@@ -104,7 +121,7 @@ const sections: PolicySection[] = [
     id: "children",
     title: "Children's privacy",
     content: (
-      <p>Our website and services are not directed at children under 13, and we do not knowingly collect personal information from them. If you believe a child has sent us information, please contact us and we will delete it.</p>
+      <p>Our website and services are intended for adults aged 18 and over. We do not knowingly collect personal information from anyone under 18. If you believe a minor has sent us information, please contact us and we will delete it.</p>
     ),
   },
   {
@@ -140,7 +157,7 @@ const PrivacyPolicy: React.FC = () => (
     updated="October 1, 2026"
     intro={
       <>
-        <p>This Privacy Policy explains how Bristol Publishers ("we", "us", "our") collects, uses and protects your personal information when you visit our website or use our writing, editing, design, publishing, marketing and audiobook services.</p>
+        <p>This Privacy Policy explains how Bristol Publishers ("we", "us", "our") collects, uses and protects your personal information when you visit our website or use our writing, editing, design, publishing, marketing and audiobook services. It also explains how we use website analytics.</p>
         <p>By using our website or services, you agree to the practices described here.</p>
       </>
     }

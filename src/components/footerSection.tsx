@@ -13,6 +13,23 @@ const footerStyles = `
     50%       { opacity: 0.7; transform: scale(1.1); }
   }
 
+  /* ── Blinking phone number ── */
+  @keyframes ftPhoneBlink {
+    0%, 100% { color: #0A0A0A; }
+    50%       { color: #FF4545; }
+  }
+  @keyframes ftPhoneFloat {
+    0%, 100% { transform: translateX(0); }
+    50%       { transform: translateX(4px); }
+  }
+  @keyframes ftPhoneRing {
+    0%, 70%, 100% { transform: rotate(0deg) scale(1); }
+    75%           { transform: rotate(-14deg) scale(1.12); }
+    80%           { transform: rotate(12deg) scale(1.12); }
+    85%           { transform: rotate(-10deg) scale(1.08); }
+    90%           { transform: rotate(8deg) scale(1.04); }
+  }
+
   .footer-link {
     font-family: 'DM Sans', sans-serif;
     font-weight: 300;
@@ -97,6 +114,25 @@ const footerStyles = `
     font-weight: 500;
   }
   .ft-contact svg { flex-shrink: 0; color: #FF4545; }
+
+  .ft-phone-btn {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    font-size: clamp(0.9rem, 1.9vw, 1.05rem);
+    text-decoration: none;
+    white-space: nowrap;
+    animation: ftPhoneBlink 1.6s ease-in-out infinite, ftPhoneFloat 2.4s ease-in-out infinite;
+  }
+  .ft-phone-btn:hover { animation-play-state: paused; color: #FF4545; }
+  .ft-phone-btn:focus-visible { outline: 2px solid #FF4545; outline-offset: 3px; border-radius: 3px; }
+  .ft-contact .ft-phone-btn svg {
+    color: #FF4545;
+    animation: ftPhoneRing 2s ease-in-out infinite;
+  }
 
   .ft-nav-cols {
     display: grid;
@@ -218,6 +254,7 @@ const footerStyles = `
     .ft-tagline       { max-width: 520px; font-size: 24px; margin-bottom: 24px; }
     .ft-contact       { gap: 12px; }
     .ft-contact svg   { width: 22px; height: 22px; }
+    .ft-phone-btn     { font-size: 1.4rem; gap: 12px; }
     .ft-nav-title     { font-size: 1.2rem; margin-bottom: 24px; }
     .ft-nav-list      { gap: 16px; }
     .footer-link      { font-size: 1.3rem; }
@@ -234,6 +271,7 @@ const footerStyles = `
     .ft-tagline       { max-width: 640px; font-size: 26px; }
     .ft-nav-title     { font-size: 1.4rem; }
     .footer-link      { font-size: 1.5rem; }
+    .ft-phone-btn     { font-size: 1.65rem; }
     .ft-copyright     { font-size: 1.15rem; }
     .ft-legal-links .footer-link { font-size: 1.15rem; }
   }
@@ -241,6 +279,7 @@ const footerStyles = `
   @media (prefers-reduced-motion: reduce) {
     .ft-orb-tl { animation: none !important; }
     .ft-ring   { animation: none !important; }
+    .ft-phone-btn, .ft-contact .ft-phone-btn svg { animation: none !important; }
   }
 `;
 
@@ -331,11 +370,11 @@ const FooterSection: React.FC = () => {
                 Bristol Publishers handle the complexity of publishing so your focus remains on creativity while we manage execution. Because finishing a book is not the end, it's the transition from creation to recognition.
               </p>
               <div className="ft-contact">
-                <a href="tel:2794654017" className="footer-link">
+                <a href="tel:+17373855397" className="ft-phone-btn">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8a19.79 19.79 0 01-3.07-8.7A2 2 0 012 .99h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" />
                   </svg>
-                  (279) 465-4017
+                  (737) 385-5397
                 </a>
                 <a href="mailto:info@bristolpublishers.com" className="footer-link">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
@@ -343,6 +382,27 @@ const FooterSection: React.FC = () => {
                   </svg>
                   info@bristolpublishers.com
                 </a>
+               <div className="footer-link flex items-start gap-2 font-bold">
+  <svg
+    width="16"
+    height="16"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.8"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className="mt-1 shrink-0"
+  >
+    <path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0z" />
+    <circle cx="12" cy="10" r="3" />
+  </svg>
+
+  <span className="font-semibold">
+    1919 Taylor Street STE F<br />
+    Houston, TX 77007
+  </span>
+</div>
               </div>
             </div>
 

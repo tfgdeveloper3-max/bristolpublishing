@@ -1,4 +1,4 @@
-import React, { useEffect, lazy, Suspense } from "react";
+import React, { useEffect, lazy, Suspense, useState, useCallback } from "react";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { LiveChatWidget } from "@livechat/widget-react";
 
@@ -18,7 +18,6 @@ const ThankYou = lazy(() => import("./components/pages/Thankyou/page"));
 const PrivacyPolicy = lazy(() => import("./components/pages/Policies/Privacypolicy"));
 const TermsOfService = lazy(() => import("./components/pages/Policies/Termsofservice"));
 const RefundPolicy = lazy(() => import("./components/pages/Policies/Refundpolicy"));
-
 
 const Loader = () => {
   return (
@@ -40,7 +39,6 @@ const HomePage: React.FC = () => {
   return (
     <Suspense fallback={<Loader />}>
       <Hero />
-
       <AboutSection />
       <Services />
       <Portfolio />
@@ -58,8 +56,6 @@ const MainLayout: React.FC = () => {
     document.documentElement.style.scrollBehavior = "smooth";
   }, []);
 
-  /* Coming from another page via a footer link like "/#about":
-     wait for the lazy-loaded section to appear, then scroll to it. */
   useEffect(() => {
     if (!hash) return;
     const id = decodeURIComponent(hash.slice(1));
@@ -97,59 +93,123 @@ const PolicyPage: React.FC<{ children: React.ReactNode }> = ({ children }) => (
   </>
 );
 
-function App() {
-  useEffect(() => {
-    const openChat = () => {
-      const livechat = (window as any).LiveChatWidget;
+type ChatVisibility = "maximized" | "minimized" | "hidden";
 
-      if (livechat) {
-        setTimeout(() => {
-          livechat.call("maximize");
-        }, 1000);
-        livechat.on("new_event", (event: any) => {
-          if (
-            ["message", "rich_message", "file"].includes(event.type) &&
-            event.author?.type !== "customer"
-          ) {
-            livechat.call("maximize");
-          }
-        });
+const AGENT_EVENT_TYPES = ["message", "rich_message", "file"];
+
+/* Force the widget open, verify it really opened, and retry if it didn't */
+const forceOpenChat = (attempt = 0) => {
+  const lc = (window as any).LiveChatWidget;
+
+  try {
+    lc?.call("maximize");
+  } catch {
+    // widget not ready yet; the retry below handles it
+  }
+
+  setTimeout(() => {
+    let visibility: string | null = null;
+    try {
+      visibility = lc?.get("state")?.visibility ?? null;
+    } catch {
+      visibility = null;
+    }
+    if (visibility !== "maximized" && attempt < 10) {
+      forceOpenChat(attempt + 1);
+    }
+  }, 300);
+};
+
+function App() {
+  const [chatVisibility, setChatVisibility] = useState<ChatVisibility>("minimized");
+  const [pendingOpen, setPendingOpen] = useState(false);
+
+  // OPTIONAL: auto-open the chat 1 second after page load.
+  // Uncomment if you want the chat to open on every visit.
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     setChatVisibility("maximized");
+  //     forceOpenChat();
+  //   }, 1000);
+  //   return () => clearTimeout(timer);
+  // }, []);
+
+  // Force the chat open whenever an agent sends a message
+  const handleNewEvent = useCallback(
+    (event: { type: string; author?: { type: string } }) => {
+      if (event.author?.type !== "agent") return;
+      if (!AGENT_EVENT_TYPES.includes(event.type)) return;
+
+      setChatVisibility("maximized");
+      forceOpenChat();
+
+      // Visitor is on another tab: flash the title and open when they return
+      if (document.hidden) setPendingOpen(true);
+    },
+    []
+  );
+
+  // Keep state in sync when the visitor opens/closes the chat manually
+  const handleVisibilityChanged = useCallback(
+    ({ visibility }: { visibility: ChatVisibility }) => {
+      setChatVisibility(visibility);
+      if (visibility === "maximized") setPendingOpen(false);
+    },
+    []
+  );
+
+  // Title flash + open-on-return while a message is waiting
+  useEffect(() => {
+    if (!pendingOpen) return;
+
+    const originalTitle = document.title;
+    let on = false;
+    const flash = window.setInterval(() => {
+      document.title = on ? originalTitle : "💬 New message!";
+      on = !on;
+    }, 1000);
+
+    const onReturn = () => {
+      if (!document.hidden) {
+        forceOpenChat();
+        setPendingOpen(false);
       }
     };
+    document.addEventListener("visibilitychange", onReturn);
 
-    if ((window as any).LiveChatWidget) {
-      openChat();
-    }
-
-    (window as any).__lc = (window as any).__lc || {};
-    (window as any).__lc.asyncInit = () => {
-      openChat();
+    return () => {
+      window.clearInterval(flash);
+      document.title = originalTitle;
+      document.removeEventListener("visibilitychange", onReturn);
     };
-  }, []);
+  }, [pendingOpen]);
 
   return (
     <>
       <LiveChatWidget
         license="19067595"
+        visibility={chatVisibility}
+        onNewEvent={handleNewEvent}
+        onVisibilityChanged={handleVisibilityChanged}
       />
 
       <BrowserRouter>
         {/* Must be inside BrowserRouter: the popup redirects to /thank-you */}
         <QuoteModalProvider>
-        <Routes>
-          <Route path="/" element={<MainLayout />} />
-          <Route
-            path="/thank-you"
-            element={
-              <Suspense fallback={<Loader />}>
-                <ThankYou />
-              </Suspense>
-            }
-          />
-          <Route path="/privacy-policy"   element={<PolicyPage><PrivacyPolicy /></PolicyPage>} />
-          <Route path="/terms-of-service" element={<PolicyPage><TermsOfService /></PolicyPage>} />
-          <Route path="/refund-policy"    element={<PolicyPage><RefundPolicy /></PolicyPage>} />
-        </Routes>
+          <Routes>
+            <Route path="/" element={<MainLayout />} />
+            <Route
+              path="/thank-you"
+              element={
+                <Suspense fallback={<Loader />}>
+                  <ThankYou />
+                </Suspense>
+              }
+            />
+            <Route path="/privacy-policy" element={<PolicyPage><PrivacyPolicy /></PolicyPage>} />
+            <Route path="/terms-of-service" element={<PolicyPage><TermsOfService /></PolicyPage>} />
+            <Route path="/refund-policy" element={<PolicyPage><RefundPolicy /></PolicyPage>} />
+          </Routes>
         </QuoteModalProvider>
       </BrowserRouter>
     </>

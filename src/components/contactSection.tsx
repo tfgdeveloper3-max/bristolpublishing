@@ -907,12 +907,12 @@ const ContactForm: React.FC = () => {
                       } as React.CSSProperties}
                     />
                   ))}
-                  <a href="tel:2794654017" className="info-card ct-info-card ct-phone-card">
+                  <a href="tel:+17373855397" className="info-card ct-info-card ct-phone-card">
                     <span className="ct-phone-shine" aria-hidden="true" />
                     <div className="ct-info-icon">{phoneIcon}</div>
                     <div>
                       <p className="ct-info-label">CALL US NOW</p>
-                      <p className="ct-info-value">(279) 465-4017</p>
+                      <p className="ct-info-value">(737) 385-5397</p>
                     </div>
                   </a>
                 </div>
@@ -958,7 +958,7 @@ const ContactForm: React.FC = () => {
                             <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8a19.79 19.79 0 01-3.07-8.7A2 2 0 012 .99h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" />
                           </svg>
                         </span>
-                        <label htmlFor="ct-phone" className="field-label">Phone Number</label>
+                        <label htmlFor="ct-phone" className="field-label">Phone Number *</label>
                       </div>
                     </div>
 
@@ -986,6 +986,32 @@ const ContactForm: React.FC = () => {
                       </span>
                       <label htmlFor="ct-message" className="field-label field-label-textarea">Your Message *</label>
                     </div>
+
+                    <label style={{display: "flex", alignItems: "flex-start", gap: "8px", fontSize: "12px", lineHeight: 1.5, color: "#6b7280", textAlign: "left", marginTop: "8px",}}>
+                      <input
+                        type="checkbox"
+                        name="terms_accepted"
+                        value="yes"
+                        checked
+                        readOnly
+                        onClick={(e) => e.preventDefault()}
+                        style={{ marginTop: "2px", flexShrink: 0, accentColor: "#dce1e8" }}
+                      />
+                      <span>
+                        By checking this box and submitting this form, I confirm that I have read
+                        and agree to the{" "}
+                        <a href="/terms-of-service" target="_blank" rel="noopener noreferrer" style={{ color: "inherit", textDecoration: "underline" }}>
+                          Terms of Service
+                        </a>{" "}
+                        and{" "}
+                        <a href="/privacy-policy" target="_blank" rel="noopener noreferrer" style={{ color: "inherit", textDecoration: "underline" }}>
+                          Privacy Policy
+                        </a>
+                        , and I consent to being contacted by phone, email, or text message
+                        regarding my inquiry. Message and data rates may apply. Consent is not a
+                        condition of purchase.
+                      </span>
+                    </label>
 
                     {/* Error */}
                     {error && (

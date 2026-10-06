@@ -2,6 +2,10 @@ import React, { useEffect, useRef, useState } from "react";
 import SplitText from "./SplitText";
 import { Link } from 'react-scroll';
 
+const openQuoteModal = (service?: string) => {
+  window.dispatchEvent(new CustomEvent("bp:open-quote-modal", { detail: service ?? "" }));
+};
+
 const servicesStyles = `
   @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap');
 
@@ -800,15 +804,13 @@ const Services: React.FC = () => {
             }}
           >
             <p className="srv-cta-heading">Not sure where to begin? Let’s guide your next step.</p>
-            <Link
-              to="contact"
-              smooth={true}
-              duration={500}
-              className="srv-cta-btn"
-              style={{ cursor: 'pointer' }}
-            >
-              BEGIN YOUR FREE CONSULTATION
-            </Link>
+            <button
+                type="button"
+                className="hero-cta-primary"
+                onClick={() => openQuoteModal()}
+              >
+               BEGIN YOUR FREE CONSULTATION
+              </button>
           </div>
 
         </div>

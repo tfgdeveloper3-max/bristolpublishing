@@ -2,6 +2,11 @@ import React, { useEffect, useRef, useState } from "react";
 import SplitText from "./SplitText";
 import { Link } from 'react-scroll';
 
+
+const openQuoteModal = (service?: string) => {
+  window.dispatchEvent(new CustomEvent("bp:open-quote-modal", { detail: service ?? "" }));
+};
+
 const ctaStyles = `
   @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap');
 
@@ -477,15 +482,14 @@ const CTABanner: React.FC = () => {
                 style={{ opacity: visible ? 1 : 0, animation: visible ? "fadeUp 0.7s ease 0.45s forwards" : "none" }}
               >
                 {/* <button className="cta-btn-primary">SUBMIT MANUSCRIPT</button> */}
-                <Link
-                  to="contact"
-                  smooth={true}
-                  duration={500}
-                  className="cta-btn-primary"
-                  style={{ cursor: 'pointer' }}
-                >
-                  REQUEST CONSULTATION
-                </Link>
+                
+                <button
+                type="button"
+                className="hero-cta-primary"
+                onClick={() => openQuoteModal()}
+              >
+                REQUEST CONSULTATION
+              </button>
               </div>
             </div>
 

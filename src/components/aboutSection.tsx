@@ -2,8 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import SplitText from "./SplitText";
 import { Link } from "react-scroll";
 
-const PHONE_DISPLAY = "(279) 465-4017";
-const PHONE_TEL = "tel:2794654017";
+const PHONE_DISPLAY = "(737) 385-5397";
+const PHONE_TEL = "tel:+17373855397";
 const openQuoteModal = (service?: string) => {
   window.dispatchEvent(new CustomEvent("bp:open-quote-modal", { detail: service ?? "" }));
 };
@@ -76,7 +76,7 @@ const aboutStyles = `
     width: 100%;
     overflow: hidden;
     position: relative;
-    padding: 60px 0 60px;
+    padding: 30px 0 30px;
   }
 
   .about-container {
@@ -232,7 +232,7 @@ const aboutStyles = `
     background: linear-gradient(90deg, #fe5858e8 0%, #FF4545 100%);
     font-family: 'Montserrat', sans-serif;
     font-weight: 600;
-    font-size: clamp(0.78rem, 1.6vw, 0.9rem);
+    font-size: 18px!important;
     letter-spacing: 0.08em;
     color: #ffffff;
     text-decoration: none;
@@ -393,7 +393,7 @@ const aboutStyles = `
      LARGE MOBILE  480px – 767px
      ═══════════════════════════════════ */
   @media (min-width: 480px) {
-    .about-section { padding: 70px 0 70px; }
+    .about-section { padding: 30px 0 30px; }
     .about-container { padding: 0 28px; }
     .about-checks { grid-template-columns: 1fr 1fr; gap: 9px 20px; }
     .about-img-frame { max-width: 340px; }
@@ -404,7 +404,7 @@ const aboutStyles = `
      TABLET  768px – 1023px
      ═══════════════════════════════════ */
   @media (min-width: 768px) {
-    .about-section { padding: 80px 0 80px; }
+    .about-section { padding: 30px 0 30px; }
     .about-container { padding: 0 36px; }
     .about-eyebrow { margin-bottom: 26px; }
 
@@ -428,7 +428,7 @@ const aboutStyles = `
      LAPTOP  1024px – 1439px   → 60 / 40
      ═══════════════════════════════════ */
   @media (min-width: 1024px) {
-    .about-section { padding: 100px 0 100px; }
+    .about-section { padding: 60px 0 60px; }
     .about-container { padding: 0 48px; }
     .about-eyebrow { margin-bottom: 28px; }
 
@@ -460,7 +460,7 @@ const aboutStyles = `
      MONITOR  1440px – 1919px
      ═══════════════════════════════════ */
   @media (min-width: 1440px) {
-    .about-section { padding: 110px 0 100px; }
+    .about-section { padding: 60px 0 60px; }
     .about-container { padding: 0 64px; max-width: 1440px; }
 
     .about-grid { gap: 72px; }
@@ -472,7 +472,7 @@ const aboutStyles = `
     .about-check-label { font-size: 0.92rem; }
 
     .about-cta-primary,
-    .about-cta-main-btn { padding: 13px 34px; font-size: 0.9rem; }
+    .about-cta-main-btn { padding: 18px 36px; font-size: 0.9rem; }
     .about-cta-row { gap: 16px; }
 
     .about-img-frame { max-width: 520px; }
@@ -486,7 +486,7 @@ const aboutStyles = `
      ULTRA-WIDE  ≥ 1920px
      ═══════════════════════════════════ */
   @media (min-width: 1920px) {
-    .about-section { padding: 130px 0 120px; }
+    .about-section { padding: 60px 0 60px; }
     .about-container { padding: 0 80px; max-width: 1840px; }
 
     .about-grid { gap: 96px; }

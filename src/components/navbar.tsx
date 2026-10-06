@@ -1,12 +1,13 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Phone } from "lucide-react";
 
 const NAV_ITEMS = [
-  { label: "HOME", href: "#home" },
-  { label: "ABOUT", href: "#about" },
-  { label: "SERVICES", href: "#services" },
-  { label: "PORTFOLIO", href: "#portfolio" },
-  { label: "CONTACT", href: "#contact" },
+  { label: "HOME", href: "/" },
+  { label: "ABOUT", href: "/#about" },
+  { label: "SERVICES", href: "/#services" },
+  { label: "PORTFOLIO", href: "/#portfolio" },
+  { label: "CONTACT", href: "/#contact" },
 ];
 
 const navStyles = `
@@ -265,6 +266,13 @@ const navStyles = `
 `;
 
 const NAV_SECTION_IDS = ["home", "about", "services", "portfolio", "contact"];
+const NAV_OFFSET = 80; // height of the fixed navbar
+
+/* "/#about" → "about", "/" → "home" */
+const sectionIdFromHref = (href: string) => {
+  const hash = href.split("#")[1];
+  return hash || "home";
+};
 
 const Navbar: React.FC = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -272,18 +280,24 @@ const Navbar: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
   const btnOuterRef = useRef<HTMLDivElement>(null);
 
-  /* ── Scroll spy: track which section is in view ── */
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+  const onHome = pathname === "/";
+
+  /* ── Scroll spy: only meaningful on the home page ── */
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
 
+      if (!onHome) {
+        setActiveSection("");
+        return;
+      }
       const scrollPos = window.scrollY + 160;
       let current = "home";
       for (const id of NAV_SECTION_IDS) {
         const el = document.getElementById(id);
-        if (el && el.offsetTop <= scrollPos) {
-          current = id;
-        }
+        if (el && el.offsetTop <= scrollPos) current = id;
       }
       setActiveSection(current);
     };
@@ -291,28 +305,42 @@ const Navbar: React.FC = () => {
     window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [onHome]);
 
-  /* ── Smooth scroll handler ── */
+  /* ── Nav click: scroll on home, otherwise go home then scroll ── */
   const handleNavClick = useCallback((e: React.MouseEvent, href: string) => {
     e.preventDefault();
     setMobileOpen(false);
+    const id = sectionIdFromHref(href);
 
-    const id = href.replace("#", "");
-    const el = document.getElementById(id);
-    if (el) {
-      const navHeight = 80;
-      const top = el.getBoundingClientRect().top + window.scrollY - navHeight;
-      window.scrollTo({ top, behavior: "smooth" });
+    if (onHome) {
+      if (id === "home") {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        window.history.replaceState(null, "", "/");
+        return;
+      }
+      const el = document.getElementById(id);
+      if (el) {
+        const top = el.getBoundingClientRect().top + window.scrollY - NAV_OFFSET;
+        window.scrollTo({ top, behavior: "smooth" });
+        window.history.replaceState(null, "", `#${id}`);
+      }
+    } else {
+      // App.tsx (MainLayout) scrolls to the section once the home page has loaded
+      navigate(id === "home" ? "/" : `/#${id}`);
     }
-  }, []);
+  }, [onHome, navigate]);
 
-  /* ── Logo click → scroll to top ── */
+  /* ── Logo click → top of home page ── */
   const handleLogoClick = useCallback((e: React.MouseEvent) => {
     e.preventDefault();
     setMobileOpen(false);
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }, []);
+    if (onHome) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      navigate("/");
+    }
+  }, [onHome, navigate]);
 
   /* ── Particles ── */
   useEffect(() => {
@@ -346,13 +374,13 @@ const Navbar: React.FC = () => {
     <>
       <style>{navStyles}</style>
 
-      <nav className={`nb-nav${scrolled ? " scrolled" : ""}`}>
+      <nav className={`nb-nav${scrolled || !onHome ? " scrolled" : ""}`}>
 
         {/* ── TOP BAR ── */}
         <div className="nb-bar">
 
-          {/* Logo — scrolls to top */}
-          <a href="#home" className="nb-logo" onClick={handleLogoClick}>
+          {/* Logo */}
+          <a href="/" className="nb-logo" onClick={handleLogoClick}>
             <img src="/images/logo.png" alt="Bristol Publishers" />
           </a>
 
@@ -362,7 +390,7 @@ const Navbar: React.FC = () => {
               <li key={item.label}>
                 <a
                   href={item.href}
-                  className={`nb-link${activeSection === item.href.replace("#", "") ? " active" : ""}`}
+                  className={`nb-link${activeSection === sectionIdFromHref(item.href) ? " active" : ""}`}
                   onClick={(e) => handleNavClick(e, item.href)}
                 >
                   {item.label}
@@ -373,26 +401,24 @@ const Navbar: React.FC = () => {
 
           {/* Right side — CTA + hamburger */}
           <div className="nb-right">
-            {/* CTA Button */}
             <div style={{ overflow: "visible" }}>
               <div className="cta-btn-outer" ref={btnOuterRef}>
-                <a href="tel:2794654017" style={{ textDecoration: "none" }}>
-                  <button className="cta-main-btn">
-                    <span className="cta-shine" />
-                    <span className="cta-phone-icon">
-                      <Phone size={14} strokeWidth={2.3} />
-                    </span>
-                    <span>(279) 465-4017</span>
-                  </button>
+                <a href="tel:+17373855397" className="cta-main-btn" style={{ textDecoration: "none" }}>
+                  <span className="cta-shine" />
+                  <span className="cta-phone-icon">
+                    <Phone size={14} strokeWidth={2.3} />
+                  </span>
+                  <span>(737) 385-5397</span>
                 </a>
               </div>
             </div>
 
-            {/* Hamburger — only visible on mobile/tablet (<768px) */}
+            {/* Hamburger — only visible below 768px */}
             <button
               className={`nb-hamburger${mobileOpen ? " hbg-open" : ""}`}
               onClick={() => setMobileOpen((o) => !o)}
               aria-label={mobileOpen ? "Close menu" : "Open menu"}
+              aria-expanded={mobileOpen}
             >
               <span className="hbg-line" />
               <span className="hbg-line" />
@@ -407,8 +433,7 @@ const Navbar: React.FC = () => {
             <a
               key={item.label}
               href={item.href}
-              className={`mobile-nav-link${activeSection === item.href.replace("#", "") ? " active" : ""
-                }`}
+              className={`mobile-nav-link${activeSection === sectionIdFromHref(item.href) ? " active" : ""}`}
               onClick={(e) => handleNavClick(e, item.href)}
             >
               {item.label}
@@ -419,7 +444,7 @@ const Navbar: React.FC = () => {
 
           {/* Mobile CTA */}
           <a
-            href="tel:2794654017"
+            href="tel:+17373855397"
             style={{
               display: "flex",
               alignItems: "center",
@@ -436,7 +461,7 @@ const Navbar: React.FC = () => {
             }}
           >
             <Phone size={15} strokeWidth={2.2} />
-            (279) 465-4017
+            (737) 385-5397
           </a>
         </div>
       </nav>

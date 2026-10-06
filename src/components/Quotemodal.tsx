@@ -521,8 +521,12 @@ const QuoteModal: React.FC<{ initialService: string; onClose: () => void }> = ({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!form.name || !form.email || !form.service || !form.message) {
-      setError("Please fill in all required fields — Name, Email, Service, and Message.");
+    if (!form.name || !form.phone || !form.email || !form.service || !form.message) {
+      setError("Please fill in all required fields — Name, Phone, Email, Service, and Message.");
+      return;
+    }
+    if (form.phone.replace(/\D/g, "").length < 7) {
+      setError("Please enter a valid phone number.");
       return;
     }
     setLoading(true);
@@ -592,13 +596,13 @@ const QuoteModal: React.FC<{ initialService: string; onClose: () => void }> = ({
                 </div>
 
                 <div className="qm-field">
-                  <input id="qm-phone" className="qm-input" type="tel" name="phone" placeholder=" " value={form.phone} onChange={handleChange} autoComplete="tel" />
+                  <input id="qm-phone" className="qm-input" type="tel" name="phone" placeholder=" " value={form.phone} onChange={handleChange} autoComplete="tel" required aria-required="true" />
                   <span className="qm-icon">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8a19.79 19.79 0 01-3.07-8.7A2 2 0 012 .99h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" />
                     </svg>
                   </span>
-                  <label htmlFor="qm-phone" className="qm-label">Phone Number</label>
+                  <label htmlFor="qm-phone" className="qm-label">Phone Number *</label>
                 </div>
               </div>
 
@@ -626,6 +630,32 @@ const QuoteModal: React.FC<{ initialService: string; onClose: () => void }> = ({
                 </span>
                 <label htmlFor="qm-message" className="qm-label qm-label-textarea">Your Message *</label>
               </div>
+
+              <label style={{display: "flex", alignItems: "flex-start", gap: "8px", fontSize: "12px", lineHeight: 1.5, color: "#6b7280", textAlign: "left", marginTop: "8px",}}>
+                      <input
+                        type="checkbox"
+                        name="terms_accepted"
+                        value="yes"
+                        checked
+                        readOnly
+                        onClick={(e) => e.preventDefault()}
+                        style={{ marginTop: "2px", flexShrink: 0, accentColor: "#dce1e8" }}
+                      />
+                      <span>
+                        By checking this box and submitting this form, I confirm that I have read
+                        and agree to the{" "}
+                        <a href="/terms-of-service" target="_blank" rel="noopener noreferrer" style={{ color: "inherit", textDecoration: "underline" }}>
+                          Terms of Service
+                        </a>{" "}
+                        and{" "}
+                        <a href="/privacy-policy" target="_blank" rel="noopener noreferrer" style={{ color: "inherit", textDecoration: "underline" }}>
+                          Privacy Policy
+                        </a>
+                        , and I consent to being contacted by phone, email, or text message
+                        regarding my inquiry. Message and data rates may apply. Consent is not a
+                        condition of purchase.
+                      </span>
+                    </label>
 
               {error && (
                 <div className="qm-error" role="alert">
@@ -655,7 +685,7 @@ const QuoteModal: React.FC<{ initialService: string; onClose: () => void }> = ({
               </button>
 
               <p className="qm-note">
-                Prefer to talk? Call <a href="tel:2794654017">(279) 465-4017</a>
+                Prefer to talk? Call <a href="tel:+17373855397">(737) 385-5397</a>
               </p>
             </form>
           </div>

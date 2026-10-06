@@ -4,9 +4,8 @@ import { useNavigate } from "react-router-dom";
 
 const fontStyle = `@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap');`;
 
-const PHONE_DISPLAY = "(279) 465-4017";
-const PHONE_TEL = "tel:2794654017";
-const BOOK_MOCKUP = "/images/covers/Book-Mockup.png";
+const PHONE_DISPLAY = "(737) 385-5397";
+const PHONE_TEL = "tel:+17373855397";
 
 /* Opens the quote popup (QuoteModalProvider in App.tsx listens for this event).
    No import needed, so the hero can never crash because of the modal. */
@@ -49,10 +48,6 @@ const animStyles = `
     from { transform: rotate(0deg); }
     to   { transform: rotate(360deg); }
   }
-  @keyframes floatBook {
-    0%, 100% { transform: translateY(0px); }
-    50%       { transform: translateY(-22px); }
-  }
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(10px); }
     to   { opacity: 1; transform: translateY(0); }
@@ -70,13 +65,13 @@ const animStyles = `
     flex-shrink: 0;
     border-radius: 12px;
     overflow: hidden;
-    opacity: 0.7;
+    opacity: 0.82;
   }
   .hero-book-card img {
     display: block;
     object-fit: cover;
     pointer-events: none;
-    filter: saturate(0.75) brightness(0.7);
+    filter: saturate(0.9) brightness(0.82);
   }
   .hero-marquee-bg {
     position: absolute;
@@ -121,6 +116,7 @@ const animStyles = `
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    text-shadow: 0 2px 18px rgba(10,26,36,0.75);
   }
 
   .hero-title-main {
@@ -221,6 +217,7 @@ const animStyles = `
     top: 50%; left: 50%;
     margin-top: -2px; margin-left: -2px;
     opacity: 0;
+    z-index: 50;
     animation: heroCtaParticleFly var(--p-dur) ease-out var(--p-delay) infinite;
   }
   .hero-cta-main-btn {
@@ -464,11 +461,6 @@ const animStyles = `
   .hf-select-option-dot { width: 5px; height: 5px; border-radius: 50%; background: rgba(255,69,69,0.45); flex-shrink: 0; }
   .hf-select-option.selected .hf-select-option-dot { background: #FF4545; }
 
-  /* ════════════════════════════════════
-     BOOK MOCKUP — desktop only (≥1024px)
-     ════════════════════════════════════ */
-  .hero-book-mockup { display: none; }
-
   /* ── Error ── */
   .hf-error {
     font-family: 'DM Sans', sans-serif;
@@ -540,27 +532,24 @@ const animStyles = `
      ════════════════════════════════════ */
   @media (min-width: 1024px) {
     .hero-layout {
-      grid-template-columns: minmax(0,1fr) auto minmax(0,1fr);
-      gap: 2rem;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 3rem;
       padding: 7rem 2.5rem 4rem;
     }
-    .hero-book-mockup {
-      display: block;
-      justify-self: center;
-      align-self: center;
-      width: clamp(200px, 20vw, 300px);
-      pointer-events: none;
-      animation: floatBook 5s ease-in-out infinite;
-      filter:
-        drop-shadow(0 0 18px rgba(80,120,255,0.60))
-        drop-shadow(0 0 40px rgba(60,80,220,0.38))
-        drop-shadow(0 0  8px rgba(120,160,255,0.75));
-    }
-    .hero-book-mockup img { width: 100%; height: auto; display: block; object-fit: contain; }
-    .hero-title-main { font-size: 3.6rem; }
-    .hero-title-sub  { font-size: 1.7rem; }
-    .hero-desc { font-size: 15.5px; }
-    .hero-form { max-width: 460px; justify-self: center; }
+    .hero-title-main { font-size: 3.5rem; }
+    .hero-title-sub  { font-size: 2rem; margin-top: 0.8rem; }
+    .hero-desc { font-size: 17px; max-width: 640px; margin-top: 1.5rem; }
+    .hero-cta-row { margin-top: 2.25rem; gap: 18px; }
+    .hero-cta-primary { padding: 14px 32px; font-size: 0.95rem; }
+    .hero-cta-main-btn { font-size: 0.95rem; padding: 14px 30px; gap: 8px; }
+    .hero-cta-phone-icon svg { width: 17px; height: 17px; }
+    .hero-form { max-width: 540px; padding: 36px 34px; border-radius: 24px; }
+    .hero-form-title { font-size: 1.6rem; }
+    .hero-form-sub { font-size: 14.5px; margin-bottom: 22px; }
+    .hero-form-fields { gap: 14px; }
+    .hf-field-input, .hf-select-trigger { font-size: 15px; min-height: 58px; }
+    .hf-field-label, .hf-select-label { font-size: 15px; }
+    .hf-submit-btn { font-size: 14px; padding: 17px 0; }
     .hero-marquee-bg { height: 320px; }
     .hero-book-card-item { width: 200px; height: 305px; margin: 0 10px; }
   }
@@ -570,21 +559,27 @@ const animStyles = `
      MONITOR  ≥ 1440px
      ════════════════════════════════════ */
   @media (min-width: 1440px) {
-    .hero-layout { max-width: 1600px; padding: 8rem 4rem 5rem; gap: 3rem; }
-    .hero-book-mockup { width: clamp(280px, 20vw, 380px); }
-    .hero-title-main { font-size: 5.5rem; }
-    .hero-title-sub  { font-size: 2.2rem; margin-top: 0.9rem; }
-    .hero-desc { font-size: 17px; max-width: 620px; margin-top: 1.5rem; }
-    .hero-cta-row { margin-top: 2.25rem; gap: 18px; }
-    .hero-cta-primary { padding: 14px 34px; font-size: 0.92rem; }
-    .hero-cta-main-btn { font-size: 0.92rem; padding: 14px 30px; gap: 8px; }
-    .hero-form { max-width: 520px; padding: 38px 36px; }
-    .hero-form-title { font-size: 1.55rem; }
-    .hero-form-sub { font-size: 14px; margin-bottom: 22px; }
-    .hero-form-fields { gap: 14px; }
-    .hf-field-input, .hf-select-trigger { font-size: 15px; min-height: 58px; }
-    .hf-field-label, .hf-select-label { font-size: 15px; }
-    .hf-submit-btn { font-size: 14px; padding: 17px 0; }
+    .hero-layout { max-width: 1680px; padding: 8rem 4rem 5rem; gap: 4rem; }
+    .hero-title-main { font-size: 4.75rem; }
+    .hero-title-sub  { font-size: 2.7rem; margin-top: 1rem; }
+    .hero-desc { font-size: 19.5px; max-width: 720px; margin-top: 1.75rem; }
+    .hero-cta-row { margin-top: 2.5rem; gap: 20px; }
+    .hero-cta-primary { padding: 16px 40px; font-size: 1.05rem; }
+    .hero-cta-main-btn { font-size: 1.05rem; padding: 16px 36px; gap: 10px; }
+    .hero-cta-phone-icon svg { width: 19px; height: 19px; }
+    .hero-form { max-width: 620px; padding: 46px 44px; border-radius: 26px; }
+    .hero-form-title { font-size: 1.95rem; }
+    .hero-form-sub { font-size: 16px; margin-bottom: 26px; }
+    .hero-form-fields { gap: 16px; }
+    .hf-field-input { font-size: 16.5px; min-height: 64px; padding: 26px 18px 11px 54px; }
+    .hf-select-trigger { font-size: 16.5px; min-height: 64px; padding: 26px 48px 11px 54px; }
+    .hf-field-label, .hf-select-label { font-size: 16.5px; left: 54px; }
+    .hf-field-input:focus ~ .hf-field-label,
+    .hf-field-input:not(:placeholder-shown) ~ .hf-field-label,
+    .hf-select-label.lifted { font-size: 12px; top: 8px; }
+    .hf-field-icon, .hf-select-icon { left: 18px; }
+    .hf-select-option { font-size: 15.5px; padding: 14px 18px; }
+    .hf-submit-btn { font-size: 15.5px; padding: 19px 0; border-radius: 14px; }
     .hero-marquee-bg { height: 380px; }
     .hero-book-card-item { width: 230px; height: 360px; margin: 0 10px; }
   }
@@ -594,55 +589,57 @@ const animStyles = `
      ULTRA-WIDE  ≥ 1920px
      ════════════════════════════════════ */
   @media (min-width: 1920px) {
-    .hero-layout { max-width: 1900px; padding: 10rem 5rem 6rem; gap: 4rem; }
-    .hero-book-mockup { width: clamp(360px, 20vw, 440px); }
-    .hero-title-main { font-size: 7rem; }
-    .hero-title-sub  { font-size: 2.9rem; margin-top: 1.1rem; }
-    .hero-desc { font-size: 22px; max-width: 780px; margin-top: 1.75rem; }
-    .hero-cta-row { margin-top: 2.75rem; gap: 22px; }
-    .hero-cta-primary { padding: 16px 42px; font-size: 1.2rem; }
-    .hero-cta-main-btn { font-size: 1.2rem; padding: 16px 38px; gap: 10px; }
-    .hero-cta-phone-icon svg { width: 20px; height: 20px; }
-    .hero-form { max-width: 640px; padding: 46px 44px; border-radius: 26px; }
-    .hero-form-title { font-size: 2rem; }
-    .hero-form-sub { font-size: 17px; margin-bottom: 26px; }
-    .hero-form-fields { gap: 16px; }
-    .hf-field-input { font-size: 18px; min-height: 68px; padding: 28px 20px 12px 58px; border-radius: 14px; }
-    .hf-select-trigger { font-size: 18px; min-height: 68px; padding: 28px 50px 12px 58px; border-radius: 14px; }
-    .hf-field-label, .hf-select-label { font-size: 18px; left: 58px; }
+    .hero-layout { max-width: 2000px; padding: 10rem 5rem 6rem; gap: 5rem; }
+    .hero-title-main { font-size: 6.75rem; }
+    .hero-title-sub  { font-size: 3.5rem; margin-top: 1.2rem; }
+    .hero-desc { font-size: 25px; max-width: 920px; margin-top: 2rem; }
+    .hero-cta-row { margin-top: 3rem; gap: 24px; }
+    .hero-cta-primary { padding: 20px 50px; font-size: 1.35rem; }
+    .hero-cta-main-btn { font-size: 1.35rem; padding: 20px 46px; gap: 12px; }
+    .hero-cta-phone-icon svg { width: 23px; height: 23px; }
+    .hero-form { max-width: 780px; padding: 56px 54px; border-radius: 30px; }
+    .hero-form-title { font-size: 2.5rem; }
+    .hero-form-sub { font-size: 20px; margin-bottom: 30px; }
+    .hero-form-fields { gap: 18px; }
+    .hf-field-input { font-size: 20px; min-height: 78px; padding: 32px 22px 13px 64px; border-radius: 16px; }
+    .hf-select-trigger { font-size: 20px; min-height: 78px; padding: 32px 56px 13px 64px; border-radius: 16px; }
+    .hf-field-label, .hf-select-label { font-size: 20px; left: 64px; }
     .hf-field-input:focus ~ .hf-field-label,
     .hf-field-input:not(:placeholder-shown) ~ .hf-field-label,
-    .hf-select-label.lifted { font-size: 13px; top: 9px; }
-    .hf-field-icon, .hf-select-icon { left: 20px; }
-    .hf-select-chevron { right: 18px; }
-    .hf-select-option { font-size: 17px; padding: 15px 20px; }
-    .hf-submit-btn { font-size: 18px; padding: 20px 0; border-radius: 14px; letter-spacing: 0.14em; }
-    .hero-marquee-bg { height: 420px; }
-    .hero-book-card-item { width: 250px; height: 390px; margin: 0 12px; }
+    .hf-select-label.lifted { font-size: 14px; top: 10px; }
+    .hf-field-icon, .hf-select-icon { left: 22px; }
+    .hf-field-icon svg, .hf-select-icon svg { width: 20px; height: 20px; }
+    .hf-select-chevron { right: 20px; }
+    .hf-select-option { font-size: 19px; padding: 17px 22px; }
+    .hf-submit-btn { font-size: 20px; padding: 24px 0; border-radius: 16px; letter-spacing: 0.14em; }
+    .hero-marquee-bg { height: 440px; }
+    .hero-book-card-item { width: 260px; height: 400px; margin: 0 12px; }
   }
 
   @media (min-width: 2560px) {
-    .hero-layout { max-width: 2300px; padding: 12rem 6rem 7rem; }
-    .hero-book-mockup { width: clamp(440px, 20vw, 540px); }
-    .hero-title-main { font-size: 9rem; }
-    .hero-title-sub  { font-size: 3.75rem; }
-    .hero-desc { font-size: 28px; max-width: 980px; }
-    .hero-cta-primary { padding: 20px 50px; font-size: 1.5rem; }
-    .hero-cta-main-btn { font-size: 1.5rem; padding: 20px 46px; gap: 12px; }
-    .hero-cta-phone-icon svg { width: 26px; height: 26px; }
-    .hero-form { max-width: 760px; padding: 54px 52px; }
-    .hero-form-title { font-size: 2.5rem; }
-    .hero-form-sub { font-size: 21px; }
-    .hf-field-input { font-size: 22px; min-height: 80px; padding: 34px 24px 14px 66px; }
-    .hf-select-trigger { font-size: 22px; min-height: 80px; padding: 34px 56px 14px 66px; }
-    .hf-field-label, .hf-select-label { font-size: 22px; left: 66px; }
+    .hero-layout { max-width: 2500px; padding: 12rem 6rem 7rem; gap: 6rem; }
+    .hero-title-main { font-size: 11rem; }
+    .hero-title-sub  { font-size: 4.5rem; }
+    .hero-desc { font-size: 32px; max-width: 1180px; }
+    .hero-cta-primary { padding: 24px 60px; font-size: 1.75rem; }
+    .hero-cta-main-btn { font-size: 1.75rem; padding: 24px 56px; gap: 14px; }
+    .hero-cta-phone-icon svg { width: 28px; height: 28px; }
+    .hero-form { max-width: 940px; padding: 66px 64px; }
+    .hero-form-title { font-size: 3.1rem; }
+    .hero-form-sub { font-size: 25px; }
+    .hero-form-fields { gap: 22px; }
+    .hf-field-input { font-size: 25px; min-height: 94px; padding: 40px 26px 16px 76px; }
+    .hf-select-trigger { font-size: 25px; min-height: 94px; padding: 40px 64px 16px 76px; }
+    .hf-field-label, .hf-select-label { font-size: 25px; left: 76px; }
     .hf-field-input:focus ~ .hf-field-label,
     .hf-field-input:not(:placeholder-shown) ~ .hf-field-label,
-    .hf-select-label.lifted { font-size: 15px; top: 11px; }
-    .hf-field-icon, .hf-select-icon { left: 24px; }
-    .hf-select-option { font-size: 20px; padding: 18px 24px; }
-    .hf-submit-btn { font-size: 22px; padding: 24px 0; }
-    .hero-marquee-bg { height: 480px; }
+    .hf-select-label.lifted { font-size: 17px; top: 12px; }
+    .hf-field-icon, .hf-select-icon { left: 26px; }
+    .hf-field-icon svg, .hf-select-icon svg { width: 24px; height: 24px; }
+    .hf-select-option { font-size: 23px; padding: 20px 26px; }
+    .hf-submit-btn { font-size: 25px; padding: 28px 0; }
+    .hero-marquee-bg { height: 500px; }
+    .hero-book-card-item { width: 300px; height: 460px; }
   }
 
   /* ════════════════════════════════════
@@ -650,7 +647,6 @@ const animStyles = `
      ════════════════════════════════════ */
   @media (prefers-reduced-motion: reduce) {
     .marquee-track-left { animation: none !important; }
-    .hero-book-mockup   { animation: none !important; }
     .hero-cta-primary, .hf-submit-btn { transition: none !important; }
     .hero-cta-btn-outer, .hero-cta-shine, .hero-cta-phone-icon { animation: none !important; }
     .hero-cta-particle { display: none; }
@@ -855,10 +851,10 @@ const Hero: React.FC = () => {
           style={{
             zIndex: 1,
             background: `linear-gradient(to bottom,
-              rgba(10,26,36,0.91) 0%,
-              rgba(10,26,36,0.80) 40%,
-              rgba(10,26,36,0.83) 60%,
-              rgba(10,26,36,0.96) 100%
+              rgba(10,26,36,0.72) 0%,
+              rgba(10,26,36,0.62) 40%,
+              rgba(10,26,36,0.76) 60%,
+              rgba(10,26,36,0.94) 100%
             )`,
           }}
         />
@@ -931,11 +927,6 @@ const Hero: React.FC = () => {
             </div>
           </div>
 
-          {/* CENTER — book mockup (desktop only) */}
-          <div className="hero-book-mockup" aria-hidden="true">
-            <img src={BOOK_MOCKUP} alt="" />
-          </div>
-
           {/* RIGHT — glass form */}
           <div className="hero-form">
             <p className="hero-form-title">Get Started Today</p>
@@ -966,13 +957,39 @@ const Hero: React.FC = () => {
                   placeholder=" " value={form.phone} onChange={handleChange} autoComplete="tel"
                 />
                 <span className="hf-field-icon">{iconPhone}</span>
-                <label htmlFor="hf-phone" className="hf-field-label">Phone Number</label>
+                <label htmlFor="hf-phone" className="hf-field-label">Phone Number *</label>
               </div>
 
               <HeroServiceSelect
                 value={form.service}
                 onChange={(val) => { setForm(f => ({ ...f, service: val })); if (error) setError(""); }}
               />
+
+              <label style={{display: "flex", alignItems: "flex-start", gap: "8px", fontSize: "12px", lineHeight: 1.5, color: "#6b7280", textAlign: "left", marginTop: "8px",}}>
+                      <input
+                        type="checkbox"
+                        name="terms_accepted"
+                        value="yes"
+                        checked
+                        readOnly
+                        onClick={(e) => e.preventDefault()}
+                        style={{ marginTop: "2px", flexShrink: 0, accentColor: "#dce1e8" }}
+                      />
+                      <span>
+                        By checking this box and submitting this form, I confirm that I have read
+                        and agree to the{" "}
+                        <a href="/terms-of-service" target="_blank" rel="noopener noreferrer" style={{ color: "inherit", textDecoration: "underline" }}>
+                          Terms of Service
+                        </a>{" "}
+                        and{" "}
+                        <a href="/privacy-policy" target="_blank" rel="noopener noreferrer" style={{ color: "inherit", textDecoration: "underline" }}>
+                          Privacy Policy
+                        </a>
+                        , and I consent to being contacted by phone, email, or text message
+                        regarding my inquiry. Message and data rates may apply. Consent is not a
+                        condition of purchase.
+                      </span>
+                    </label>
 
               {error && (
                 <div className="hf-error" role="alert">

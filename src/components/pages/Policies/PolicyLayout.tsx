@@ -265,7 +265,7 @@ export const ContactCard: React.FC = () => (
   <div className="pl-contact-card">
     <p><strong>Bristol Publishers</strong></p>
     <p>Email: <a href="mailto:info@bristolpublishers.com">info@bristolpublishers.com</a></p>
-    <p>Phone: <a href="tel:2794654017">(279) 465-4017</a></p>
+    <p>Phone: <a href="tel:+17373855397">(737) 385-5397</a></p>
   </div>
 );
 
